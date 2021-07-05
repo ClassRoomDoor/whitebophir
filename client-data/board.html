@@ -1,3 +1,4 @@
+  
 <!DOCTYPE html>
 <html lang="{{language}}">
 
@@ -31,54 +32,59 @@
 			<g id="drawingArea"></g>
 			<g id="cursors"></g>
 		</svg>
+		
 	</div>
 
 	<div id="loadingMessage">{{translations.loading}}</div>
 
 	<div id="menu" tabindex="0" {{#hideMenu}}style="display:none;"{{/hideMenu}}>
 		<div id="menuItems">
-			<ul id="tools" class="tools">
-				<li class="tool" tabindex="-1">
-					<img class="tool-icon" width="35" height="35" src="" alt="icon" />
+		
+			<ul id="tools" class="tools main-tools">
+				<li class="tool tools-list" tabindex="-1">
+					<img class="tool-icon tool-icon-dimension" width="35" height="35" src="" alt="icon" />
 					<span class="tool-name"></span>
-					<img class="tool-icon secondaryIcon" width="35" height="35" src="data:," alt="icon" />
+					<img class="tool-icon secondaryIcon tool-icon-dimension" width="35" height="35" src="data:," alt="icon" />
 				</li>
 			</ul>
 
-			<ul class="tools" id="settings">
-				<li class="tool" tabindex="-1">
-					<input class="tool-icon" type="color" id="chooseColor" value="#1913B0" />
-					<label class="tool-name" for="chooseColor">{{translations.color}}</label>
-					<span class="colorPresets" id="colorPresetSel">
-						<span class="colorPresetButton"></span>
+			<ul class="tools" id="settings-color">
+				<li class="tool color-list" tabindex="-1">
+					<input class="tool-icon current-color" type="color" id="chooseColor" value="#1913B0" />
+					<span class="tick-icon"><img height="24px" width="24px" src="./SvgIcons/tick.svg" alt=""></span>
+					<span class="colorPresets colorSelect" id="colorPresetSel">
+						<span class="colorPresetButton colorSelectBtn"></span>
 					</span>
 				</li>
+		
+			</ul>
+			<ul  class="tools" id="settings-size">
 				<li class="tool" tabindex="-1"
-					title="{{translations.size}} ({{translations.keyboard_shortcut}}: alt + {{translations.mousewheel}})">
-					<img class="tool-icon" width="60" height="60" src="icon-size.svg" alt="size" />
-					<label class="tool-name slider" for="chooseSize">
-						<span>{{translations.size}}</span>
-						<input type="range" id="chooseSize" value="4" min="1" max="50" step="1" class="rangeChooser" />
-					</label>
-				</li>
-				<li class="tool" tabindex="-1">
-					<span class="tool-icon">
-						<svg viewBox="0 0 8 8">
-							<pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
-								<rect x=0 y=0 width=2 height=2 fill=black></rect>
-								<rect x=2 y=2 width=2 height=2 fill=black></rect>
-								<rect x=2 y=0 width=2 height=2 fill=#eeeeee></rect>
-								<rect x=0 y=2 width=2 height=2 fill=#eeeeee></rect>
-							</pattern>
-							<circle cx=4 cy=4 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)"></circle>
-						</svg>
-					</span>
-					<label class="tool-name slider" for="chooseOpacity">
-						<span>{{translations.opacity}}</span>
-						<input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
-							class="rangeChooser" />
-					</label>
-				</li>
+				title="{{translations.size}} ({{translations.keyboard_shortcut}}: alt + {{translations.mousewheel}})">
+				<img class="tool-icon" width="60" height="60" src="icon-size.svg" alt="size" />
+				<label class="tool-name slider" for="chooseSize">
+					<span>{{translations.size}}</span>
+					<input type="range" id="chooseSize" value="4" min="1" max="50" step="1" class="rangeChooser" />
+				</label>
+			</li>
+			<li class="tool" tabindex="-1">
+				<span class="tool-icon">
+					<svg viewBox="0 0 8 8">
+						<pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+							<rect x=0 y=0 width=2 height=2 fill=black></rect>
+							<rect x=2 y=2 width=2 height=2 fill=black></rect>
+							<rect x=2 y=0 width=2 height=2 fill=#eeeeee></rect>
+							<rect x=0 y=2 width=2 height=2 fill=#eeeeee></rect>
+						</pattern>
+						<circle cx=4 cy=4 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)"></circle>
+					</svg>
+				</span>
+				<label class="tool-name slider" for="chooseOpacity">
+					<span>{{translations.opacity}}</span>
+					<input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
+						class="rangeChooser" />
+				</label>
+			</li>
 			</ul>
 		</div>
 	</div>
@@ -103,6 +109,7 @@
 	<script src="../tools/download/download.js"></script>
 	<script src="../tools/zoom/zoom.js"></script>
 	<script src="../js/canvascolor.js"></script>
+	
 </body>
 
 </html>

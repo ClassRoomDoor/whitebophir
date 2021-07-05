@@ -158,6 +158,8 @@ Tools.HTML = {
 		var newTool = document.getElementById("toolID-" + newToolName);
 		if (oldTool) oldTool.classList.remove("curTool");
 		if (newTool) newTool.classList.add("curTool");
+		console.log("old icon : ",oldTool);
+		console.log("new icon: ",newTool)
 	},
 	toggle: function (toolName, name, icon) {
 		var elem = document.getElementById("toolID-" + toolName);
@@ -595,16 +597,10 @@ Tools.positionElement = function (elem, x, y) {
 };
 
 Tools.colorPresets = [
-	{ color: "#001f3f", key: '1' },
-	{ color: "#FF4136", key: '2' },
-	{ color: "#0074D9", key: '3' },
-	{ color: "#FF851B", key: '4' },
-	{ color: "#FFDC00", key: '5' },
-	{ color: "#3D9970", key: '6' },
-	{ color: "#91E99B", key: '7' },
-	{ color: "#90468b", key: '8' },
-	{ color: "#7FDBFF", key: '9' },
-	{ color: "#AAAAAA", key: '0' },
+	{ color: "#f1be43", key: '1' },
+	{ color: "#36d174", key: '2' },
+	{ color: "#3ebfff", key: '3' },
+	{ color: "#ef5350", key: '0' },
 	{ color: "#E65194" }
 ];
 

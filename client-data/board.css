@@ -1,9 +1,14 @@
+ 
 html, body, svg {
 	padding:0;
 	margin:0;
 	font-family: Liberation sans, sans-serif;
 }
-
+#board{
+	height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
 #canvas {
 	transform-origin: 0 0;
 }
@@ -81,11 +86,24 @@ html, body, svg {
 	list-style-type:none;
 	padding:0;
 }
+#menu .main-tools{
+	display: flex;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	padding: 16px;
+	margin: 0;
+	justify-content: center;
 
+}
 #settings {
 	margin-bottom: 20px;
 }
-
+#undo-redo{
+	position: fixed;
+	bottom: 0;
+	display: flex;
+}
 #menu .tool {
 	position: relative;
 	-webkit-touch-callout: none; /* iOS Safari */
@@ -106,20 +124,69 @@ html, body, svg {
 	height: 40px;
 	line-height: 40px;
 	border-radius: 0px;
-	max-width: 40px;
+	max-width: 100%;
 	transition-duration: .2s;
 	overflow: hidden;
 	width: max-content;
 	box-shadow: inset 0 0 3px #8FA2BC;
 }
+#menu .tools-list{
+	pointer-events: auto;
+	white-space: nowrap;
+	list-style: none;
+	text-decoration:none;
+	cursor:pointer !important;
+	margin: 10px;
+	height: 45px;
 
+	width: 45px;
+	line-height: 40px;
+	border-radius: 0px;
+	transition-duration: .2s;
+	overflow: hidden;
+	box-shadow: 0 10px 10px 0 #0000000d;
+    background-color: #fff;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 45px;
+    min-height: 45px;
+}li#undo:hover{
+	cursor: pointer !important;
+	background: turquoise;
+}
+#undo-redo .tool-list{
+	cursor: pointer !important;
+}
+#undo-redo .tool-list .do-btn{
+	cursor: pointer !important;
+}
 #menu .tool:hover {
 	max-width: 100%;
 }
-
+#menu .main-tools .tool-list .tool-icon-dimension{
+	height: 24px !important;
+	width: 24px !important;
+}
+#menu .main-tools .tool-icon-dimension{
+	height: 24px !important;
+	width: 24px !important;
+}
+#menu .main-tools span{
+	display: none;
+}
+#menu .main-tools .tool-icon.secondaryIcon{
+	display: none !important;
+}
+.do-btn{
+	border: none;
+	outline: none;
+	background: transparent;
+}
 @media (hover: none), (pointer: coarse) {
 	#menu .tool:hover {
-		max-width: 40px;
+		max-width: 100%;
 	}
 
 	#menu .tool:focus {
@@ -154,8 +221,8 @@ html, body, svg {
 #menu .tool-icon {
 	display: inline-block;
 	text-align:center;
-	width: 35px;
-	height: 35px;
+	width: 24px;
+	height: 24px;
 	margin: 2.5px;
 	font-family: mono, monospace;
 	overflow: hidden;
@@ -213,8 +280,8 @@ input {
 }
 
 #chooseColor {
-	width: 100%;
-	height:100%;
+	/* width: 100%;
+	height:100%; */
 	border: 0;
 	border-radius: 0;
 	color:black;
@@ -224,7 +291,6 @@ input {
 }
 
 .colorPresets {
-	margin-right: 20px;
 	vertical-align: top;
 	display: inline-block;
 }
@@ -232,12 +298,14 @@ input {
 .colorPresetButton {
 	width: 30px;
 	height: 30px;
-	border: 1px solid black;
-	border-radius: 3px;
+	border: 3px solid #fff;
+	border-radius: 50%;
 	display: inline-block;
 	margin-right: 6px;
 	padding: 0;
 	vertical-align: middle;
+	box-shadow: 0 10px 10px 0 #0000000d;
+	margin: 10px 0;
 }
 
 .rangeChooser {
@@ -283,4 +351,56 @@ circle.opcursor {
 	label.tool-name[for=chooseColor] {
 		line-height: 10px;
 	}
+}
+#menu .tool.curTool {
+	box-shadow: 0 0 5px #f9a722;
+	background: #f9a722;
+  }
+#menu .tool.oneTouch:active  {
+	  box-shadow: 0 0 5px #f9a722;
+	  border-radius: 50%;
+	  background: #f9a722;
+}
+#menu .tool.oneTouch:focus {
+	  box-shadow: 0 0 5px #f9a722;
+	  background: #f9a722;
+}
+#settings-color{
+	position: fixed;
+	right: 20px;
+}
+#settings-color .color-list{
+	height: 100%;
+	position: relative;
+	border: none !important;
+	box-shadow: none !important;
+}#settings-color .color-list:active, #settings-color .color-list:focus, #settings-color .color-list:hover{
+	border: none !important;
+	box-shadow: none !important;
+	background-color: transparent !important;
+}
+#settings-color .color-list .tick-icon{
+	position: absolute;
+	top: 0px;
+	left: 3px;
+}
+#settings-color .color-list .current-color{
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+}
+#settings-color .color-list .current-color,#settings-color .color-list .color-name{
+	display: block !important;
+}
+#settings-color .color-list .colorSelect,#settings-color .color-list .colorSelect .colorSelectBtn {
+	display: block !important;
+}
+li.curTool img{
+	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
+}
+li#toolID-Grid:focus img{
+	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
+}
+li#toolID-Download:focus img{
+	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
 }

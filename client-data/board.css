@@ -4,6 +4,30 @@ html, body, svg {
 	margin:0;
 	font-family: Liberation sans, sans-serif;
 }
+#board{
+	height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+#board #message {
+    width: fit-content;
+    margin-top: 20px;
+    background-color: rgb(227, 234, 236);
+    padding: 5px;
+    padding-left: 10px;
+	padding-right: 10px;
+	position: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+#board #message:empty {
+	display: none;
+}
 
 #canvas {
 	transform-origin: 0 0;
@@ -169,7 +193,7 @@ html, body, svg {
 	height: 24px !important;
 	width: 24px !important;
 }
-#menu .main-tools span{
+#menu .main-tools .tool-name {
 	display: none;
 }
 #menu .main-tools .tool-icon.secondaryIcon{
@@ -212,6 +236,7 @@ html, body, svg {
 #menu .tool.curTool {
   box-shadow: 0 0 5px #0074D9;
   background: linear-gradient(#96E1FF, #36A2FF);
+  overflow: unset;
 }
 
 #menu .tool-icon {
@@ -242,6 +267,25 @@ html, body, svg {
 	display: inline-block;
 	vertical-align: text-bottom;
 }
+
+#menu .tool-menu {
+	display: block;
+    bottom: 60px;
+	position: absolute;
+}
+
+#menu .tool-menu #wolfram-input {
+	border: 1px solid rgb(238, 238, 238);
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 10px 0px;
+	outline: none;
+}
+
+#menu .tool-menu input {
+	padding: 10px;
+	width: 300px;
+}
+
 #menu .tool-name.slider {
 	display: inline-block;
     width: 150px;
@@ -351,6 +395,7 @@ circle.opcursor {
 #menu .tool.curTool {
 	box-shadow: 0 0 5px #f9a722;
 	background: #f9a722;
+	overflow: unset;
   }
 #menu .tool.oneTouch:active  {
 	  box-shadow: 0 0 5px #f9a722;

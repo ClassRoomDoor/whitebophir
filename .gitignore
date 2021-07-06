@@ -24,3 +24,8 @@ wbo-backup*
 
 # Nightwatch test results
 tests_output/
+
+
+./package-lock.json
+.gcloudignore
+app.yaml

@@ -19,6 +19,7 @@ html, body, svg {
     left: 0;
     right: 0;
     text-align: center;
+	z-index: 9999999;
 }
 
 #board #message:empty {
@@ -432,7 +433,7 @@ circle.opcursor {
 #settings-color .color-list .colorSelect,#settings-color .color-list .colorSelect .colorSelectBtn {
 	display: block !important;
 }
-li.curTool img{
+li.curTool .tool-icon{
 	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
 }
 li#toolID-Grid:focus img{
@@ -440,4 +441,9 @@ li#toolID-Grid:focus img{
 }
 li#toolID-Download:focus img{
 	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
+}
+.search-icon{
+	position: relative;
+    top: 6px;
+    left: -30px;
 }

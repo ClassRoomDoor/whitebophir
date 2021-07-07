@@ -84,11 +84,14 @@
   }
 
   function getInput() {
-    const x = document.createElement("INPUT");
-    x.id = "wolfram-input";
-    x.setAttribute("type", "text");
-    x.setAttribute("placeholder", "type here to search");
-    x.addEventListener("keyup", (event) => {
+    const span=document.createElement("span");
+    const image=document.createElement("img")
+    image.className="search-icon"
+    const input = document.createElement("INPUT");
+    input.id = "wolfram-input";
+    input.setAttribute("type", "text");
+    input.setAttribute("placeholder", "Type here to search");
+    input.addEventListener("keyup", (event) => {
       if (event.keyCode === 13) {
         // Cancel the default action, if needed
         event.preventDefault();
@@ -96,7 +99,14 @@
         search();
       }
     });
-    return x;
+    image.setAttribute("src","tools/wolfram/searchIcon.svg");
+    image.addEventListener("click",(event)=>{
+      event.preventDefault();
+      search()
+    });
+    span.appendChild(input);
+    span.appendChild(image)
+    return span;
   }
 
   Tools.add({

@@ -412,7 +412,9 @@ circle.opcursor {
 	position: relative;
 	border: none !important;
 	box-shadow: none !important;
-}#settings-color .color-list:active, #settings-color .color-list:focus, #settings-color .color-list:hover{
+	top: 90px;
+}
+#settings-color .color-list:active, #settings-color .color-list:focus, #settings-color .color-list:hover{
 	border: none !important;
 	box-shadow: none !important;
 	background-color: transparent !important;
@@ -446,4 +448,8 @@ li#toolID-Download:focus img{
 	position: relative;
     top: 6px;
     left: -30px;
+}
+#settings-size{
+	position: relative;
+	top: 100px;
 }

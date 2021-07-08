@@ -194,11 +194,18 @@ Tools.HTML = {
 	colorPresetTemplate: new Minitpl("#colorPresetSel .colorPresetButton"),
 	addColorButton: function (button) {
 		var setColor = Tools.setColor.bind(Tools, button.color);
+
 		if (button.key) this.addShortcut(button.key, setColor);
 		return this.colorPresetTemplate.add(function (elem) {
 			elem.addEventListener("click", setColor);
 			elem.id = "color_" + button.color.replace(/^#/, '');
 			elem.style.backgroundColor = button.color;
+      if(button.color===Tools.currentColor){
+        const tickImage=document.createElement('img')
+        tickImage.id="tick-icon-clr"
+        tickImage.setAttribute('src','/Svgicons/tick.svg')
+        elem?.appendChild(tickImage);
+      }
 			if (button.key) {
 				elem.title = Tools.i18n.t("keyboard shortcut") + ": " + button.key;
 			}
@@ -654,18 +661,30 @@ Tools.colorPresets = [
 	{ color: "#E65194" }
 ];
 
-Tools.color_chooser = document.getElementById("chooseColor");
+Tools.currentColor =Tools.colorPresets[0].color;
 
 Tools.setColor = function (color) {
-  Tools.color_chooser.value = color;
-};
+  const previousColor=document.getElementById("color_"+Tools.currentColor?.substring(1));
+
+ if(previousColor){
+  previousColor.innerHTML="";
+ }
+  const tickImage=document.createElement('img')
+  tickImage.id="tick-icon-clr"
+  const currentColorElem = document.getElementById(
+    "color_" + color.substring(1)
+  );
+  tickImage.setAttribute('src','/Svgicons/tick.svg')
+  currentColorElem?.appendChild(tickImage);
+  Tools.currentColor = color;
+}
 
 Tools.getColor = (function color() {
   var color_index = (Math.random() * Tools.colorPresets.length) | 0;
   var initial_color = Tools.colorPresets[color_index].color;
   Tools.setColor(initial_color);
   return function () {
-    return Tools.color_chooser.value;
+    return Tools.currentColor;
   };
 })();
 

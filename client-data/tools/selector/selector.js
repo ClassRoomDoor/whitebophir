@@ -34,6 +34,7 @@
 	var selected_els = [];
 	var selectionRect = createSelectorRect();
 	var selectionRectTransform;
+	var currentTransform = null;
 	var transform_elements = [];
 	var selectorState = selectorStates.pointing;
 	var last_sent = 0;
@@ -74,6 +75,24 @@
 		delete selectionButtons[blockedSelectionButtons[i]];
 	}
 
+	var getScale = Tools.getScale;
+
+	function getParentMathematics(el) {
+		var target;
+		var a = el;
+		var els = [];
+		while (a) {
+			els.unshift(a);
+			a = a.parentElement;
+		}
+		var parentMathematics = els.find(function (el) {
+			return el.getAttribute("class") === "MathElement";
+		});
+		if ((parentMathematics) && parentMathematics.tagName === "svg") {
+			target = parentMathematics;
+		}
+		return target || el;
+	}
 
 	function deleteSelection() {
 		var msgs = selected_els.map(function (el) {
@@ -141,6 +160,16 @@
 		return shape;
 	}
 
+	function showSelectionButtons() {
+		var scale = getScale();
+		var selectionBBox = selectionRect.transformedBBox();
+		for (var i = 0; i < selectionButtons.length; i++) {
+			selectionButtons[i].drawCallback(selectionButtons[i],
+				selectionBBox,
+				scale);
+		}
+	}
+
 	function hideSelectionButtons() {
 		for (var i = 0; i < selectionButtons.length; i++) {
 			selectionButtons[i].style.display = "none";
@@ -150,6 +179,26 @@
 	function hideSelectionUI() {
 		hideSelectionButtons();
 		selectionRect.style.display = "none";
+	}
+
+	function startMovingElements(x, y, evt) {
+		evt.preventDefault();
+		selectorState = selectorStates.transform;
+		currentTransform = moveSelection;
+		selected = { x: x, y: y };
+		// Some of the selected elements could have been deleted
+		selected_els = selected_els.filter(function (el) {
+			return Tools.svg.getElementById(el.id) !== null;
+		});
+		transform_elements = selected_els.map(function (el) {
+			var tmatrix = get_transform_matrix(el);
+			return {
+				a: tmatrix.a, b: tmatrix.b, c: tmatrix.c,
+				d: tmatrix.d, e: tmatrix.e, f: tmatrix.f
+			};
+		});
+		var tmatrix = get_transform_matrix(selectionRect);
+		selectionRectTransform = { x: tmatrix.e, y: tmatrix.f };
 	}
 
 	function startScalingTransform(x, y, evt) {
@@ -176,6 +225,66 @@
 			e: tmatrix.e, f: tmatrix.f
 		};
 		currentTransform = scaleSelection;
+	}
+
+	function startSelector(x, y, evt) {
+		evt.preventDefault();
+		selected = { x: x, y: y };
+		selected_els = [];
+		selectorState = selectorStates.selecting;
+		selectionRect.x.baseVal.value = x;
+		selectionRect.y.baseVal.value = y;
+		selectionRect.width.baseVal.value = 0;
+		selectionRect.height.baseVal.value = 0;
+		selectionRect.style.display = "";
+		tmatrix = get_transform_matrix(selectionRect);
+		tmatrix.e = 0;
+		tmatrix.f = 0;
+	}
+
+
+	function calculateSelection() {
+		var selectionTBBox = selectionRect.transformedBBox();
+		var elements = Tools.drawingArea.children;
+		var selected = [];
+		for (var i = 0; i < elements.length; i++) {
+			if (transformedBBoxIntersects(selectionTBBox, elements[i].transformedBBox()))
+				selected.push(Tools.drawingArea.children[i]);
+		}
+		return selected;
+	}
+
+	function moveSelection(x, y) {
+		var dx = x - selected.x;
+		var dy = y - selected.y;
+		var msgs = selected_els.map(function (el, i) {
+			var oldTransform = transform_elements[i];
+			return {
+				type: "update",
+				id: el.id,
+				transform: {
+					a: oldTransform.a,
+					b: oldTransform.b,
+					c: oldTransform.c,
+					d: oldTransform.d,
+					e: dx + oldTransform.e,
+					f: dy + oldTransform.f
+				}
+			};
+		})
+		var msg = {
+			_children: msgs
+		};
+		var tmatrix = get_transform_matrix(selectionRect);
+		tmatrix.e = dx + selectionRectTransform.x;
+		tmatrix.f = dy + selectionRectTransform.y;
+		var now = performance.now();
+		if (now - last_sent > 70) {
+			last_sent = now;
+			Tools.drawAndSend(msg);
+		} else {
+			draw(msg);
+		}
 	}
 
 	function scaleSelection(x, y) {
@@ -222,6 +331,24 @@
 		} else {
 			draw(msg);
 		}
+	}
+
+	function updateRect(x, y, rect) {
+		rect.x.baseVal.value = Math.min(x, selected.x);
+		rect.y.baseVal.value = Math.min(y, selected.y);
+		rect.width.baseVal.value = Math.abs(x - selected.x);
+		rect.height.baseVal.value = Math.abs(y - selected.y);
+	}
+
+	function resetSelectionRect() {
+		var bbox = selectionRect.transformedBBox();
+		var tmatrix = get_transform_matrix(selectionRect);
+		selectionRect.x.baseVal.value = bbox.r[0];
+		selectionRect.y.baseVal.value = bbox.r[1];
+		selectionRect.width.baseVal.value = bbox.a[0];
+		selectionRect.height.baseVal.value = bbox.b[1];
+		tmatrix.a = 1; tmatrix.b = 0; tmatrix.c = 0;
+		tmatrix.d = 1; tmatrix.e = 0; tmatrix.f = 0;
 	}
 
 	function get_transform_matrix(elem) {
@@ -272,33 +399,60 @@
 		}
 	}
 
-
-	function startHand(x, y, evt, isTouchEvent) {
-		if (!isTouchEvent) {
-			selected = {
-				x: document.documentElement.scrollLeft + evt.clientX,
-				y: document.documentElement.scrollTop + evt.clientY,
+	function clickSelector(x, y, evt) {
+		selectionRect = selectionRect || createSelectorRect();
+		for (var i = 0; i < selectionButtons.length; i++) {
+			if (selectionButtons[i].contains(evt.target)) {
+				var button = selectionButtons[i];
 			}
+		}
+		if (button) {
+			button.clickCallback(x, y, evt);
+		} else if (pointInTransformedBBox([x, y], selectionRect.transformedBBox())) {
+			hideSelectionButtons();
+			startMovingElements(x, y, evt);
+		} else if (Tools.drawingArea.contains(evt.target)) {
+			hideSelectionUI();
+			selected_els = [getParentMathematics(evt.target)];
+			startMovingElements(x, y, evt);
+		} else {
+			hideSelectionButtons();
+			startSelector(x, y, evt);
 		}
 	}
 
-	function moveHand(x, y, evt, isTouchEvent) {
-		if (selected && !isTouchEvent) { //Let the browser handle touch to scroll
-			window.scrollTo(selected.x - evt.clientX, selected.y - evt.clientY);
+	function releaseSelector(x, y, evt) {
+		if (selectorState == selectorStates.selecting) {
+			selected_els = calculateSelection();
+			if (selected_els.length == 0) {
+				hideSelectionUI();
+			}
+		} else if (selectorState == selectorStates.transform)
+			resetSelectionRect();
+		if (selected_els.length != 0) showSelectionButtons();
+		transform_elements = [];
+		selectorState = selectorStates.pointing;
+	}
+
+	function moveSelector(x, y, evt) {
+		if (selectorState == selectorStates.selecting) {
+			updateRect(x, y, selectionRect);
+		} else if (selectorState == selectorStates.transform && currentTransform) {
+			currentTransform(x, y);
 		}
 	}
 
 	function press(x, y, evt, isTouchEvent) {
-		startHand(x, y, evt, isTouchEvent);
+		clickSelector(x, y, evt, isTouchEvent);
 	}
 
-
 	function move(x, y, evt, isTouchEvent) {
-		 moveHand(x, y, evt, isTouchEvent);
+		moveSelector(x, y, evt, isTouchEvent);
 	}
 
 	function release(x, y, evt, isTouchEvent) {
 		move(x, y, evt, isTouchEvent);
+		releaseSelector(x, y, evt, isTouchEvent);
 		selected = null;
 	}
 
@@ -322,7 +476,7 @@
 	}
 
 	var handTool = { //The new tool
-		"name": "Hand",
+		"name": "Selector",
 		"shortcut": "h",
 		"listeners": {
 			"press": press,
@@ -331,7 +485,7 @@
 		},
 		"onquit": onquit,
 		"draw": draw,
-		"icon": "tools/hand/hand.svg",
+		"icon": "tools/selector/selector.svg",
 		"mouseCursor": "move",
 		"showMarker": true,
 	};

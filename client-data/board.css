@@ -140,7 +140,7 @@ html, body, svg {
 	height: 40px;
 	line-height: 40px;
 	border-radius: 0px;
-	max-width: 100%;
+	max-width: 60px;
 	transition-duration: .2s;
 	overflow: hidden;
 	width: max-content;
@@ -290,6 +290,7 @@ html, body, svg {
     line-height: 15px;
     vertical-align: top;
     padding: 6px;
+	margin:0 10px;
 
 }
 
@@ -411,7 +412,7 @@ circle.opcursor {
 	position: relative;
 	border: none !important;
 	box-shadow: none !important;
-	top: 90px;
+	top: 60px;
 }
 #settings-color .color-list:active, #settings-color .color-list:focus, #settings-color .color-list:hover{
 	border: none !important;
@@ -452,3 +453,80 @@ li#toolID-Download:focus img{
 	position: relative;
 	top: 100px;
 }
+#settings-size .slider-list{
+	display: flex;
+	height: 50px;
+	box-shadow: none;
+	border: 0;
+}
+#settings-size .slider-list .tool-name.slider{
+	display: none;
+}
+#settings-size .slider-list:active .tool-name.slider,#settings-size .slider-list:focus .tool-name.slider, #settings-size .slider-list:hover .tool-name.slider{
+	display: block;
+}
+.range-icons-span{
+	align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+	box-shadow: 0 10px 10px 0 #0000000d;
+    border-radius: 50%;
+}
+#settings-size .slider-list:active .range-icons-span,
+#settings-size .slider-list:focus .range-icons-span,
+ #settings-size .slider-list:hover .range-icons-span{
+	background-color: #f9a722;
+}
+#settings-size .slider-list:active .range-icons-span img,
+#settings-size .slider-list:focus .range-icons-span img,
+ #settings-size .slider-list:hover .range-icons-span img{
+	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
+}
+#settings-size .slider-list:active .range-icons-span svg,
+#settings-size .slider-list:focus .range-icons-span svg,
+ #settings-size .slider-list:hover .range-icons-span svg{
+	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
+}
+ /* custom range slider */
+input[type='range'] {
+	  height: 10px;
+      width: 100%;
+      -webkit-appearance: none;
+      background-color: #cccccc;
+}
+    
+input[type='range']::-webkit-slider-runnable-track {
+      height: 10px;
+      -webkit-appearance: none;
+      color: #686c80;
+	  overflow: hidden;
+	  position: relative;
+}
+    
+input[type='range']::-webkit-slider-thumb {
+      width: 10px;
+      -webkit-appearance: none;
+      height: 10px;
+      background: #f9a722;
+      box-shadow: -80px 0 0 80px #686c80;
+	  border-radius: 50%;
+	  position:relative;
+	  z-index: 9999999;
+	  left: 2px;
+}
+/** FF*/
+input[type="range"]::-moz-range-progress {
+	background-color: #686c80; 
+  }
+  input[type="range"]::-moz-range-track {  
+	background-color: #cccccc;
+  }
+  /* IE*/
+  input[type="range"]::-ms-fill-lower {
+	background-color: #686c80; 
+  }
+  input[type="range"]::-ms-fill-upper {  
+	background-color: #cccccc;
+  } 

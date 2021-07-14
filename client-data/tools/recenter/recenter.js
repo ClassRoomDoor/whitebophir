@@ -45,25 +45,19 @@
         );
     }
 
-    function onstart() {
-        zoom(defaultOrigin, defaultScale);
-    }
-
-    function press() {
+    function onstart(evt)  {
         zoom(defaultOrigin, defaultScale);
     }
 
     var zoomTool = {
         "name": "Recenter",
         "shortcut": "rr",
-        "listeners": {
-            "press": press,
-        },
+        "listeners": {},
+        "oneTouch": true,
         "onstart": onstart,
         "mouseCursor": "zoom-in",
-        "icon": "tools/zoom/icon.svg",
+        "icon": "tools/recenter/icon.svg",
         "helpText": "click_to_zoom",
-        "showMarker": true,
     };
     Tools.add(zoomTool);
 })(); //End of code isolation

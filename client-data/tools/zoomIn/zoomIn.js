@@ -94,13 +94,8 @@
             setOrigin(x, y, evt, false);
             animate((1 - deltaY / 800) * Tools.getScale());
         } else if (evt.altKey) {
-            // make finer changes if shift is being held
-            var change = evt.shiftKey ? 1 : 5;
             // change tool size
-            Tools.setSize(Tools.getSize() - deltaY / 100 * change);
-        } else if (evt.shiftKey) {
-            // scroll horizontally
-            window.scrollTo(document.documentElement.scrollLeft + deltaY, document.documentElement.scrollTop + deltaX);
+            Tools.setSize(Tools.getSize() - deltaY / 100 * 5);
         } else {
             // regular scrolling
             window.scrollTo(document.documentElement.scrollLeft + deltaX, document.documentElement.scrollTop + deltaY);
@@ -138,8 +133,8 @@
 
     function release(x, y, evt, isTouchEvent) {
         if (pressed && !moved) {
-            var delta = (evt.shiftKey === true) ? -1 : 1;
-            var scale = Tools.getScale() * (1 + delta * ZOOM_FACTOR);
+            console.log("farooqi", Tools.getScale())
+            var scale = Tools.getScale() + (Tools.getScale() *0.5);
             zoom(origin, scale);
         }
         pressed = false;
@@ -157,30 +152,16 @@
         return isTouchEvent ? evt.changedTouches[0].clientY : evt.clientY;
     }
 
-    var keydown = key(true);
-    var keyup = key(false);
-
-    function onstart() {
-        window.addEventListener("keydown", keydown);
-        window.addEventListener("keyup", keyup);
-    }
-    function onquit() {
-        window.removeEventListener("keydown", keydown);
-        window.removeEventListener("keyup", keyup);
-    }
-
     var zoomTool = {
-        "name": "Zoom",
+        "name": "ZoomIn",
         "shortcut": "z",
         "listeners": {
             "press": press,
             "move": move,
             "release": release,
         },
-        "onstart": onstart,
-        "onquit": onquit,
         "mouseCursor": "zoom-in",
-        "icon": "tools/zoom/icon.svg",
+        "icon": "tools/zoomIn/icon.svg",
         "helpText": "click_to_zoom",
         "showMarker": true,
     };

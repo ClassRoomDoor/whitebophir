@@ -674,7 +674,7 @@ Tools.setColor = function (color) {
   const currentColorElem = document.getElementById(
     "color_" + color.substring(1)
   );
-  tickImage.setAttribute('src','/Svgicons/tick.svg')
+  tickImage.setAttribute('src','/SvgIcons/tick.svg')
   currentColorElem?.appendChild(tickImage);
   Tools.currentColor = color;
 }

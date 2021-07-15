@@ -529,4 +529,16 @@ input[type="range"]::-moz-range-progress {
   }
   input[type="range"]::-ms-fill-upper {  
 	background-color: #cccccc;
-  } 
+  }
+  @media (max-width:768px) {
+	#menu .main-tools{
+		justify-content: flex-start;
+    overflow: scroll;
+	width: 93%;
+	}
+	#menu .tools-list{
+		max-width: 40px !important;
+		min-height: 40px !important;
+		margin: 5px;		
+	}
+  }

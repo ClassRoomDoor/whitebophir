@@ -133,7 +133,6 @@
 
     function release(x, y, evt, isTouchEvent) {
         if (pressed && !moved) {
-            console.log("farooqi", Tools.getScale())
             var scale = Tools.getScale() + (Tools.getScale() *0.5);
             zoom(origin, scale);
         }

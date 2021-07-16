@@ -475,7 +475,7 @@
 		window.removeEventListener("keydown", duplicateShortcut);
 	}
 
-	var handTool = { //The new tool
+	var selectorTool = { //The new tool
 		"name": "Selector",
 		"shortcut": "h",
 		"listeners": {
@@ -489,6 +489,5 @@
 		"mouseCursor": "move",
 		"showMarker": true,
 	};
-	Tools.add(handTool);
-	Tools.change("Hand"); // Use the hand tool by default
+	Tools.add(selectorTool);
 })(); //End of code isolation

@@ -69,8 +69,11 @@
 
     function doUpdate(force) {
         if (!curUpdate.id) return; // Not currently drawing
-        curUpdate['x2'] = lastPos.x;
-        curUpdate['y2'] = lastPos.y;
+            var x0 = curUpdate['x'], y0 = curUpdate['y'];
+            var deltaX = lastPos.x - x0, deltaY = lastPos.y - y0;
+            var diameter = Math.max(Math.abs(deltaX), Math.abs(deltaY));
+            curUpdate['x2'] = x0 + (deltaX > 0 ? diameter : -diameter);
+            curUpdate['y2'] = y0 + (deltaY > 0 ? diameter : -diameter);
 
         if (performance.now() - lastTime > 70 || force) {
             Tools.drawAndSend(curUpdate);
@@ -134,8 +137,8 @@
 
     var circleTool = { //The new tool
 		"groupName": "Shapes",
-        "name": "Ellipse",
-        "icon": "tools/ellipse/icon.svg",
+        "name": "Circle",
+        "icon": "tools/circle/icon.svg",
         "shortcut": "c",
         "listeners": {
             "press": start,

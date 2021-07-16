@@ -322,6 +322,7 @@
 	}
 
 	var handTool = { //The new tool
+        "groupName": "Zoom",
 		"name": "Hand",
 		"shortcut": "h",
 		"listeners": {
@@ -336,5 +337,4 @@
 		"showMarker": true,
 	};
 	Tools.add(handTool);
-	Tools.change("Hand"); // Use the hand tool by default
 })(); //End of code isolation

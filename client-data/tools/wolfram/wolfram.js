@@ -54,7 +54,7 @@
     Tools.message.innerText = "Searching...";
     fetch("https://us-central1-classroom-door.cloudfunctions.net/wolfram1", {
       method: "POST",
-      body: searchQuery,
+      body: searchQuery+ "&background=F5F5F5",
     })
       .then((response) => response.json())
       .then((data) => {

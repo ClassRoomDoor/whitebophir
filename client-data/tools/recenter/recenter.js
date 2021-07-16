@@ -50,6 +50,7 @@
     }
 
     var zoomTool = {
+        "groupName": "Zoom",
         "name": "Recenter",
         "shortcut": "rr",
         "listeners": {},

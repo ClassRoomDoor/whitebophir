@@ -59,14 +59,6 @@
 		/*Wait 70ms before adding any point to the currently drawing line.
 		This allows the animation to be smother*/
 		if (curLine !== null) {
-			if (lineTool.secondary.active) {
-				var alpha = Math.atan2(y - curLine.y, x - curLine.x);
-				var d = Math.hypot(y - curLine.y, x - curLine.x);
-				var increment = 2 * Math.PI / 16;
-				alpha = Math.round(alpha / increment) * increment;
-				x = curLine.x + d * Math.cos(alpha);
-				y = curLine.y + d * Math.sin(alpha);
-			}
 			if (performance.now() - lastTime > 70) {
 				Tools.drawAndSend(new UpdateMessage(x, y));
 				lastTime = performance.now();
@@ -129,17 +121,13 @@
 	}
 
 	var lineTool = {
-		"name": "Straight line",
+		"groupName": "Shapes",
+		"name": "Line",
 		"shortcut": "l",
 		"listeners": {
 			"press": startLine,
 			"move": continueLine,
 			"release": stopLine,
-		},
-		"secondary": {
-			"name": "Straight line",
-			"icon": "tools/line/icon-straight.svg",
-			"active": false,
 		},
 		"draw": draw,
 		"mouseCursor": "crosshair",

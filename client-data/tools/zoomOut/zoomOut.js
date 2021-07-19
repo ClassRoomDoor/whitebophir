@@ -147,18 +147,18 @@
 
   function release(x, y, evt, isTouchEvent) {
     if (pressed && !moved) {
-      var scale = Tools.getScale() / (1.5);
+      var scale = Tools.getScale() / 1.5;
       zoom(origin, scale);
     }
     pressed = false;
   }
-
 
   function getClientY(evt, isTouchEvent) {
     return isTouchEvent ? evt.changedTouches[0].clientY : evt.clientY;
   }
 
   var zoomTool = {
+    groupName: "Zoom",
     name: "ZoomOut",
     shortcut: "z",
     listeners: {

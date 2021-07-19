@@ -152,6 +152,7 @@
     }
 
     var zoomTool = {
+        "groupName": "Zoom",
         "name": "ZoomIn",
         "shortcut": "z",
         "listeners": {

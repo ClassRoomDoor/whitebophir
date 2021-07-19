@@ -53,6 +53,8 @@ Tools.drawingEvent = true;
 Tools.showMarker = true;
 Tools.showOtherCursors = true;
 Tools.showMyCursor = true;
+Tools.currentGroup = null;
+Tools.currentSubTool = null;
 
 Tools.isIE = /MSIE|Trident/.test(window.navigator.userAgent);
 
@@ -129,9 +131,13 @@ Tools.HTML = {
 			}
 		});
 	},
-	addTool: function (toolName, toolIcon, toolIconHTML, toolShortcut, oneTouch, element) {
-		var callback = function () {
-			Tools.change(toolName);
+	addTool: function (toolName, toolIcon, toolIconHTML, toolShortcut, oneTouch, element, children) {
+    
+    var callback = function (event) {
+      console.log("event", event.target);
+      if(this === event.target) {
+      Tools.change(toolName);
+      }
 		};
 		this.addShortcut(toolShortcut, function () {
 			Tools.change(toolName);
@@ -144,7 +150,24 @@ Tools.HTML = {
 			  ? elem.getElementsByClassName("tool-menu")[0].appendChild(element)
 			  : (elem.getElementsByClassName("tool-name")[0].innerHTML = Tools.i18n.t(
 				  toolName
-				));
+        ));
+      if(children){
+        children.forEach((child)=>{
+          const span = document.createElement("span");
+          const image = document.createElement("img");
+          image.className="tool-icon tool-icon-dimension";
+          image.setAttribute("src", child.icon);
+          const callback = function () {
+            Tools.change(child.toolName);
+          };
+          span.addEventListener("click", callback);
+          span.id = "toolID-" + child.toolName;
+          span.appendChild(image);
+          elem.getElementsByClassName("tool-menu")[0].appendChild(span);
+        })
+      
+        
+      }
 			var toolIconElem = elem.getElementsByClassName("tool-icon")[0];
 			toolIconElem.src = toolIcon;
 			toolIconElem.alt = toolIcon;
@@ -203,7 +226,7 @@ Tools.HTML = {
       if(button.color===Tools.currentColor){
         const tickImage=document.createElement('img')
         tickImage.id="tick-icon-clr"
-        tickImage.setAttribute('src','/Svgicons/tick.svg')
+        tickImage.setAttribute('src','/SvgIcons/tick.svg')
         elem?.appendChild(tickImage);
       }
 			if (button.key) {
@@ -269,6 +292,9 @@ Tools.add = function (newTool) {
     Tools.HTML.addStylesheet(newTool.stylesheet);
   }
 
+  if(newTool?.groupName){
+    return;
+  }
   //Add the tool to the GUI
   Tools.HTML.addTool(
     newTool.name,
@@ -276,7 +302,8 @@ Tools.add = function (newTool) {
     newTool.iconHTML,
     newTool.shortcut,
     newTool.oneTouch,
-    newTool.element
+    newTool.element,
+    newTool.children
   );
 };
 
@@ -286,7 +313,7 @@ Tools.change = function (toolName) {
 		var newTool = Tools.list[toolName];
 		var oldTool = Tools.curTool;
 		if (!newTool)
-			throw new Error("Trying to select a tool that has never been added!");
+      throw new Error("Trying to select a tool that has never been added!");
 		if (newTool === oldTool) {
 			if (newTool.secondary) {
 			newTool.secondary.active = !newTool.secondary.active;
@@ -295,9 +322,13 @@ Tools.change = function (toolName) {
 			if (newTool.secondary.switch) newTool.secondary.switch();
 			}
 			return;
-		}
+    }
+    if(newTool?.groupName){
+      Tools.currentGroup = newTool.groupName;
+      Tools.currentSubTool = newTool.name;
+    }
 		if (!newTool.oneTouch) {
-			//Update the GUI
+      //Update the GUI
 			var curToolName = Tools.curTool ? Tools.curTool.name : "";
 			try {
 			Tools.HTML.changeTool(curToolName, toolName);

@@ -66,13 +66,6 @@
 		/*Wait 70ms before adding any point to the currently drawing shape.
 		This allows the animation to be smother*/
 		if (curId !== "") {
-			if (rectangleTool.secondary.active) {
-				var dx = x - curUpdate.x;
-				var dy = y - curUpdate.y;
-				var d = Math.max(Math.abs(dx), Math.abs(dy));
-				x = curUpdate.x + (dx > 0 ? d : -d);
-				y = curUpdate.y + (dy > 0 ? d : -d);
-			}
 			curUpdate['x2'] = x; curUpdate['y2'] = y;
 			if (performance.now() - lastTime > 70 || end) {
 				Tools.drawAndSend(curUpdate);
@@ -138,17 +131,13 @@
 	}
 
 	var rectangleTool = {
+		"groupName": "Shapes",
 		"name": "Rectangle",
 		"shortcut": "r",
 		"listeners": {
 			"press": start,
 			"move": move,
 			"release": stop,
-		},
-		"secondary": {
-			"name": "Square",
-			"icon": "tools/rect/icon-square.svg",
-			"active": false,
 		},
 		"draw": draw,
 		"mouseCursor": "crosshair",

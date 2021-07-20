@@ -189,6 +189,12 @@ html, body, svg {
 	height: 24px !important;
 	width: 24px !important;
 }
+#menu .main-tools .sub-tools .tool-icon-dimension{
+	height: 40px !important;
+	width: 40px !important;
+	padding: 5px;
+	border: 1px solid #efeff329;
+}
 #menu .main-tools .tool-name {
 	display: none;
 }
@@ -268,6 +274,16 @@ html, body, svg {
 	display: block;
     bottom: 60px;
 	position: absolute;
+}
+#menu .sub-tools{
+	width: 230px;
+	display: flex !important;
+	flex-wrap: wrap;
+	background: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 0 10px 10px;
+}
+#menu .sub-tools span{
+	line-height: 0 !important;
 }
 
 #menu .tool-menu #wolfram-input {
@@ -437,6 +453,9 @@ circle.opcursor {
 }
 li.curTool .tool-icon{
 	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
+}
+li.curTool .tool-menu .tool-icon.tool-icon-dimension{
+	filter: invert(23%) sepia(52%) saturate(30%) hue-rotate(180deg) brightness(75%) contrast(118%);
 }
 li#toolID-Grid:focus img{
 	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)

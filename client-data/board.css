@@ -168,7 +168,8 @@ html, body, svg {
 	align-items: center;
 	min-width: 45px;
     min-height: 45px;
-}li#undo:hover{
+}
+li#undo:hover{
 	cursor: pointer !important;
 	background: turquoise;
 }
@@ -275,12 +276,11 @@ html, body, svg {
     bottom: 60px;
 	position: absolute;
 }
-#menu .sub-tools{
+#menu .tool.curTool .sub-tools{
 	width: 230px;
 	display: flex !important;
 	flex-wrap: wrap;
 	background: #ffffff;
-    box-shadow: rgba(0, 0, 0, 0.05) 0 0 10px 10px;
 }
 #menu .sub-tools span{
 	line-height: 0 !important;
@@ -409,6 +409,9 @@ circle.opcursor {
 	box-shadow: 0 0 5px #f9a722;
 	background: #f9a722;
 	overflow: unset;
+  }
+  #menu .tool.curTool:focus{
+	  outline: 0 !important;
   }
 #menu .tool.oneTouch:active  {
 	  box-shadow: 0 0 5px #f9a722;
@@ -559,5 +562,13 @@ input[type="range"]::-moz-range-progress {
 		max-width: 40px !important;
 		min-height: 40px !important;
 		margin: 5px;		
+	}
+	#menu .tool.curTool .sub-tools{
+		position: fixed;
+		bottom: 80px;
+		width: 175px;
+	}
+	#menu .tool-menu input {
+		width: 230px;
 	}
   }

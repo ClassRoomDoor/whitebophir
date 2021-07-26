@@ -52,7 +52,7 @@
     queryInput.setAttribute("disabled", true);
     const searchQuery = document.getElementById("wolfram-input").value;
     Tools.message.innerText = "Searching...";
-    fetch("https://us-central1-classroom-door.cloudfunctions.net/wolfram1", {
+    fetch("https://us-central1-classroom-door-qa.cloudfunctions.net/wolfram", {
       method: "POST",
       body: searchQuery+ "&background=F5F5F5",
     })

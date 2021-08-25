@@ -126,12 +126,13 @@ html, body, svg {
 	position: fixed;
     bottom: 78px;
     right: 10px;
-	width: 90%;   
+	width: 85%;
 	max-height: 30%;
 	background-color: #fff;
 	overflow-y: scroll;
 	padding: 15px;
-	box-shadow: 0 10px 10px 0 #0000000d;
+	border-radius: 10px;
+	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 	display: none;
 }
 #more-tools p {

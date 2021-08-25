@@ -46,15 +46,18 @@
     return elem;
   }
 
-  function search() {
+  function getSearchQuery() {
+    return document.getElementById("wolfram-input").value;
+  }
+
+  function search(searchQuery) {
     Tools.isCurrentToolBusy = true;
     const queryInput = document.getElementById("wolfram-input");
     queryInput.setAttribute("disabled", true);
-    const searchQuery = document.getElementById("wolfram-input").value;
     Tools.message.innerText = "Searching...";
-    fetch("https://us-central1-classroom-door-qa.cloudfunctions.net/wolfram", {
+    fetch(Tools.server_config.WOLFRAM_ENDPOINT, {
       method: "POST",
-      body: searchQuery+ "&background=F5F5F5",
+      body: searchQuery + "&background=F5F5F5",
     })
       .then((response) => response.json())
       .then((data) => {
@@ -84,9 +87,10 @@
   }
 
   function getInput() {
-    const span=document.createElement("span");
-    const image=document.createElement("img")
-    image.className="search-icon"
+    const span = document.createElement("span");
+    span.id = "toolID-Wolfram";
+    const image = document.createElement("img");
+    image.className = "search-icon";
     const input = document.createElement("INPUT");
     input.id = "wolfram-input";
     input.setAttribute("type", "text");
@@ -96,16 +100,16 @@
         // Cancel the default action, if needed
         event.preventDefault();
         // Trigger the button element with a click
-        search();
+        search(getSearchQuery());
       }
     });
-    image.setAttribute("src","tools/wolfram/searchIcon.svg");
-    image.addEventListener("click",(event)=>{
+    image.setAttribute("src", "tools/wolfram/searchIcon.svg");
+    image.addEventListener("click", (event) => {
       event.preventDefault();
-      search()
+      search(getSearchQuery());
     });
     span.appendChild(input);
-    span.appendChild(image)
+    span.appendChild(image);
     return span;
   }
 
@@ -118,5 +122,6 @@
     stylesheet: "tools/text/text.css",
     icon: "tools/wolfram/icon.svg",
     mouseCursor: "text",
+    search: search,
   });
 })(); //End of code isolation

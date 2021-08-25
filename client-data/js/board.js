@@ -123,7 +123,7 @@ function saveBoardNametoLocalStorage() {
 window.addEventListener("pageshow", saveBoardNametoLocalStorage);
 
 Tools.HTML = {
-	template: new Minitpl("#tools > .tool"),
+  template: new Minitpl("#tools > .tool"),
 	addShortcut: function addShortcut(key, callback) {
 		window.addEventListener("keydown", function (e) {
 			if (e.key === key && !e.target.matches("input[type=text], textarea")) {
@@ -134,7 +134,6 @@ Tools.HTML = {
 	addTool: function (toolName, toolIcon, toolIconHTML, toolShortcut, oneTouch, element, children) {
     
     var callback = function (event) {
-      console.log("event", event.target);
       if(this === event.target) {
       Tools.change(toolName);
       }
@@ -145,12 +144,14 @@ Tools.HTML = {
 		});
 		return this.template.add(function (elem) {
 			elem.addEventListener("click", callback);
-			elem.id = "toolID-" + toolName;
-			element
-			  ? elem.getElementsByClassName("tool-menu")[0].appendChild(element)
-			  : (elem.getElementsByClassName("tool-name")[0].innerHTML = Tools.i18n.t(
-				  toolName
-        ));
+      elem.id = "toolID-" + toolName;
+      elem.getElementsByClassName("tool-name")[0].innerHTML = Tools.i18n.t(toolName);
+      if(element){
+        const toolMenu = elem.getElementsByClassName("tool-menu")[0];
+        toolMenu.appendChild(element);
+        toolMenu.classList.add("input-tool");
+      }
+      
       if(children){
         children.forEach((child)=>{
           const span = document.createElement("span");

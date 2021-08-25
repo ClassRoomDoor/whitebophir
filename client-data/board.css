@@ -106,12 +106,58 @@ html, body, svg {
 	display: flex;
 	position: fixed;
 	bottom: 0;
-	width: 100%;
+	min-width: calc(100% - 100px);
 	padding: 16px;
 	margin: 0;
 	justify-content: center;
-
 }
+
+
+
+#autoNavMore {
+	overflow: visible !important;
+}
+#autoNavMoreList {
+	position: absolute;
+	right: -5px;
+    bottom: 55px;
+}
+#more-tools {
+	position: fixed;
+    bottom: 78px;
+    right: 10px;
+	width: 90%;   
+	max-height: 30%;
+	background-color: #fff;
+	overflow-y: scroll;
+	padding: 15px;
+	box-shadow: 0 10px 10px 0 #0000000d;
+	display: none;
+}
+#more-tools p {
+	color: #f9a722;
+	margin-bottom: 8px;
+	margin-top: 8px;
+	z-index: 99;
+}
+#more-tools img {
+	filter: invert(23%) sepia(52%) saturate(30%) hue-rotate(180deg) brightness(75%) contrast(118%);
+	width: 36px;
+	border: 1px solid #efeff329;
+	margin: 3px;
+}
+
+@media (max-width: 768px) {
+	#more-tools .input-tool img {
+		width: 24px;
+		margin: 0px;
+	}
+	#more-tools .input-tool input {
+		height: 32px;
+		width: 80%;
+	}
+}
+
 #settings {
 	margin-bottom: 20px;
 }
@@ -553,11 +599,6 @@ input[type="range"]::-moz-range-progress {
 	background-color: #cccccc;
   }
   @media (max-width:768px) {
-	#menu .main-tools{
-		justify-content: flex-start;
-    overflow: scroll;
-	width: 93%;
-	}
 	#menu .tools-list{
 		max-width: 40px !important;
 		min-height: 40px !important;

@@ -84,7 +84,11 @@
       let childNumber = 2;
 
       const autoNavWidth = autoNav.width();
-      if (autoNavWidth > $("#board").width() - 100) {
+      const tools = $("#tools");
+      if (
+        $(tools[0].children[0]).outerWidth() * tools[0].children.length + 200 >
+        $("#board").width()
+      ) {
         // CODE FIRES WHEN WINDOW SIZE GOES DOWN
         autoNav
           .children(`li:nth-last-child(${childNumber})`)

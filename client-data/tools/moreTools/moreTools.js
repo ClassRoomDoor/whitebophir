@@ -73,7 +73,6 @@
 
   initializeAutoResizeToolbar();
 
-  const autoNav = $("#tools");
   const autoNavMore = $("#autoNavMore");
   const autoNavMoreList = $("#autoNavMoreList");
   let lastWidth = 999999;
@@ -83,14 +82,25 @@
       $("#more-tools").hide();
       let childNumber = 2;
 
-      const autoNavWidth = autoNav.width();
       const tools = $("#tools");
+      const autoNavWidth = tools.width();
+      console.log(`Child width: ${$(tools[0].children[0]).outerWidth()}`);
+      console.log(`No of children: ${tools[0].children.length}`);
+      console.log(
+        `Total with: ${
+          $(tools[0].children[0]).outerWidth() * tools[0].children.length + 200
+        }`
+      );
+      console.log(`Last with: ${lastWidth}`);
+      console.log(`Board width: ${$("#board").width()}`);
+
       if (
         $(tools[0].children[0]).outerWidth() * tools[0].children.length + 200 >
         $("#board").width()
       ) {
+        console.log("if");
         // CODE FIRES WHEN WINDOW SIZE GOES DOWN
-        autoNav
+        tools
           .children(`li:nth-last-child(${childNumber})`)
           .prependTo(autoNavMoreList);
         lastWidth = autoNavWidth;
@@ -102,7 +112,8 @@
           .width();
 
         // CHECK IF ITEM HAS ENOUGH SPACE TO PLACE IN MENU
-        if (autoNavWidth + autoNavMoreFirst > lastWidth) {
+        if (tools.width() + autoNavMoreFirst > lastWidth) {
+          console.log("else if");
           autoNavMoreList.children("li:first-child").insertBefore(autoNavMore);
           lastWidth = lastWidth + autoNavMoreFirst;
           autoNavWidth + autoNavMoreFirst > lastWidth && changeAutoNavMore();

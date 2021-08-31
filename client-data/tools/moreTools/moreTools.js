@@ -75,7 +75,8 @@
 
   const autoNavMore = $("#autoNavMore");
   const autoNavMoreList = $("#autoNavMoreList");
-  let lastWidth = 999999;
+
+  let prevToolCount = 9999;
 
   const changeAutoNavMore = () => {
     if ($("#board").is(":visible")) {
@@ -83,40 +84,43 @@
       let childNumber = 2;
 
       const tools = $("#tools");
-      const autoNavWidth = tools.width();
-      console.log(`Child width: ${$(tools[0].children[0]).outerWidth()}`);
-      console.log(`No of children: ${tools[0].children.length}`);
+
+      const toolWidth = $(tools[0].children[0]).outerWidth();
+      const toolCount = tools[0].children.length;
+      const additionalFactor = 200;
+      const boardWidth = $("#board").width();
       console.log(
-        `Total with: ${
-          $(tools[0].children[0]).outerWidth() * tools[0].children.length + 200
-        }`
+        `${toolWidth} * ${toolCount} + ${additionalFactor} = ${
+          toolWidth * toolCount + additionalFactor
+        }`,
+        boardWidth
       );
-      console.log(`Last with: ${lastWidth}`);
-      console.log(`Board width: ${$("#board").width()}`);
+
+      console.log(prevToolCount, toolCount);
 
       if (
-        $(tools[0].children[0]).outerWidth() * tools[0].children.length + 200 >
-        $("#board").width()
+        toolWidth * toolCount + additionalFactor > boardWidth &&
+        tools[0].children.length > 1
       ) {
         console.log("if");
         // CODE FIRES WHEN WINDOW SIZE GOES DOWN
         tools
           .children(`li:nth-last-child(${childNumber})`)
           .prependTo(autoNavMoreList);
-        lastWidth = autoNavWidth;
+        prevToolCount = toolCount;
         changeAutoNavMore();
       } else {
-        // CODE FIRES WHEN WINDOW SIZE GOES UP
-        const autoNavMoreFirst = autoNavMoreList
-          .children("li:first-child")
-          .width();
-
         // CHECK IF ITEM HAS ENOUGH SPACE TO PLACE IN MENU
-        if (tools.width() + autoNavMoreFirst > lastWidth) {
+        if (
+          toolWidth * (toolCount + 1) + additionalFactor < boardWidth &&
+          prevToolCount !== toolCount &&
+          prevToolCount - 1 <= toolCount
+        ) {
+          prevToolCount = toolCount;
           console.log("else if");
           autoNavMoreList.children("li:first-child").insertBefore(autoNavMore);
-          lastWidth = lastWidth + autoNavMoreFirst;
-          autoNavWidth + autoNavMoreFirst > lastWidth && changeAutoNavMore();
+          toolWidth * (toolCount + 2) + additionalFactor < boardWidth &&
+            changeAutoNavMore();
         }
       }
       if (autoNavMoreList.children().length > 0) {

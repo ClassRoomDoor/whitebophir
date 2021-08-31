@@ -89,14 +89,6 @@
       const toolCount = tools[0].children.length;
       const additionalFactor = 200;
       const boardWidth = $("#board").width();
-      console.log(
-        `${toolWidth} * ${toolCount} + ${additionalFactor} = ${
-          toolWidth * toolCount + additionalFactor
-        }`,
-        boardWidth
-      );
-
-      console.log(prevToolCount, toolCount);
 
       if (
         toolWidth * toolCount + additionalFactor > boardWidth &&

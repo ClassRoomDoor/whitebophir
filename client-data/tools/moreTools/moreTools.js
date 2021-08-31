@@ -94,7 +94,6 @@
         toolWidth * toolCount + additionalFactor > boardWidth &&
         tools[0].children.length > 1
       ) {
-        console.log("if");
         // CODE FIRES WHEN WINDOW SIZE GOES DOWN
         tools
           .children(`li:nth-last-child(${childNumber})`)
@@ -109,7 +108,6 @@
           prevToolCount - 1 <= toolCount
         ) {
           prevToolCount = toolCount;
-          console.log("else if");
           autoNavMoreList.children("li:first-child").insertBefore(autoNavMore);
           toolWidth * (toolCount + 2) + additionalFactor < boardWidth &&
             changeAutoNavMore();

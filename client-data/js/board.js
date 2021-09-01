@@ -696,7 +696,8 @@ Tools.colorPresets = [
 Tools.currentColor =Tools.colorPresets[0].color;
 
 Tools.setColor = function (color) {
-  const previousColor=document.getElementById("color_"+Tools.currentColor?.substring(1));
+  const prevColorValue = Tools.currentColor?.substring(1);
+  const previousColor=document.getElementById(`color_${prevColorValue}`);
 
  if(previousColor){
   previousColor.innerHTML="";
@@ -709,6 +710,12 @@ Tools.setColor = function (color) {
   tickImage.setAttribute('src','/SvgIcons/tick.svg')
   currentColorElem?.appendChild(tickImage);
   Tools.currentColor = color;
+
+  const prevColorElem = $("#more-tools-colors").find(`#color_${prevColorValue}`);
+  prevColorElem.html('');
+  const currColorElem = $("#more-tools-colors").find(`#color_${color.substring(1)}`);
+  const newTick = tickImage.cloneNode();
+  currColorElem.append(newTick);
 }
 
 Tools.getColor = (function color() {

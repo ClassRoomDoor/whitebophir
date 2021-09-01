@@ -122,18 +122,25 @@ html, body, svg {
 	right: -5px;
     bottom: 55px;
 }
-#more-tools {
+#more-tools-container {
 	position: fixed;
     bottom: 78px;
     right: 10px;
-	width: 85%;
+	width: 50%;
 	max-height: 30%;
 	background-color: #fff;
 	overflow-y: scroll;
-	padding: 15px;
 	border-radius: 10px;
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 	display: none;
+}
+#more-tools-colors .colorPresets {
+	display: flex;
+	justify-content: space-around;
+	background-color: #f6f6f6;
+}
+#more-tools {
+	padding: 15px;
 }
 #more-tools p {
 	color: #f9a722;
@@ -156,6 +163,19 @@ html, body, svg {
 	#more-tools .input-tool input {
 		height: 32px;
 		width: 80%;
+	}
+	#menu .main-tools{
+		justify-content: flex-end;
+		right: 0;
+	}
+	#more-tools-container {
+		max-width: 380px;
+		min-width: 300px;
+	}
+}
+@media (max-width: 414px) {
+	#more-tools-container {
+		width: 70%;
 	}
 }
 
@@ -472,13 +492,14 @@ circle.opcursor {
 #settings-color{
 	position: fixed;
 	right: 20px;
+    top: 60px;
 }
 #settings-color .color-list{
 	height: 100%;
 	position: relative;
 	border: none !important;
 	box-shadow: none !important;
-	top: 60px;
+    background: none;
 }
 #settings-color .color-list:active, #settings-color .color-list:focus, #settings-color .color-list:hover{
 	border: none !important;
@@ -519,7 +540,7 @@ li#toolID-Download:focus img{
     left: -30px;
 }
 #settings-size{
-	position: relative;
+	position: fixed;
 	top: 100px;
 }
 #settings-size .slider-list{
@@ -547,6 +568,9 @@ li#toolID-Download:focus img{
 #settings-size .slider-list:focus .range-icons-span,
  #settings-size .slider-list:hover .range-icons-span{
 	background-color: #f9a722;
+}
+.range-icons-span {
+	background-color: white;
 }
 #settings-size .slider-list:active .range-icons-span img,
 #settings-size .slider-list:focus .range-icons-span img,

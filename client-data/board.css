@@ -1,7 +1,29 @@
+ 
 html, body, svg {
 	padding:0;
 	margin:0;
 	font-family: Liberation sans, sans-serif;
+}
+
+
+#board #message {
+    width: fit-content;
+    margin-top: 100px;
+    background-color: rgb(227, 234, 236);
+    padding: 5px;
+    padding-left: 10px;
+	padding-right: 10px;
+	position: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+	z-index: 9999999;
+}
+
+#board #message:empty {
+	display: none;
 }
 
 #canvas {
@@ -44,7 +66,6 @@ html, body, svg {
 	scrollbar-width: none;
 	font-size: 16px;
 	border-radius: 0;
-	overflow-y: scroll;
 	position: fixed;
 	margin-bottom: 30px;
 	left: 0;
@@ -81,11 +102,91 @@ html, body, svg {
 	list-style-type:none;
 	padding:0;
 }
+#menu .main-tools{
+	display: flex;
+	position: fixed;
+	bottom: 0;
+	min-width: calc(100% - 100px);
+	padding: 16px;
+	margin: 0;
+	justify-content: center;
+}
+
+
+
+#autoNavMore {
+	overflow: visible !important;
+}
+#autoNavMoreList {
+	position: absolute;
+	right: -5px;
+    bottom: 55px;
+}
+#more-tools-container {
+	position: fixed;
+    bottom: 78px;
+    right: 10px;
+	width: 50%;
+	max-height: 30%;
+	background-color: #fff;
+	overflow-y: scroll;
+	border-radius: 10px;
+	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+	display: none;
+}
+#more-tools-colors .colorPresets {
+	display: flex;
+	justify-content: space-around;
+	background-color: #f6f6f6;
+}
+#more-tools {
+	padding: 15px;
+}
+#more-tools p {
+	color: #f9a722;
+	margin-bottom: 8px;
+	margin-top: 8px;
+	z-index: 99;
+}
+#more-tools img {
+	filter: invert(23%) sepia(52%) saturate(30%) hue-rotate(180deg) brightness(75%) contrast(118%);
+	width: 36px;
+	border: 1px solid #efeff329;
+	margin: 3px;
+}
+
+@media (max-width: 768px) {
+	#more-tools .input-tool img {
+		width: 24px;
+		margin: 0px;
+	}
+	#more-tools .input-tool input {
+		height: 32px;
+		width: 80%;
+	}
+	#menu .main-tools{
+		justify-content: flex-end;
+		right: 0;
+	}
+	#more-tools-container {
+		max-width: 380px;
+		min-width: 300px;
+	}
+}
+@media (max-width: 414px) {
+	#more-tools-container {
+		width: 70%;
+	}
+}
 
 #settings {
 	margin-bottom: 20px;
 }
-
+#undo-redo{
+	position: fixed;
+	bottom: 0;
+	display: flex;
+}
 #menu .tool {
 	position: relative;
 	-webkit-touch-callout: none; /* iOS Safari */
@@ -106,20 +207,76 @@ html, body, svg {
 	height: 40px;
 	line-height: 40px;
 	border-radius: 0px;
-	max-width: 40px;
+	max-width: 60px;
 	transition-duration: .2s;
 	overflow: hidden;
 	width: max-content;
 	box-shadow: inset 0 0 3px #8FA2BC;
 }
+#menu .tools-list{
+	pointer-events: auto;
+	white-space: nowrap;
+	list-style: none;
+	text-decoration:none;
+	cursor:pointer !important;
+	margin: 10px;
+	height: 45px;
 
+	width: 45px;
+	line-height: 40px;
+	border-radius: 0px;
+	transition-duration: .2s;
+	overflow: hidden;
+	box-shadow: 0 10px 10px 0 #0000000d;
+    background-color: #fff;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 45px;
+    min-height: 45px;
+}
+li#undo:hover{
+	cursor: pointer !important;
+	background: turquoise;
+}
+#undo-redo .tool-list{
+	cursor: pointer !important;
+}
+#undo-redo .tool-list .do-btn{
+	cursor: pointer !important;
+}
 #menu .tool:hover {
 	max-width: 100%;
 }
-
+#menu .main-tools .tool-list .tool-icon-dimension{
+	height: 24px !important;
+	width: 24px !important;
+}
+#menu .main-tools .tool-icon-dimension{
+	height: 24px !important;
+	width: 24px !important;
+}
+#menu .main-tools .sub-tools .tool-icon-dimension{
+	height: 40px !important;
+	width: 40px !important;
+	padding: 5px;
+	border: 1px solid #efeff329;
+}
+#menu .main-tools .tool-name {
+	display: none;
+}
+#menu .main-tools .tool-icon.secondaryIcon{
+	display: none !important;
+}
+.do-btn{
+	border: none;
+	outline: none;
+	background: transparent;
+}
 @media (hover: none), (pointer: coarse) {
 	#menu .tool:hover {
-		max-width: 40px;
+		max-width: 100%;
 	}
 
 	#menu .tool:focus {
@@ -149,13 +306,14 @@ html, body, svg {
 #menu .tool.curTool {
   box-shadow: 0 0 5px #0074D9;
   background: linear-gradient(#96E1FF, #36A2FF);
+  overflow: unset;
 }
 
 #menu .tool-icon {
 	display: inline-block;
 	text-align:center;
-	width: 35px;
-	height: 35px;
+	width: 24px;
+	height: 24px;
 	margin: 2.5px;
 	font-family: mono, monospace;
 	overflow: hidden;
@@ -179,6 +337,34 @@ html, body, svg {
 	display: inline-block;
 	vertical-align: text-bottom;
 }
+
+#menu .tool-menu {
+	display: block;
+    bottom: 60px;
+	position: absolute;
+}
+#menu .tool.curTool .sub-tools{
+	width: 230px;
+	display: flex !important;
+	flex-wrap: wrap;
+	background: #ffffff;
+}
+#menu .sub-tools span{
+	line-height: 0 !important;
+}
+
+#menu .tool-menu #wolfram-input {
+	border: 1px solid rgb(238, 238, 238);
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 10px 0px;
+	outline: none;
+}
+
+#menu .tool-menu input {
+	padding: 10px;
+	width: 300px;
+}
+
 #menu .tool-name.slider {
 	display: inline-block;
     width: 150px;
@@ -187,6 +373,7 @@ html, body, svg {
     line-height: 15px;
     vertical-align: top;
     padding: 6px;
+	margin:0 10px;
 
 }
 
@@ -213,8 +400,8 @@ input {
 }
 
 #chooseColor {
-	width: 100%;
-	height:100%;
+	/* width: 100%;
+	height:100%; */
 	border: 0;
 	border-radius: 0;
 	color:black;
@@ -224,7 +411,6 @@ input {
 }
 
 .colorPresets {
-	margin-right: 20px;
 	vertical-align: top;
 	display: inline-block;
 }
@@ -232,12 +418,14 @@ input {
 .colorPresetButton {
 	width: 30px;
 	height: 30px;
-	border: 1px solid black;
-	border-radius: 3px;
+	border: 3px solid #fff;
+	border-radius: 50%;
 	display: inline-block;
 	margin-right: 6px;
 	padding: 0;
 	vertical-align: middle;
+	box-shadow: 0 10px 10px 0 #0000000d;
+	margin: 10px 0;
 }
 
 .rangeChooser {
@@ -284,3 +472,169 @@ circle.opcursor {
 		line-height: 10px;
 	}
 }
+#menu .tool.curTool {
+	box-shadow: 0 0 5px #f9a722;
+	background: #f9a722;
+	overflow: unset;
+  }
+  #menu .tool.curTool:focus{
+	  outline: 0 !important;
+  }
+#menu .tool.oneTouch:active  {
+	  box-shadow: 0 0 5px #f9a722;
+	  border-radius: 50%;
+	  background: #f9a722;
+}
+#menu .tool.oneTouch:focus {
+	  box-shadow: 0 0 5px #f9a722;
+	  background: #f9a722;
+}
+#settings-color{
+	position: fixed;
+	right: 20px;
+    top: 60px;
+}
+#settings-color .color-list{
+	height: 100%;
+	position: relative;
+	border: none !important;
+	box-shadow: none !important;
+    background: none;
+}
+#settings-color .color-list:active, #settings-color .color-list:focus, #settings-color .color-list:hover{
+	border: none !important;
+	box-shadow: none !important;
+	background-color: transparent !important;
+}
+#settings-color .color-list .tick-icon{
+	position: absolute;
+	top: 0px;
+	left: 3px;
+}
+#settings-color .color-list .current-color{
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+}
+#settings-color .color-list .current-color,#settings-color .color-list .color-name{
+	display: block !important;
+}
+#settings-color .color-list .colorSelect,#settings-color .color-list .colorSelect .colorSelectBtn {
+	display: block !important;
+}
+li.curTool .tool-icon{
+	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
+}
+li.curTool .tool-menu .tool-icon.tool-icon-dimension{
+	filter: invert(23%) sepia(52%) saturate(30%) hue-rotate(180deg) brightness(75%) contrast(118%);
+}
+li#toolID-Grid:focus img{
+	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
+}
+li#toolID-Download:focus img{
+	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
+}
+.search-icon{
+	position: relative;
+    top: 6px;
+    left: -30px;
+}
+#settings-size{
+	position: fixed;
+	top: 100px;
+}
+#settings-size .slider-list{
+	display: flex;
+	height: 50px;
+	box-shadow: none;
+	border: 0;
+}
+#settings-size .slider-list .tool-name.slider{
+	display: none;
+}
+#settings-size .slider-list:active .tool-name.slider,#settings-size .slider-list:focus .tool-name.slider, #settings-size .slider-list:hover .tool-name.slider{
+	display: block;
+}
+.range-icons-span{
+	align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+	box-shadow: 0 10px 10px 0 #0000000d;
+    border-radius: 50%;
+}
+#settings-size .slider-list:active .range-icons-span,
+#settings-size .slider-list:focus .range-icons-span,
+ #settings-size .slider-list:hover .range-icons-span{
+	background-color: #f9a722;
+}
+.range-icons-span {
+	background-color: white;
+}
+#settings-size .slider-list:active .range-icons-span img,
+#settings-size .slider-list:focus .range-icons-span img,
+ #settings-size .slider-list:hover .range-icons-span img{
+	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
+}
+#settings-size .slider-list:active .range-icons-span svg,
+#settings-size .slider-list:focus .range-icons-span svg,
+ #settings-size .slider-list:hover .range-icons-span svg{
+	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%)
+}
+ /* custom range slider */
+input[type='range'] {
+	  height: 10px;
+      width: 100%;
+      -webkit-appearance: none;
+      background-color: #cccccc;
+}
+    
+input[type='range']::-webkit-slider-runnable-track {
+      height: 10px;
+      -webkit-appearance: none;
+      color: #686c80;
+	  overflow: hidden;
+	  position: relative;
+}
+    
+input[type='range']::-webkit-slider-thumb {
+      width: 10px;
+      -webkit-appearance: none;
+      height: 10px;
+      background: #f9a722;
+      box-shadow: -80px 0 0 80px #686c80;
+	  border-radius: 50%;
+	  position:relative;
+	  z-index: 9999999;
+	  left: 2px;
+}
+/** FF*/
+input[type="range"]::-moz-range-progress {
+	background-color: #686c80; 
+  }
+  input[type="range"]::-moz-range-track {  
+	background-color: #cccccc;
+  }
+  /* IE*/
+  input[type="range"]::-ms-fill-lower {
+	background-color: #686c80; 
+  }
+  input[type="range"]::-ms-fill-upper {  
+	background-color: #cccccc;
+  }
+  @media (max-width:768px) {
+	#menu .tools-list{
+		max-width: 40px !important;
+		min-height: 40px !important;
+		margin: 5px;		
+	}
+	#menu .tool.curTool .sub-tools{
+		position: fixed;
+		bottom: 80px;
+		width: 175px;
+	}
+	#menu .tool-menu input {
+		width: 230px;
+	}
+  }

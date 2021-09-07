@@ -54,4 +54,5 @@ module.exports = {
    * example: udp://127.0.0.1
   */
   STATSD_URL: process.env["STATSD_URL"],
+  WOLFRAM_ENDPOINT: process.env.WOLFRAM_ENDPOINT
 };

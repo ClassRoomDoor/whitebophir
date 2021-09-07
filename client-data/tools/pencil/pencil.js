@@ -227,5 +227,6 @@
 		"stylesheet": "tools/pencil/pencil.css",
 	};
 	Tools.add(pencilTool);
+	Tools.change("Pencil"); // Use the hand tool by default
 
 })(); //End of code isolation

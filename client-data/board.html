@@ -1,3 +1,4 @@
+  
 <!DOCTYPE html>
 <html lang="{{language}}">
 
@@ -24,65 +25,76 @@
 </head>
 
 <body>
-
 	<div id="board">
+		<p id="message"></p>
 		<svg id="canvas" width="500" height="500" version="1.1" xmlns="http://www.w3.org/2000/svg">
 			<defs id="defs"></defs>
-			<g id="drawingArea"></g>
+			<g id="drawingArea">
+			</g>
 			<g id="cursors"></g>
 		</svg>
+		
 	</div>
-
 	<div id="loadingMessage">{{translations.loading}}</div>
 
 	<div id="menu" tabindex="0" {{#hideMenu}}style="display:none;"{{/hideMenu}}>
 		<div id="menuItems">
-			<ul id="tools" class="tools">
-				<li class="tool" tabindex="-1">
-					<img class="tool-icon" width="35" height="35" src="" alt="icon" />
+		
+			<ul id="tools" class="tools main-tools">
+				<li class="tool tools-list" tabindex="-1">
+					<img class="tool-icon tool-icon-dimension" width="35" height="35" src="" alt="icon" />
 					<span class="tool-name"></span>
-					<img class="tool-icon secondaryIcon" width="35" height="35" src="data:," alt="icon" />
+					<span class="tool-menu sub-tools"></span>
+					<img class="tool-icon secondaryIcon tool-icon-dimension" width="35" height="35" src="data:," alt="icon" />
 				</li>
 			</ul>
 
-			<ul class="tools" id="settings">
-				<li class="tool" tabindex="-1">
-					<input class="tool-icon" type="color" id="chooseColor" value="#1913B0" />
-					<label class="tool-name" for="chooseColor">{{translations.color}}</label>
-					<span class="colorPresets" id="colorPresetSel">
-						<span class="colorPresetButton"></span>
+			<ul class="tools" id="settings-color">
+				<li class="tool color-list" tabindex="-1">
+					<span class="colorPresets colorSelect" id="colorPresetSel">
+						<span class="colorPresetButton colorSelectBtn"></span>
 					</span>
 				</li>
-				<li class="tool" tabindex="-1"
-					title="{{translations.size}} ({{translations.keyboard_shortcut}}: alt + {{translations.mousewheel}})">
+		
+			</ul>
+			<ul  class="tools" id="settings-size">
+				<li class="slider-list" tabindex="-1"
+				title="{{translations.size}} ({{translations.keyboard_shortcut}}: alt + {{translations.mousewheel}})">
+				<span class="range-icons-span">
 					<img class="tool-icon" width="60" height="60" src="icon-size.svg" alt="size" />
-					<label class="tool-name slider" for="chooseSize">
-						<span>{{translations.size}}</span>
-						<input type="range" id="chooseSize" value="4" min="1" max="50" step="1" class="rangeChooser" />
-					</label>
-				</li>
-				<li class="tool" tabindex="-1">
-					<span class="tool-icon">
-						<svg viewBox="0 0 8 8">
-							<pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
-								<rect x=0 y=0 width=2 height=2 fill=black></rect>
-								<rect x=2 y=2 width=2 height=2 fill=black></rect>
-								<rect x=2 y=0 width=2 height=2 fill=#eeeeee></rect>
-								<rect x=0 y=2 width=2 height=2 fill=#eeeeee></rect>
-							</pattern>
+				</span>
+				<label class="tool-name slider" for="chooseSize">
+					<span>{{translations.size}}</span>
+					<input type="range" id="chooseSize" value="4" min="1" max="50" step="1" class="rangeChooser" />
+				</label>
+			</li>
+			<li class="slider-list" tabindex="-1">
+				<span class="range-icons-span">
+				
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+							<title>DE2E11F9-8E55-402C-AE4C-1CDE5852CA73</title>
+							<g id="Iconography" stroke="#ffffff" stroke-width="1" fill="none" fill-rule="evenodd">
+								<g id="Icons-/-Base-/-Bas-29" stroke="#f9a722" >
+									<rect  stroke="#f9a722" id="Rectangle" x="4.4408921e-14" y="-3.59356989e-12" width="23.9975009" height="23.9975009"/>
+									<rect id="Rectangle" x="4.4408921e-14" y="-3.59356989e-12" width="23.9975009" height="23.9975009"/>
+									<path d="M5.5,3 C4.12797325,3 3,4.16778329 3,5.58823529 L3,14.4588235 C3,15.8792729 4.12797325,17.0470588 5.5,17.0470588 L6.5,17.0470588 L6.5,19.1529412 C6.5,20.5733906 7.627973,21.7411765 9,21.7411765 L19.5,21.7411765 C20.872027,21.7411765 22,20.5733906 22,19.1529412 L22,9.28235294 C22,7.86190094 20.872027,6.69411765 19.5,6.69411765 L16.5,6.69411765 L16.5,5.58823529 C16.5,4.16778329 15.3720268,3 14,3 L5.5,3 Z M5.5,4.55294118 L14,4.55294118 C14.5669725,4.55294118 15,5.001252 15,5.58823529 L15,14.4588235 C15,15.0458094 14.5669725,15.4941176 14,15.4941176 L5.5,15.4941176 C4.9330275,15.4941176 4.5,15.0458094 4.5,14.4588235 L4.5,5.58823529 C4.5,5.001252 4.9330275,4.55294118 5.5,4.55294118 Z M17.546875,8.24705882 L19.4375,8.24705882 L16.5,11.2882353 L16.5,9.33088235 L17.546875,8.24705882 Z M20.5,9.34705882 L20.5,11.3044118 L16.09375,15.8661765 C16.3492345,15.4606437 16.5,14.9749981 16.5,14.4588235 L16.5,13.4801471 L20.5,9.34705882 Z M20.5,13.4963235 L20.5,15.2849671 L14.9609375,20.4963235 L13.0703125,20.4963235 L20.5,13.4963235 Z M15.3671875,16.4963235 L10.953125,20.4963235 L9.0546875,20.4963235 L13.0625,16.8715448 L14,16.8715448 C14.5045575,16.8715448 14.9726002,16.7329566 15.3671875,16.4963235 Z M9.046875,17.0470588 L10.9375,17.0470588 L8,20.0801471 L8,18.1308824 L9.046875,17.0470588 Z M20.5,17.6455882 L20.5,19.7688759 C20.5,20.2659499 20.0669725,20.6455882 19.5,20.6455882 L17.0859375,20.6455882 L20.5,17.6455882 Z" id="Shape" fill="#F9A722"/>
+								</g>
+							</g>
 							<circle cx=4 cy=4 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)"></circle>
 						</svg>
-					</span>
-					<label class="tool-name slider" for="chooseOpacity">
-						<span>{{translations.opacity}}</span>
-						<input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
-							class="rangeChooser" />
-					</label>
-				</li>
+					
+				</span>
+				<label class="tool-name slider" for="chooseOpacity">
+					<span>{{translations.opacity}}</span>
+					<input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
+						class="rangeChooser" />
+				</label>
+			</li>
 			</ul>
 		</div>
 	</div>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<script type="application/json" id="translations">{{{ json translations }}}</script>
 	<script type="application/json" id="configuration">{{{ json configuration }}}</script>
@@ -94,15 +106,27 @@
 	<script src="../tools/pencil/pencil.js"></script>
 	<script src="../tools/cursor/cursor.js"></script>
 	<script src="../tools/line/line.js"></script>
+	<script src="../tools/straightLine/straightLine.js"></script>
 	<script src="../tools/rect/rect.js"></script>
+	<script src="../tools/square/square.js"></script>
 	<script src="../tools/ellipse/ellipse.js"></script>
+	<script src="../tools/circle/circle.js"></script>
 	<script src="../tools/text/text.js"></script>
 	<script src="../tools/eraser/eraser.js"></script>
-	<script src="../tools/hand/hand.js"></script>
+	<script src="../tools/shapes/shapes.js"></script>
+	<script src="../tools/zoom/zoom.js"></script>
+	<script src="../tools/wolfram/wolfram.js"></script>
+	<script src="../tools/selector/selector.js"></script>
 	<script src="../tools/grid/grid.js"></script>
 	<script src="../tools/download/download.js"></script>
-	<script src="../tools/zoom/zoom.js"></script>
+	<script src="../tools/hand/hand.js"></script>
+	<script src="../tools/zoomIn/zoomIn.js"></script>
+	<script src="../tools/zoomOut/zoomOut.js"></script>
+	<script src="../tools/recenter/recenter.js"></script>
+	<script src="../tools/moreTools/moreTools.js"></script>
+
 	<script src="../js/canvascolor.js"></script>
+	
 </body>
 
 </html>

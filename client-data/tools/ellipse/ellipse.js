@@ -62,10 +62,6 @@
 
     function move(x, y, evt) {
         if (!curUpdate.id) return; // Not currently drawing
-        if (evt) {
-            circleTool.secondary.active = circleTool.secondary.active || evt.shiftKey;
-            evt.preventDefault(); 
-        }
         lastPos.x = x;
         lastPos.y = y;
         doUpdate();
@@ -73,16 +69,8 @@
 
     function doUpdate(force) {
         if (!curUpdate.id) return; // Not currently drawing
-        if (drawingCircle()) {
-            var x0 = curUpdate['x'], y0 = curUpdate['y'];
-            var deltaX = lastPos.x - x0, deltaY = lastPos.y - y0;
-            var diameter = Math.max(Math.abs(deltaX), Math.abs(deltaY));
-            curUpdate['x2'] = x0 + (deltaX > 0 ? diameter : -diameter);
-            curUpdate['y2'] = y0 + (deltaY > 0 ? diameter : -diameter);
-        } else {
-            curUpdate['x2'] = lastPos.x;
-            curUpdate['y2'] = lastPos.y;
-        }
+        curUpdate['x2'] = lastPos.x;
+        curUpdate['y2'] = lastPos.y;
 
         if (performance.now() - lastTime > 70 || force) {
             Tools.drawAndSend(curUpdate);
@@ -144,19 +132,10 @@
         shape.ry.baseVal.value = Math.abs(data['y2'] - data['y']) / 2;
     }
 
-    function drawingCircle() {
-        return circleTool.secondary.active;
-    }
-
     var circleTool = { //The new tool
+		"groupName": "Shapes",
         "name": "Ellipse",
-        "icon": "tools/ellipse/icon-ellipse.svg",
-        "secondary": {
-            "name": "Circle",
-            "icon": "tools/ellipse/icon-circle.svg",
-            "active": false,
-            "switch": doUpdate,
-        },
+        "icon": "tools/ellipse/icon.svg",
         "shortcut": "c",
         "listeners": {
             "press": start,

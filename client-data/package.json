@@ -1,0 +1,9 @@
+{
+  "name": "client-data",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "iink-js": "^1.4.5"
+  }
+}

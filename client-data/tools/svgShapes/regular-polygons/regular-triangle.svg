@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="61px" height="51px" viewBox="0 0 61 51" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>5AC6C06F-F24E-4CAE-94C8-D64A7904232F</title>
+    <defs>
+        <path d="M30.865,0.63 C31.0397,0.632 31.2009,0.725 31.29,0.875 L60.54,49.625 C60.6316,49.78 60.6333,49.971 60.5444,50.127 C60.4555,50.284 60.2897,50.38 60.11,50.38 L60.125,50.375 L0.875,50.375 C0.6946,50.375 0.5284,50.277 0.44,50.12 C0.3507,49.965 0.3507,49.775 0.44,49.62 L30.44,0.87 C30.51525,0.746666667 30.6395972,0.662916667 30.7794769,0.637847222 L30.865,0.63 Z M30.87,2.09 L1.77,49.375 L59.24,49.375 L30.87,2.09 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="SHAPES" transform="translate(-124.000000, -6068.000000)">
+            <g id="Group-4520" transform="translate(124.000000, 6068.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-4519"></g>
+                <polygon id="Fill-4518" fill="#000000" mask="url(#mask-2)" points="-4.627 -4.37 65.6099 -4.37 65.6099 55.38 -4.627 55.38"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

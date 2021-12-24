@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="59px" height="51px" viewBox="0 0 59 51" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>4D34EB79-020D-4384-BCB8-08363CA57EBF</title>
+    <defs>
+        <path d="M43.9,0.0549922628 C44.0793,0.054 44.2453,0.15 44.335,0.305 L58.735,25.25 C58.8243,25.405 58.8243,25.595 58.735,25.75 L44.335,50.695 C44.2453,50.85 44.0793,50.946 43.9,50.9450077 L15.1,50.9450077 C14.9207,50.946 14.7547,50.85 14.665,50.695 L0.265,25.75 C0.1757,25.595 0.1757,25.405 0.265,25.25 L14.665,0.305 C14.7547,0.15 14.9207,0.054 15.1,0.0549922628 L43.9,0.0549922628 Z M43.61,1.055 L15.39,1.055 L1.275,25.5 L15.4,49.945 L43.62,49.945 L57.725,25.5 L43.61,1.055 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="SHAPES" transform="translate(-125.000000, -6247.000000)">
+            <g id="Group-4530" transform="translate(125.000000, 6247.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-4529"></g>
+                <polygon id="Fill-4528" fill="#000000" mask="url(#mask-2)" points="-4.802 -4.945 63.802 -4.945 63.802 55.945 -4.802 55.945"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

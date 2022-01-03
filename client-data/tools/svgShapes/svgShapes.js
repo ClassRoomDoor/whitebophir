@@ -149,7 +149,10 @@
 		'circle area','arc length','circle sector',
 		'acute angle','right angle','obtuse angle','straight angle','reflex angle',
 		'basic triangle','triangle area','pythagorean triangle','sin cos tan','equilateral triangle',
-		'isosceles triangle','scalene triangle','triangle right','acute triangle','obtuse triangle'
+		'isosceles triangle','scalene triangle','triangle right','acute triangle','obtuse triangle',
+		'right one angle','acute each angle','obtuse one angle',
+		'triangle equilateral sides','triangle isosceles sides','triangles scalene sides',
+		'quadrilateral angles','quadrilateral perimeter','trapezoid area'
 	];
 
 	shapes.forEach((shape) => {

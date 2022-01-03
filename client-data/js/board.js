@@ -174,11 +174,20 @@ Tools.HTML = {
             span.appendChild(image);
             subToolContainer.appendChild(span);
 
-            const nameSpan = document.createElement("p");
+            const nameSpan = document.createElement("div");
             nameSpan.innerHTML = child.title;
             nameSpan.setAttribute("class", "sub-tool-name");
             subToolContainer.appendChild(nameSpan);
             elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+            if(child.subtitle){
+              const nameSpanSubtitle = document.createElement("div");
+              nameSpanSubtitle.innerHTML = child.subtitle;
+              nameSpanSubtitle.setAttribute("class", "sub-tool-subtitle");
+              subToolContainer.appendChild(nameSpanSubtitle);
+              elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+            }
+
+     
           }
         })
 

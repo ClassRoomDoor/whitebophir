@@ -432,6 +432,34 @@
             icon: "tools/svgShapes/triangles/obtuse-triangle.svg",
             title: "Obtuse Triangle"
           },
+          // Triangles based on angles
+          {
+            category: "Triangles based on angles"
+          },
+          {
+            toolName: "Right one angle",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/triangles-angles/right.svg",
+            title: "Right One angle"
+          },
+          {
+            toolName: "Acute each angle",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/triangles-angles/acute.svg",
+            title: "Acute Each angle"
+          },
+          {
+            toolName: "Obtuse one angle",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/triangles-angles/obtuse.svg",
+            title: "Obtuse One angle"
+          },
+          // Triangles based on sides
+          {
+            category: "Triangles based on sides"
+          }
+
+
 
     ];
   }

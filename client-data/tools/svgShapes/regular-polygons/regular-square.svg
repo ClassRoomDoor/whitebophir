@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="47px" height="47px" viewBox="-10 -10 67 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>AF5DAA32-0E21-409D-8A54-F671EBBA239C</title>
+    <defs>
+        <path d="M46.375,0.125 C46.6511,0.125 46.875,0.349 46.875,0.625 L46.875,46.375 C46.875,46.651 46.6511,46.875 46.375,46.875 L0.625,46.875 C0.3489,46.875 0.125,46.651 0.125,46.375 L0.125,0.625 C0.125,0.349 0.3489,0.125 0.625,0.125 L46.375,0.125 Z M45.875,1.125 L1.125,1.125 L1.125,45.875 L45.875,45.875 L45.875,1.125 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="SHAPES" transform="translate(-261.000000, -6070.000000)">
+            <g id="Group-4540" transform="translate(261.000000, 6070.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-4539"></g>
+                <polygon id="Fill-4538" fill="#000000" mask="url(#mask-2)" points="-4.875 -4.875 51.875 -4.875 51.875 51.875 -4.875 51.875"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

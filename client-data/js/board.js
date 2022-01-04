@@ -124,117 +124,150 @@ window.addEventListener("pageshow", saveBoardNametoLocalStorage);
 
 Tools.HTML = {
   template: new Minitpl("#tools > .tool"),
-	addShortcut: function addShortcut(key, callback) {
-		window.addEventListener("keydown", function (e) {
-			if (e.key === key && !e.target.matches("input[type=text], textarea")) {
-				callback();
-			}
-		});
-	},
-	addTool: function (toolName, toolIcon, toolIconHTML, toolShortcut, oneTouch, element, children) {
-    
-    var callback = function (event) {
-      if(this === event.target) {
-      Tools.change(toolName);
+  addShortcut: function addShortcut(key, callback) {
+    window.addEventListener("keydown", function (e) {
+      if (e.key === key && !e.target.matches("input[type=text], textarea")) {
+        callback();
       }
-		};
-		this.addShortcut(toolShortcut, function () {
-			Tools.change(toolName);
-			document.activeElement.blur && document.activeElement.blur();
-		});
-		return this.template.add(function (elem) {
-			elem.addEventListener("click", callback);
+    });
+  },
+  addTool: function (toolName, toolIcon, toolIconHTML, toolShortcut, oneTouch, element, children) {
+
+    var callback = function (event) {
+      if (this === event.target) {
+        Tools.change(toolName);
+      }
+    };
+    this.addShortcut(toolShortcut, function () {
+      Tools.change(toolName);
+      document.activeElement.blur && document.activeElement.blur();
+    });
+    return this.template.add(function (elem) {
+      elem.addEventListener("click", callback);
       elem.id = "toolID-" + toolName;
       elem.getElementsByClassName("tool-name")[0].innerHTML = Tools.i18n.t(toolName);
-      if(element){
+      if (element) {
         const toolMenu = elem.getElementsByClassName("tool-menu")[0];
         toolMenu.appendChild(element);
         toolMenu.classList.add("input-tool");
       }
-      
-      if(children){
-        children.forEach((child)=>{
-          const span = document.createElement("span");
-          const image = document.createElement("img");
-          image.className="tool-icon tool-icon-dimension";
-          image.setAttribute("src", child.icon);
-          const callback = function () {
-            Tools.change(child.toolName);
-          };
-          span.addEventListener("click", callback);
-          span.id = "toolID-" + child.toolName;
-          span.appendChild(image);
-          elem.getElementsByClassName("tool-menu")[0].appendChild(span);
+
+      if (children) {
+        children.forEach((child) => {
+          if (child.category) {
+            const categoryTitle = document.createElement("p");
+            categoryTitle.setAttribute("class", "sub-tool-category");
+            categoryTitle.innerHTML = child.category;
+            elem.getElementsByClassName("tool-menu")[0].appendChild(categoryTitle);
+          } else {
+            const subToolContainer = document.createElement("div");
+            subToolContainer.setAttribute("class", "sub-tool-container");
+            const span = document.createElement("span");
+            const image = document.createElement("img");
+            image.className = "tool-icon tool-icon-dimension";
+            image.setAttribute("src", child.icon);
+            const callback = function () {
+              Tools.change(child.toolName);
+            };
+            span.addEventListener("click", callback);
+            span.id = "toolID-" + child.toolName;
+            span.appendChild(image);
+            subToolContainer.appendChild(span);
+
+            if(child.title){
+              const nameSpan = document.createElement("div");
+              nameSpan.innerHTML = child.title;
+              nameSpan.setAttribute("class", "sub-tool-name");
+              subToolContainer.appendChild(nameSpan);
+              elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+            }
+            if(child.subtitle){
+              const nameSpanSubtitle = document.createElement("div");
+              nameSpanSubtitle.innerHTML = child.subtitle;
+              nameSpanSubtitle.setAttribute("class", "sub-tool-subtitle");
+              subToolContainer.appendChild(nameSpanSubtitle);
+              elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+            }
+            if(child.formula){
+              const nameSpanFormula = document.createElement("div");
+              nameSpanFormula.setAttribute("class", "sub-tool-formula");
+              subToolContainer.appendChild(nameSpanFormula);
+              elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+              Tools.convertMathematicalNotation(child.formula,nameSpanFormula)
+            }
+
+     
+          }
         })
-      
-        
+
+
       }
-			var toolIconElem = elem.getElementsByClassName("tool-icon")[0];
-			toolIconElem.src = toolIcon;
-			toolIconElem.alt = toolIcon;
-			if (oneTouch) elem.classList.add("oneTouch");
-			elem.title =
-				Tools.i18n.t(toolName) + " (" +
-				Tools.i18n.t("keyboard shortcut") + ": " +
-				toolShortcut + ")" +
-				(Tools.list[toolName].secondary ? " [" + Tools.i18n.t("click_to_toggle") + "]" : "");
-			if (Tools.list[toolName].secondary) {
-				elem.classList.add('hasSecondary');
-				var secondaryIcon = elem.getElementsByClassName('secondaryIcon')[0];
-				secondaryIcon.src = Tools.list[toolName].secondary.icon;
-				toolIconElem.classList.add("primaryIcon");
-			}
-		});
-	},
-	changeTool: function (oldToolName, newToolName) {
-		var oldTool = document.getElementById("toolID-" + oldToolName);
-		var newTool = document.getElementById("toolID-" + newToolName);
-		if (oldTool) oldTool.classList.remove("curTool");
-		if (newTool) newTool.classList.add("curTool");
-	},
-	toggle: function (toolName, name, icon) {
-		var elem = document.getElementById("toolID-" + toolName);
+      var toolIconElem = elem.getElementsByClassName("tool-icon")[0];
+      toolIconElem.src = toolIcon;
+      toolIconElem.alt = toolIcon;
+      if (oneTouch) elem.classList.add("oneTouch");
+      elem.title =
+        Tools.i18n.t(toolName) + " (" +
+        Tools.i18n.t("keyboard shortcut") + ": " +
+        toolShortcut + ")" +
+        (Tools.list[toolName].secondary ? " [" + Tools.i18n.t("click_to_toggle") + "]" : "");
+      if (Tools.list[toolName].secondary) {
+        elem.classList.add('hasSecondary');
+        var secondaryIcon = elem.getElementsByClassName('secondaryIcon')[0];
+        secondaryIcon.src = Tools.list[toolName].secondary.icon;
+        toolIconElem.classList.add("primaryIcon");
+      }
+    });
+  },
+  changeTool: function (oldToolName, newToolName) {
+    var oldTool = document.getElementById("toolID-" + oldToolName);
+    var newTool = document.getElementById("toolID-" + newToolName);
+    if (oldTool) oldTool.classList.remove("curTool");
+    if (newTool) newTool.classList.add("curTool");
+  },
+  toggle: function (toolName, name, icon) {
+    var elem = document.getElementById("toolID-" + toolName);
 
-		// Change secondary icon
-		var primaryIcon = elem.getElementsByClassName("primaryIcon")[0];
-		var secondaryIcon = elem.getElementsByClassName("secondaryIcon")[0];
-		var primaryIconSrc = primaryIcon.src;
-		var secondaryIconSrc = secondaryIcon.src;
-		primaryIcon.src = secondaryIconSrc;
-		secondaryIcon.src = primaryIconSrc;
+    // Change secondary icon
+    var primaryIcon = elem.getElementsByClassName("primaryIcon")[0];
+    var secondaryIcon = elem.getElementsByClassName("secondaryIcon")[0];
+    var primaryIconSrc = primaryIcon.src;
+    var secondaryIconSrc = secondaryIcon.src;
+    primaryIcon.src = secondaryIconSrc;
+    secondaryIcon.src = primaryIconSrc;
 
-		// Change primary icon
-		elem.getElementsByClassName("tool-icon")[0].src = icon;
-		elem.getElementsByClassName("tool-name")[0].textContent = Tools.i18n.t(name);
-	},
-	addStylesheet: function (href) {
-		//Adds a css stylesheet to the html or svg document
-		var link = document.createElement("link");
-		link.href = href;
-		link.rel = "stylesheet";
-		link.type = "text/css";
-		document.head.appendChild(link);
-	},
-	colorPresetTemplate: new Minitpl("#colorPresetSel .colorPresetButton"),
-	addColorButton: function (button) {
-		var setColor = Tools.setColor.bind(Tools, button.color);
+    // Change primary icon
+    elem.getElementsByClassName("tool-icon")[0].src = icon;
+    elem.getElementsByClassName("tool-name")[0].textContent = Tools.i18n.t(name);
+  },
+  addStylesheet: function (href) {
+    //Adds a css stylesheet to the html or svg document
+    var link = document.createElement("link");
+    link.href = href;
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    document.head.appendChild(link);
+  },
+  colorPresetTemplate: new Minitpl("#colorPresetSel .colorPresetButton"),
+  addColorButton: function (button) {
+    var setColor = Tools.setColor.bind(Tools, button.color);
 
-		if (button.key) this.addShortcut(button.key, setColor);
-		return this.colorPresetTemplate.add(function (elem) {
-			elem.addEventListener("click", setColor);
-			elem.id = "color_" + button.color.replace(/^#/, '');
-			elem.style.backgroundColor = button.color;
-      if(button.color===Tools.currentColor){
-        const tickImage=document.createElement('img')
-        tickImage.id="tick-icon-clr"
-        tickImage.setAttribute('src','/SvgIcons/tick.svg')
+    if (button.key) this.addShortcut(button.key, setColor);
+    return this.colorPresetTemplate.add(function (elem) {
+      elem.addEventListener("click", setColor);
+      elem.id = "color_" + button.color.replace(/^#/, '');
+      elem.style.backgroundColor = button.color;
+      if (button.color === Tools.currentColor) {
+        const tickImage = document.createElement('img')
+        tickImage.id = "tick-icon-clr"
+        tickImage.setAttribute('src', '/SvgIcons/tick.svg')
         elem?.appendChild(tickImage);
       }
-			if (button.key) {
-				elem.title = Tools.i18n.t("keyboard shortcut") + ": " + button.key;
-			}
-		});
-	}
+      if (button.key) {
+        elem.title = Tools.i18n.t("keyboard shortcut") + ": " + button.key;
+      }
+    });
+  }
 };
 
 Tools.list = {}; // An array of all known tools. {"toolName" : {toolObject}}
@@ -254,9 +287,9 @@ Tools.register = function registerTool(newTool) {
   if (newTool.name in Tools.list) {
     console.log(
       "Tools.add: The tool '" +
-        newTool.name +
-        "' is already" +
-        "in the list. Updating it..."
+      newTool.name +
+      "' is already" +
+      "in the list. Updating it..."
     );
   }
 
@@ -293,7 +326,7 @@ Tools.add = function (newTool) {
     Tools.HTML.addStylesheet(newTool.stylesheet);
   }
 
-  if(newTool?.groupName){
+  if (newTool?.groupName) {
     return;
   }
   //Add the tool to the GUI
@@ -310,55 +343,55 @@ Tools.add = function (newTool) {
 
 Tools.change = function (toolName) {
 
-	if(!Tools.isCurrentToolBusy){
-		var newTool = Tools.list[toolName];
-		var oldTool = Tools.curTool;
-		if (!newTool)
+  if (!Tools.isCurrentToolBusy) {
+    var newTool = Tools.list[toolName];
+    var oldTool = Tools.curTool;
+    if (!newTool)
       throw new Error("Trying to select a tool that has never been added!");
-		if (newTool === oldTool) {
-			if (newTool.secondary) {
-			newTool.secondary.active = !newTool.secondary.active;
-			var props = newTool.secondary.active ? newTool.secondary : newTool;
-			Tools.HTML.toggle(newTool.name, props.name, props.icon);
-			if (newTool.secondary.switch) newTool.secondary.switch();
-			}
-			return;
+    if (newTool === oldTool) {
+      if (newTool.secondary) {
+        newTool.secondary.active = !newTool.secondary.active;
+        var props = newTool.secondary.active ? newTool.secondary : newTool;
+        Tools.HTML.toggle(newTool.name, props.name, props.icon);
+        if (newTool.secondary.switch) newTool.secondary.switch();
+      }
+      return;
     }
-    if(newTool?.groupName){
+    if (newTool?.groupName) {
       Tools.currentGroup = newTool.groupName;
       Tools.currentSubTool = newTool.name;
     }
-		if (!newTool.oneTouch) {
+    if (!newTool.oneTouch) {
       //Update the GUI
-			var curToolName = Tools.curTool ? Tools.curTool.name : "";
-			try {
-			Tools.HTML.changeTool(curToolName, toolName);
-			} catch (e) {
-			console.error("Unable to update the GUI with the new tool. " + e);
-			}
-			Tools.svg.style.cursor = newTool.mouseCursor || "auto";
-			Tools.board.title = Tools.i18n.t(newTool.helpText || "");
+      var curToolName = Tools.curTool ? Tools.curTool.name : "";
+      try {
+        Tools.HTML.changeTool(curToolName, toolName);
+      } catch (e) {
+        console.error("Unable to update the GUI with the new tool. " + e);
+      }
+      Tools.svg.style.cursor = newTool.mouseCursor || "auto";
+      Tools.board.title = Tools.i18n.t(newTool.helpText || "");
 
-			//There is not necessarily already a curTool
-			if (Tools.curTool !== null) {
-			//It's useless to do anything if the new tool is already selected
-			if (newTool === Tools.curTool) return;
+      //There is not necessarily already a curTool
+      if (Tools.curTool !== null) {
+        //It's useless to do anything if the new tool is already selected
+        if (newTool === Tools.curTool) return;
 
-			//Remove the old event listeners
-			Tools.removeToolListeners(Tools.curTool);
+        //Remove the old event listeners
+        Tools.removeToolListeners(Tools.curTool);
 
-			//Call the callbacks of the old tool
-			Tools.curTool.onquit(newTool);
-			}
+        //Call the callbacks of the old tool
+        Tools.curTool.onquit(newTool);
+      }
 
-			//Add the new event listeners
-			Tools.addToolListeners(newTool);
-			Tools.curTool = newTool;
-		}
+      //Add the new event listeners
+      Tools.addToolListeners(newTool);
+      Tools.curTool = newTool;
+    }
 
-		//Call the start callback of the new tool
-		newTool.onstart(oldTool);
-	}
+    //Call the start callback of the new tool
+    newTool.onstart(oldTool);
+  }
 };
 
 Tools.addToolListeners = function addToolListeners(tool) {
@@ -408,6 +441,7 @@ Tools.send = function (data, toolName) {
 
 Tools.drawAndSend = function (data, tool) {
   if (tool == null) tool = Tools.curTool;
+  data = { ...data, tool: tool.name }
   tool.draw(data, true);
   Tools.send(data, tool.name);
 };
@@ -438,6 +472,14 @@ function messageForTool(message) {
       type: "update",
       transform: message.transform,
       id: message.id,
+    });
+  }
+}
+
+Tools.convertMathematicalNotation = function convertMathematicalNotation(text,targetElem){
+  if (katex) {
+    katex.render(text,targetElem,{
+      throwOnError: false
     });
   }
 }
@@ -581,10 +623,10 @@ Tools.toolHooks = [
       tool.listeners = {};
     }
     if (typeof tool.onstart !== "function") {
-      tool.onstart = function () {};
+      tool.onstart = function () { };
     }
     if (typeof tool.onquit !== "function") {
-      tool.onquit = function () {};
+      tool.onquit = function () { };
     }
   },
   function compileListeners(tool) {
@@ -686,28 +728,28 @@ Tools.positionElement = function (elem, x, y) {
 };
 
 Tools.colorPresets = [
-	{ color: "#f1be43", key: '1' },
-	{ color: "#36d174", key: '2' },
-	{ color: "#3ebfff", key: '3' },
-	{ color: "#ef5350", key: '0' },
-	{ color: "#E65194" }
+  { color: "#f1be43", key: '1' },
+  { color: "#36d174", key: '2' },
+  { color: "#3ebfff", key: '3' },
+  { color: "#ef5350", key: '0' },
+  { color: "#E65194" }
 ];
 
-Tools.currentColor =Tools.colorPresets[0].color;
+Tools.currentColor = Tools.colorPresets[0].color;
 
 Tools.setColor = function (color) {
   const prevColorValue = Tools.currentColor?.substring(1);
-  const previousColor=document.getElementById(`color_${prevColorValue}`);
+  const previousColor = document.getElementById(`color_${prevColorValue}`);
 
- if(previousColor){
-  previousColor.innerHTML="";
- }
-  const tickImage=document.createElement('img')
-  tickImage.id="tick-icon-clr"
+  if (previousColor) {
+    previousColor.innerHTML = "";
+  }
+  const tickImage = document.createElement('img')
+  tickImage.id = "tick-icon-clr"
   const currentColorElem = document.getElementById(
     "color_" + color.substring(1)
   );
-  tickImage.setAttribute('src','/SvgIcons/tick.svg')
+  tickImage.setAttribute('src', '/SvgIcons/tick.svg')
   currentColorElem?.appendChild(tickImage);
   Tools.currentColor = color;
 
@@ -778,18 +820,18 @@ Tools.svg.height.baseVal.value = document.body.clientHeight;
 /**
  What does a "tool" object look like?
  newtool = {
-	  "name" : "SuperTool",
-	  "listeners" : {
-			"press" : function(x,y,evt){...},
-			"move" : function(x,y,evt){...},
-			"release" : function(x,y,evt){...},
-	  },
-	  "draw" : function(data, isLocal){
-			//Print the data on Tools.svg
-	  },
-	  "onstart" : function(oldTool){...},
-	  "onquit" : function(newTool){...},
-	  "stylesheet" : "style.css",
+    "name" : "SuperTool",
+    "listeners" : {
+      "press" : function(x,y,evt){...},
+      "move" : function(x,y,evt){...},
+      "release" : function(x,y,evt){...},
+    },
+    "draw" : function(data, isLocal){
+      //Print the data on Tools.svg
+    },
+    "onstart" : function(oldTool){...},
+    "onquit" : function(newTool){...},
+    "stylesheet" : "style.css",
 }
 */
 

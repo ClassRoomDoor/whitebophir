@@ -182,15 +182,27 @@
         icon: "tools/svgShapes/shapes/heart.svg",
         title: "Heart"
       },
+       // 3D-shapes
       {
         category: "3D Shapes"
       },
-        // 3D-shapes
+      {
+        toolName: "Cube simple",
+        path: "tools/svgShapes/svgShapes.js",
+        icon: "tools/svgShapes/3d_shapes/cube-simple.svg",
+        title: "Cube"
+      },
         {
           toolName: "Cube sq",
           path: "tools/svgShapes/svgShapes.js",
           icon: "tools/svgShapes/3d_shapes/cube-sq.svg",
           title: "Cube"
+        },
+        {
+          toolName: "Cube rect",
+          path: "tools/svgShapes/svgShapes.js",
+          icon: "tools/svgShapes/3d_shapes/cube-rect.svg",
+          title: "Rectangular Prism"
         },
         {
           toolName: "Rectangular prism rect",
@@ -348,25 +360,25 @@
             toolName: "Right angle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/basic_angles/right-angle.svg",
-            title: "Right angle = 90^"
+            title: "Right angle = 90°"
           },
           {
             toolName: "Obtuse angle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/basic_angles/obtuse-angle.svg",
-            title: "Obtuse angle > 90^ and < 180^"
+            title: "Obtuse angle > 90° and < 180°"
           },
           {
             toolName: "Straight angle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/basic_angles/straight-line.svg",
-            title: "Straight line = 180^"
+            title: "Straight line = 180°"
           },
           {
             toolName: "Reflex angle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/basic_angles/reflex-angle.svg",
-            title: "Reflex angle > 180^"
+            title: "Reflex angle > 180°"
           },
            //Triangles
            {
@@ -376,7 +388,7 @@
             toolName: "Basic triangle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/basic-triangle.svg",
-            title: "a+b+c = 180^"
+            formula: "a+b+c = 180°"
           },
           {
             toolName: "Triangle area",
@@ -432,6 +444,247 @@
             icon: "tools/svgShapes/triangles/obtuse-triangle.svg",
             title: "Obtuse Triangle"
           },
+          // Triangles based on angles
+          {
+            category: "Triangles based on angles"
+          },
+          {
+            toolName: "Right one angle",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/triangles-angles/right.svg",
+            title: "Right One angle"
+          },
+          {
+            toolName: "Acute each angle",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/triangles-angles/acute.svg",
+            title: "Acute Each angle"
+          },
+          {
+            toolName: "Obtuse one angle",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/triangles-angles/obtuse.svg",
+            title: "Obtuse One angle"
+          },
+          // Triangles based on sides
+          {
+            category: "Triangles based on sides"
+          },
+          {
+            toolName: "Triangle equilateral sides",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/triangles-sides/equilateral.svg",
+            title: "Equilateral",
+            subtitle:'Length of all sides are equal' 
+          },
+          {
+            toolName: "Triangle isosceles sides",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/triangles-sides/isosceles.svg",
+            title: "Isosceles",
+            subtitle:'Length of two sides are equal' 
+          },
+          {
+            toolName: "Triangle scalene sides",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/triangles-sides/scalene.svg",
+            title: "Scalene",
+            subtitle:'Length of all sides are different' 
+          },
+          // quadrilaterals
+          {
+            category: "Quadrilateral"
+          },
+          {
+            toolName: "Quadrilateral angles",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/quadrilateral/quadrilateral-angles.svg",
+            title: "Quadrilateral Angles",
+            formula:'a + b + c + d = 360°' 
+          },
+          {
+            toolName: "Quadrilateral perimeter",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/quadrilateral/perimeter.svg",
+            formula: 'A = bh Perimeter = 2b + 2h' 
+          },
+          {
+            toolName: "Parallelogram area",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/quadrilateral/parallelogram-area.svg",
+            title: "Parallelogram Area",
+            formula:'A = bh' 
+          },
+          {
+            toolName: "Trapezoid area",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/quadrilateral/trapezoid-area.svg",
+            title: "Trapezoid Area",
+            formula:'A = 1/2( b1 + b2 )h'
+          },
+          {
+            toolName: "All equal sides",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/quadrilateral/all-equals.svg",
+            title: 'All sides equal;',
+            subtitle:'All angles 90°'
+          },
+          {
+            toolName: "Opposite sides equal",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/quadrilateral/opposite-equals.svg",
+            title: 'Opposite sides equal;',
+            subtitle:'All angles 90°'
+          },
+          {
+            toolName: "Parallel equal angles",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/quadrilateral/parallel-equal-angles.svg",
+            title: 'All sides equal; 2 pairs of parallel lines,opposite angles equal',
+          },
+          {
+            toolName: "Two parallel equals",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/quadrilateral/two-parallel-equals.svg",
+            title: 'Opposite sides equal; 2 pairs of parallel lines',
+          },
+          {
+            toolName: "Adjacent sides equal",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/quadrilateral/adjacent-equals.svg",
+            title: 'Adjacent sides equal;',
+            subtitle:'2 congruent angles'
+          },
+          {
+            toolName: "One parallel pair",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/quadrilateral/one-parallel-pair.svg",
+            title: '1 pair of parallel sides',
+          },
+          {
+            toolName: "No parallel sides",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/quadrilateral/no-parallel-pair.svg",
+            title: 'No pair of parallel sides'
+          },
+          // regular polygon
+          {
+            category: "Regular Polygon"
+          },
+          {
+            toolName: "Polygon tri",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/regular-polygons/regular-triangle.svg",
+            title: 'Equilateral Triangle',
+            subtitle:'3 sides,60° angles'
+          },
+          {
+            toolName: "Polygon sqr",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/regular-polygons/regular-square.svg",
+            title: 'Square',
+            subtitle:'4 sides,90° angles'
+          },
+          {
+            toolName: "Polygon penta",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/regular-polygons/regular-pentagon.svg",
+            title: 'Equilateral Pentagon',
+            subtitle:'5 sides,108° angles'
+          },
+          {
+            toolName: "Polygon hexa",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/regular-polygons/regular-hexagon.svg",
+            title: 'Regular Hexagon',
+            subtitle:'6 sides,120° angles'
+          },
+          {
+            toolName: "Polygon octa",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/regular-polygons/regular-octagon.svg",
+            title: 'regular Octagon',
+            subtitle:'5 sides,135° angles'
+          },
+          {
+            toolName: "Polygon deca",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/regular-polygons/regular-decagon.svg",
+            title: 'regular decagon',
+            subtitle:'10 sides,144° angles'
+          },
+          // Sat Algebra
+          {
+            category: "SAT Algebra and Geometry Essentials"
+          },
+          {
+            toolName: "Sat circle area",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/sat-algebra/area-of-circle.svg",
+            formula:'A=πr^2 C=2πr'
+          },
+          {
+            toolName: "Sat rectangle area",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/sat-algebra/area-of-rectangle.svg",
+            formula: 'A = lw',
+          },
+          {
+            toolName: "Sat triangle area",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/sat-algebra/area-of-triangle.svg",
+            formula: 'A = (1/2)bh',
+          },
+          {
+            toolName: "Sat pythagorean triangle",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/sat-algebra/area-right-triangle.svg",
+            formula: 'c^2= a^2 + b^2',
+          },
+          {
+            toolName: "Special right triangle",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/sat-algebra/special-right-triangle.svg",
+            title: 'Special Right Triangles',
+          },
+          {
+            toolName: "Isosceles right triangle",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/sat-algebra/isosceles-right-triangle.svg",
+            title: 'Special Right Triangles',
+          },
+          {
+            toolName: "Cube volume",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/sat-algebra/volume-of-cube.svg",
+            formula: 'V = lwh',
+          },
+          {
+            toolName: "Cylinder volume",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/sat-algebra/volume-of-cylinder.svg",
+            formula: 'V = πr^2h',
+          },
+          {
+            toolName: "Sphere volume",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/sat-algebra/volume-of-sphere.svg",
+            formula: 'V = (4/3)πr^3h',
+          },
+          {
+            toolName: "Cone volume",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/sat-algebra/volume-of-cone.svg",
+            formula: 'V = (1/3)πr^3h',
+          },
+          {
+            toolName: "Square cone volume",
+            path: "tools/svgShapes/svgShapes.js",
+            icon: "tools/svgShapes/sat-algebra/volume-of-square-cone.svg",
+            formula: 'V = (1/3)lwh',
+          },
+
+
 
     ];
   }

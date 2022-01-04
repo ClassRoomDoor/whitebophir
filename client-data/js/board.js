@@ -174,11 +174,29 @@ Tools.HTML = {
             span.appendChild(image);
             subToolContainer.appendChild(span);
 
-            const nameSpan = document.createElement("p");
-            nameSpan.innerHTML = child.title;
-            nameSpan.setAttribute("class", "sub-tool-name");
-            subToolContainer.appendChild(nameSpan);
-            elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+            if(child.title){
+              const nameSpan = document.createElement("div");
+              nameSpan.innerHTML = child.title;
+              nameSpan.setAttribute("class", "sub-tool-name");
+              subToolContainer.appendChild(nameSpan);
+              elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+            }
+            if(child.subtitle){
+              const nameSpanSubtitle = document.createElement("div");
+              nameSpanSubtitle.innerHTML = child.subtitle;
+              nameSpanSubtitle.setAttribute("class", "sub-tool-subtitle");
+              subToolContainer.appendChild(nameSpanSubtitle);
+              elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+            }
+            if(child.formula){
+              const nameSpanFormula = document.createElement("div");
+              nameSpanFormula.setAttribute("class", "sub-tool-formula");
+              subToolContainer.appendChild(nameSpanFormula);
+              elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+              Tools.convertMathematicalNotation(child.formula,nameSpanFormula)
+            }
+
+     
           }
         })
 
@@ -454,6 +472,14 @@ function messageForTool(message) {
       type: "update",
       transform: message.transform,
       id: message.id,
+    });
+  }
+}
+
+Tools.convertMathematicalNotation = function convertMathematicalNotation(text,targetElem){
+  if (katex) {
+    katex.render(text,targetElem,{
+      throwOnError: false
     });
   }
 }

@@ -648,8 +648,7 @@ input[type="range"]::-ms-fill-upper {
 	flex-direction: column;
 	width: 33%;
 	margin: auto;
-	margin-bottom: 10px;
-	margin-top: 10px;
+	margin-top: 15px;
 }
 #menu .main-tools .sub-tool-container .tool-icon-dimension {
 	width: 120px !important;
@@ -657,10 +656,17 @@ input[type="range"]::-ms-fill-upper {
 }
 #menu .main-tools .sub-tool-container span {
 	margin: auto;
+	margin-bottom: 10px;
 }
-#menu .main-tools .sub-tool-container p {
+#menu .main-tools .sub-tool-container .sub-tool-name,
+#menu .main-tools .sub-tool-container .sub-tool-subtitle,
+#menu .main-tools .sub-tool-container .sub-tool-formula
+{
 	text-align: center;
 	font-size: 12px;
+	white-space: initial;
+	word-wrap: break-word;
+	line-height: 15px;
 }
 #menu .main-tools .sub-tools {
 	overflow-y: scroll;
@@ -678,4 +684,7 @@ input[type="range"]::-ms-fill-upper {
 	font-family: Montserrat;
 	color: #f9a722;
 	font-weight: 700;
+	margin: 0;
+	position: relative;
+    top: 15px;
 }

@@ -90,9 +90,11 @@
 		switch (data.type) {
 			case "rect":
 				createShape(data);
+				console.log('before switch')
 				break;
 			case "update":
 				var shape = svg.getElementById(data['id']);
+				console.log('before switch1')
 				if (!shape) {
 					console.error("Straight shape: Hmmm... I received a point of a rect that has not been created (%s).", data['id']);
 					createShape({ //create a new shape in order not to loose the points
@@ -100,6 +102,8 @@
 						"x": data['x2'],
 						"y": data['y2']
 					});
+					console.log('before switch2')
+
 				}
 				updateShape(shape, data);
 				break;
@@ -116,7 +120,7 @@
 		shape.setAttribute("href", `#${data.tool.toLowerCase()}`);
 
 		shape.setAttribute("stroke", data.color || "black");
-		shape.setAttribute("stroke-width", data.size || 10);
+		shape.setAttribute("stroke-width", 1 || 10);
 		shape.setAttribute(
 			"opacity",
 			Math.max(0.1, Math.min(1, data.opacity)) || 1
@@ -134,6 +138,7 @@
 		shape.y.baseVal.value = Math.min(data["y2"], data["y"]);
 		shape.width.baseVal.value = Math.abs(data["x2"] - data["x"]);
 		shape.height.baseVal.value = Math.abs(data["y2"] - data["y"]);
+
 	}
 
 	const shapes = [
@@ -141,7 +146,7 @@
 		'right-triangle', 'parallelogram', 'kite', "decagon", "scalene",
 		"square", "isosceles", "trapezoid", "crescent", "hexagon", "obtuse",
 		"star", "equilateral", "octagon", "rectangle", "heptagon", "trefoil",
-		"heart", "cube sq", "rectangular prism rect", "hexagonal prism sq",
+		"heart", 'cube simple',"cube sq",'cube rect', "rectangular prism rect", "hexagonal prism sq",
 		"hexagonal prism rect", "cylinder", "cone", "triangular prism", "sphere",
 		"hemisphere", "trapezoidal prism", "trapezoidal prism sm", "hexagonal pyramid",
 		"octagonal pyramid", 'oblique square pyramid', 'square pyramid', 'octahedron',
@@ -149,7 +154,14 @@
 		'circle area','arc length','circle sector',
 		'acute angle','right angle','obtuse angle','straight angle','reflex angle',
 		'basic triangle','triangle area','pythagorean triangle','sin cos tan','equilateral triangle',
-		'isosceles triangle','scalene triangle','triangle right','acute triangle','obtuse triangle'
+		'isosceles triangle','scalene triangle','triangle right','acute triangle','obtuse triangle',
+		'right one angle','acute each angle','obtuse one angle',
+		'triangle equilateral sides','triangle isosceles sides','triangle scalene sides',
+		'quadrilateral angles','quadrilateral perimeter','parallelogram area','trapezoid area','all equal sides','opposite sides equal',
+		'parallel equal angles','two parallel equals','adjacent sides equal','one parallel pair','no parallel sides',
+		'polygon tri','polygon sqr','polygon penta','polygon hexa','polygon octa','polygon deca',
+		'sat circle area','sat rectangle area','sat triangle area','sat pythagorean triangle','special right triangle',
+		'isosceles right triangle','cube volume','cylinder volume','sphere volume','cone volume','square cone volume'
 	];
 
 	shapes.forEach((shape) => {
@@ -162,11 +174,13 @@
 				"release": stop,
 			},
 			"draw": draw,
+			
 			"mouseCursor": "crosshair",
 			"icon": `tools/svgShapes/${shape}.svg`,
 			"stylesheet": "tools/svgShapes/svgShapes.css"
 		};
 		Tools.add(newShape);
+		
 	});
 
 })(); //End of code isolation

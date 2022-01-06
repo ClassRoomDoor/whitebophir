@@ -30,6 +30,14 @@ svg {
 	transform-origin: 0 0;
 }
 
+#canvas foreignObject.title{
+	text-align: center;
+}
+#canvas foreignObject.formula{
+	text-align: center;
+}
+
+
 #loadingMessage {
 	font-size: 1.5em;
 	background: #eee linear-gradient(#eeeeee, #cccccc);

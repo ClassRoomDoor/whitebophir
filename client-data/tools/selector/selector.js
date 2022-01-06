@@ -414,6 +414,15 @@
 		} else if (Tools.drawingArea.contains(evt.target)) {
 			hideSelectionUI();
 			selected_els = [getParentMathematics(evt.target)];
+			const formula = $(selected_els[0]).parents('[id*="Formula"]');
+			if (formula.length > 0) {
+				selected_els.pop();
+				selected_els.push($(`#${formula[0].id.replace("Formula", "")}`)[0]);
+			} else if (selected_els[0].id.includes("Shape")) {
+				selected_els.push($(`#${selected_els.pop().id}`.replace("Shape", ""))[0]);
+			} else if (selected_els[0].id.includes("Title")) {
+				selected_els.push($(`#${selected_els.pop().id}`.replace("Title", ""))[0]);
+			}
 			startMovingElements(x, y, evt);
 		} else {
 			hideSelectionButtons();

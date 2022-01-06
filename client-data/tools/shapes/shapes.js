@@ -69,10 +69,10 @@
         title: "Ellipse"
       },
       {
-        toolName: "Right",
+        toolName: "Right triangle",
         path: "tools/svgShapes/svgShapes.js",
         icon: "tools/svgShapes/shapes/right-triangle.svg",
-        title: "Right"
+        title: "Right triangle"
       },
       {
         toolName: "Parallelogram",
@@ -394,7 +394,7 @@
             toolName: "Triangle area",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/triangle-area.svg",
-            title: "A=1/2bh"
+            formula: "A=1/2bh"
           },
           {
             toolName: "Pythagorean triangle",
@@ -406,7 +406,9 @@
             toolName: "Sin cos tan",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/sin-cos-tan.svg",
-            title: "Sin=o/h cos=a/h tan=a/o"
+            formula: "sinθ=o/h",
+            formula1:" cosθ=a/h",
+            formula2:'tanθ=a/o'
           },
           {
             toolName: "Equilateral triangle",
@@ -506,7 +508,8 @@
             toolName: "Quadrilateral perimeter",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/perimeter.svg",
-            formula: 'A = bh Perimeter = 2b + 2h' 
+            formula:'A=bh',
+            formula1: 'Perimeter = 2b + 2h' 
           },
           {
             toolName: "Parallelogram area",
@@ -540,13 +543,15 @@
             toolName: "Parallel equal angles",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/parallel-equal-angles.svg",
-            title: 'All sides equal; 2 pairs of parallel lines,opposite angles equal',
+            title: 'All sides equal;',
+            subtitle:'2 pairs of parallel lines,opposite angles equal'
           },
           {
             toolName: "Two parallel equals",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/two-parallel-equals.svg",
-            title: 'Opposite sides equal; 2 pairs of parallel lines',
+            title: 'Opposite sides equal;',
+            subtitle:'2 pairs of parallel lines'
           },
           {
             toolName: "Adjacent sides equal",

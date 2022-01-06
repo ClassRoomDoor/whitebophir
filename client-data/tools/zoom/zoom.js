@@ -31,21 +31,25 @@
           toolName: "ZoomIn",
           path: "tools/zoomIn/zoomIn.js",
           icon: "tools/zoomIn/icon.svg",
+          title:"Zoom In"
         },
         {
           toolName: "ZoomOut",
           path: "tools/zoomOut/zoomOut.js",
           icon: "tools/zoomOut/icon.svg",
+          title:"Zoom Out"
         },
         {
           toolName: "Recenter",
           path: "tools/recenter/recenter.js",
           icon: "tools/recenter/icon.svg",
+          title:"Re-Center"
         },
         {
           toolName: "Hand",
           path: "tools/hand/hand.js",
           icon: "tools/hand/hand.svg",
+          title:"Move"
         }
       ];
     }

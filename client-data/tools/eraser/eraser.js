@@ -54,6 +54,14 @@
 			target = document.elementFromPoint(touch.clientX, touch.clientY);
 		}
 		if (erasing && target !== Tools.svg && target !== Tools.drawingArea && inDrawingArea(target)) {
+			const formula = $(target).parents('[id*="Formula"]');
+			if (formula.length > 0) {
+				target = $(`#${formula[0].id.replace("Formula", "")}`)[0];
+			} else if (target.id.includes("Title")) {
+				target = $(`#${target.id}`.replace("Title", ""))[0];
+			} else if (target.id.includes("Shape")) {
+				target = $(`#${target.id}`.replace("Shape", ""))[0];
+			}
 			msg.id = target.id;
 			Tools.drawAndSend(msg);
 		}

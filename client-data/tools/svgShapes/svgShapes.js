@@ -90,11 +90,9 @@
 		switch (data.type) {
 			case "rect":
 				createShape(data);
-				console.log('before switch')
 				break;
 			case "update":
 				var shape = svg.getElementById(data['id']);
-				console.log('before switch1')
 				if (!shape) {
 					console.error("Straight shape: Hmmm... I received a point of a rect that has not been created (%s).", data['id']);
 					createShape({ //create a new shape in order not to loose the points
@@ -114,13 +112,31 @@
 	}
 
 	var svg = Tools.svg;
+
 	function createShape(data) {
-		var shape = Tools.createSVGElement("use");
-		shape.id = data.id;
+		let shapeGroup = Tools.createSVGElement("g");
+		if (data.title) {
+			let shapeTitle = Tools.createSVGElement("foreignObject");
+			shapeTitle.setAttribute("class", "title");
+			shapeTitle.id = `${data.id}Title`;
+			shapeGroup.appendChild(shapeTitle);
+		}
+		if (data.formula) {
+			let shapeFormula = Tools.createSVGElement("foreignObject");
+			shapeFormula.setAttribute("class", "formula");
+			shapeFormula.id = `${data.id}Formula`;
+			shapeGroup.appendChild(shapeFormula);
+		}
+
+		let shape = Tools.createSVGElement("use");
+		shape.id = `${data.id}Shape`;
+		shapeGroup.id = data.id;
+
+		shape.setAttribute("class", "shape");
 		shape.setAttribute("href", `#${data.tool.toLowerCase()}`);
 
 		shape.setAttribute("stroke", data.color || "black");
-		shape.setAttribute("stroke-width", 1 || 10);
+		shape.setAttribute("stroke-width", data.size || 10);
 		shape.setAttribute(
 			"opacity",
 			Math.max(0.1, Math.min(1, data.opacity)) || 1
@@ -128,17 +144,42 @@
 		const shapeSymbol = document.getElementById(`${data.tool.toLowerCase()}`);
 		const viewBox = shapeSymbol.getAttribute("viewBox").split(/\s+|,/);
 		shape.setAttribute("viewBox", `${Number(viewBox[0]) - (data.size > 1 ? data.size : 0)} ${Number(viewBox[1]) - (data.size > 1 ? data.size : 0)} ${(Number(viewBox[2]) + (data.size > 1 ? data.size * 2 : 0))} ${Number(viewBox[3]) + (data.size > 1 ? data.size * 2 : 0)}`);
-		updateShape(shape, data);
-		Tools.drawingArea.appendChild(shape);
-		return shape;
+		shapeGroup.appendChild(shape);
+		updateShape(shapeGroup, data);
+		Tools.drawingArea.appendChild(shapeGroup);
+		return shapeGroup;
 	}
 
-	function updateShape(shape, data) {
-		shape.x.baseVal.value = Math.min(data["x2"], data["x"]);
-		shape.y.baseVal.value = Math.min(data["y2"], data["y"]);
-		shape.width.baseVal.value = Math.abs(data["x2"] - data["x"]);
-		shape.height.baseVal.value = Math.abs(data["y2"] - data["y"]);
-
+	function updateShape(shapeGroup, data) {
+		if (shapeGroup) {
+			const shape = shapeGroup.getElementsByClassName("shape")[0];
+			const shapeTitle = shapeGroup.getElementsByClassName("title")[0];
+			const shapeFormula = shapeGroup.getElementsByClassName("formula")[0];
+			shape.x.baseVal.value = Math.min(data["x2"], data["x"]);
+			shape.y.baseVal.value = Math.min(data["y2"], data["y"]);
+			shape.width.baseVal.value = Math.abs(data["x2"] - data["x"]);
+			shape.height.baseVal.value = Math.abs(data["y2"] - data["y"]);
+			//adding shape title below the shape
+			if (data.title) {
+				shapeTitle.x.baseVal.value = Math.min(data["x2"], data["x"]);
+				shapeTitle.y.baseVal.value = Math.min(data["y2"], data["y"]) + Math.abs(data["y2"] - data["y"] - 20);
+				shapeTitle.width.baseVal.value = Math.abs(data["x2"] - data["x"]);
+				shapeTitle.height.baseVal.value = shapeTitle.y.baseVal.value / 30 + 10;
+				shapeTitle.style.fontSize = `${shapeTitle.y.baseVal.value / 30 + 5}px`
+				shapeTitle.innerHTML = data.title;
+			}
+			//adding shape formula below the shape
+			if (katex && data.formula) {
+				shapeFormula.x.baseVal.value = Math.min(data["x2"], data["x"]);
+				shapeFormula.y.baseVal.value = Math.min(data["y2"], data["y"]) + Math.abs(data["y2"] - data["y"] + 5);
+				shapeFormula.width.baseVal.value = Math.abs(data["x2"] - data["x"]);
+				shapeFormula.height.baseVal.value = shapeTitle.y.baseVal.value / 30 + 10;
+				shapeFormula.style.fontSize = `${shapeTitle.y.baseVal.value / 30 + 5}px`
+				katex.render(data.formula, shapeFormula, {
+					throwOnError: false
+				});
+			}
+		}
 	}
 
 	const shapes = [
@@ -146,22 +187,22 @@
 		'right triangle', 'parallelogram', 'kite', "decagon", "scalene",
 		"square", "isosceles", "trapezoid", "crescent", "hexagon", "obtuse",
 		"star", "equilateral", "octagon", "rectangle", "heptagon", "trefoil",
-		"heart", 'cube simple',"cube sq",'cube rect', "rectangular prism rect", "hexagonal prism sq",
+		"heart", 'cube simple', "cube sq", 'cube rect', "rectangular prism rect", "hexagonal prism sq",
 		"hexagonal prism rect", "cylinder", "cone", "triangular prism", "sphere",
 		"hemisphere", "trapezoidal prism", "trapezoidal prism sm", "hexagonal pyramid",
 		"octagonal pyramid", 'oblique square pyramid', 'square pyramid', 'octahedron',
-		'octahedron sq', 'octahedron rect', 'icosahedron','circle parts','circumference',
-		'circle area','arc length','circle sector',
-		'acute angle','right angle','obtuse angle','straight angle','reflex angle',
-		'basic triangle','triangle area','pythagorean triangle','sin cos tan','equilateral triangle',
-		'isosceles triangle','scalene triangle','triangle right','acute triangle','obtuse triangle',
-		'right one angle','acute each angle','obtuse one angle',
-		'triangle equilateral sides','triangle isosceles sides','triangle scalene sides',
-		'quadrilateral angles','quadrilateral perimeter','parallelogram area','trapezoid area','all equal sides','opposite sides equal',
-		'parallel equal angles','two parallel equals','adjacent sides equal','one parallel pair','no parallel sides',
-		'polygon tri','polygon sqr','polygon penta','polygon hexa','polygon octa','polygon deca',
-		'sat circle area','sat rectangle area','sat triangle area','sat pythagorean triangle','special right triangle',
-		'isosceles right triangle','cube volume','cylinder volume','sphere volume','cone volume','square cone volume'
+		'octahedron sq', 'octahedron rect', 'icosahedron', 'circle parts', 'circumference',
+		'circle area', 'arc length', 'circle sector',
+		'acute angle', 'right angle', 'obtuse angle', 'straight angle', 'reflex angle',
+		'basic triangle', 'triangle area', 'pythagorean triangle', 'sin cos tan', 'equilateral triangle',
+		'isosceles triangle', 'scalene triangle', 'triangle right', 'acute triangle', 'obtuse triangle',
+		'right one angle', 'acute each angle', 'obtuse one angle',
+		'triangle equilateral sides', 'triangle isosceles sides', 'triangle scalene sides',
+		'quadrilateral angles', 'quadrilateral perimeter', 'parallelogram area', 'trapezoid area', 'all equal sides', 'opposite sides equal',
+		'parallel equal angles', 'two parallel equals', 'adjacent sides equal', 'one parallel pair', 'no parallel sides',
+		'polygon tri', 'polygon sqr', 'polygon penta', 'polygon hexa', 'polygon octa', 'polygon deca',
+		'sat circle area', 'sat rectangle area', 'sat triangle area', 'sat pythagorean triangle', 'special right triangle',
+		'isosceles right triangle', 'cube volume', 'cylinder volume', 'sphere volume', 'cone volume', 'square cone volume'
 	];
 
 	shapes.forEach((shape) => {
@@ -174,13 +215,13 @@
 				"release": stop,
 			},
 			"draw": draw,
-			
+
 			"mouseCursor": "crosshair",
 			"icon": `tools/svgShapes/${shape}.svg`,
 			"stylesheet": "tools/svgShapes/svgShapes.css"
 		};
 		Tools.add(newShape);
-		
+
 	});
 
 })(); //End of code isolation

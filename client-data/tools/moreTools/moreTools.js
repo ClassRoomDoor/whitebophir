@@ -21,7 +21,7 @@
         if (subTools.children().length) {
           subTools.children().each(function (index) {
             $(this).on("click", () => {
-              const toolName = $(this).attr("id").split("-")[1];
+              const toolName = $(this).children(":first").attr("id").split("-")[1];
               Tools.change(toolName);
               if (toolName === "Wolfram") {
                 const searchInput = $(subTools[index]).find("#wolfram-input");

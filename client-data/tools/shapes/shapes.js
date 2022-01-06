@@ -69,10 +69,10 @@
         title: "Ellipse"
       },
       {
-        toolName: "Right",
+        toolName: "Right triangle",
         path: "tools/svgShapes/svgShapes.js",
         icon: "tools/svgShapes/shapes/right-triangle.svg",
-        title: "Right"
+        title: "Right triangle"
       },
       {
         toolName: "Parallelogram",
@@ -506,7 +506,8 @@
             toolName: "Quadrilateral perimeter",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/perimeter.svg",
-            formula: 'A = bh Perimeter = 2b + 2h' 
+            title:'A=bh',
+            formula: 'Perimeter = 2b + 2h' 
           },
           {
             toolName: "Parallelogram area",

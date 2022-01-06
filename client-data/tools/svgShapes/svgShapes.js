@@ -143,7 +143,7 @@
 
 	const shapes = [
 		'pentagon', 'nonagon', 'line', 'rhombus', 'acute', 'ellipse',
-		'right-triangle', 'parallelogram', 'kite', "decagon", "scalene",
+		'right triangle', 'parallelogram', 'kite', "decagon", "scalene",
 		"square", "isosceles", "trapezoid", "crescent", "hexagon", "obtuse",
 		"star", "equilateral", "octagon", "rectangle", "heptagon", "trefoil",
 		"heart", 'cube simple',"cube sq",'cube rect', "rectangular prism rect", "hexagonal prism sq",

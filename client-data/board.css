@@ -125,8 +125,8 @@ svg {
 	position: fixed;
 	bottom: 78px;
 	right: 10px;
-	width: 50%;
-	max-height: 30%;
+	width: 95%;
+	max-height: 75%;
 	background-color: #fff;
 	overflow-y: scroll;
 	border-radius: 10px;
@@ -149,7 +149,6 @@ svg {
 }
 #more-tools img {
 	filter: invert(23%) sepia(52%) saturate(30%) hue-rotate(180deg) brightness(75%) contrast(118%);
-	width: 36px;
 	border: 1px solid #efeff329;
 	margin: 3px;
 }
@@ -167,14 +166,14 @@ svg {
 		justify-content: flex-end;
 		right: 0;
 	}
-	#more-tools-container {
+	/* #more-tools-container {
 		max-width: 380px;
 		min-width: 300px;
-	}
+	} */
 }
 @media (max-width: 414px) {
 	#more-tools-container {
-		width: 70%;
+		width: 90%;
 	}
 }
 
@@ -249,16 +248,16 @@ li#undo:hover {
 	max-width: 100%;
 }
 #menu .main-tools .tool-list .tool-icon-dimension {
-	height: 24px !important;
-	width: 24px !important;
+	height: 24px;
+	width: 24px t;
 }
 #menu .main-tools .tool-icon-dimension {
-	height: 24px !important;
-	width: 24px !important;
+	height: 24px ;
+	width: 24px ;
 }
 #menu .main-tools .sub-tools .tool-icon-dimension {
-	height: 40px !important;
-	width: 40px !important;
+	height: 40px ;
+	width: 40px ;
 	padding: 5px;
 	border: 1px solid #efeff329;
 }
@@ -628,6 +627,13 @@ input[type="range"]::-ms-fill-lower {
 input[type="range"]::-ms-fill-upper {
 	background-color: #cccccc;
 }
+.sub-tool-container {
+	display: flex;
+	flex-direction: column;
+	width: 33%;
+	margin: auto 0;
+	margin-top: 15px;
+}
 @media (max-width: 768px) {
 	#menu .tools-list {
 		max-width: 40px !important;
@@ -637,23 +643,44 @@ input[type="range"]::-ms-fill-upper {
 	#menu .tool.curTool .sub-tools {
 		position: fixed;
 		bottom: 80px;
-		width: 570px;
+		width: 370px;
+		padding: 0 10px;
+		right: 1rem;
 	}
 	#menu .tool-menu input {
 		width: 230px;
 	}
+	#menu .main-tools .sub-tool-container .tool-icon-dimension {
+		width: 75px ;
+		height: 75px ;
+	}
+	.sub-tool-container{
+		display: inline-flex;
+		pointer-events: auto;
+		cursor: pointer;
+		word-wrap: break-word;
+		text-align: center;
+	}
+	.sub-tool-container .sub-tool-name,
+ .sub-tool-container .sub-tool-subtitle,
+  .sub-tool-container .sub-tool-formula
+	{
+		text-align: center;
+		font-size: 1/21em !important;
+		white-space: initial;
+		word-wrap: break-word;
+		line-height: 15px;
+	}
+	.katex{
+		font: normal 1em KaTeX_Main,Times New Roman,serif;
+	}
+	.sub-tool-container .tool-icon-dimension{
+		height: 75px;
+		width: 75px;
+	}
 }
-.sub-tool-container {
-	display: flex;
-	flex-direction: column;
-	width: 33%;
-	margin: auto;
-	margin-top: 15px;
-}
-#menu .main-tools .sub-tool-container .tool-icon-dimension {
-	width: 120px !important;
-	height: 120px !important;
-}
+
+
 #menu .main-tools .sub-tool-container span {
 	margin: auto;
 	margin-bottom: 10px;
@@ -687,4 +714,10 @@ input[type="range"]::-ms-fill-upper {
 	margin: 0;
 	position: relative;
     top: 15px;
+}
+@media  (min-width:768px) {
+	#menu .main-tools .sub-tool-container .tool-icon-dimension {
+		width: 120px ;
+		height: 120px ;
+	}
 }

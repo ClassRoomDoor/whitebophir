@@ -1,3 +1,7 @@
 #drawingArea rect {
 	fill: none;
 }
+foreignObject{
+	word-wrap: break-word;
+    height: 100%;
+}

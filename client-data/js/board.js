@@ -176,7 +176,8 @@ Tools.HTML = {
             Tools.list[child.toolName] = {
               ...Tools.list[child.toolName],
               title: child.title,
-              formula: child.formula
+              formula: child.formula,
+              subtitle: child.subtitle
             }
             if (child.title) {
               const nameSpan = document.createElement("div");
@@ -193,11 +194,14 @@ Tools.HTML = {
               elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
             }
             if (child.formula) {
-              const nameSpanFormula = document.createElement("div");
-              nameSpanFormula.setAttribute("class", "sub-tool-formula");
-              subToolContainer.appendChild(nameSpanFormula);
-              elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
-              Tools.convertMathematicalNotation(child.formula, nameSpanFormula)
+              child.formula.forEach((formula) => {
+                const nameSpanFormula = document.createElement("div");
+                nameSpanFormula.setAttribute("class", "sub-tool-formula");
+                subToolContainer.appendChild(nameSpanFormula);
+                elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+                Tools.convertMathematicalNotation(formula, nameSpanFormula)
+
+              })
             }
 
 
@@ -445,7 +449,8 @@ Tools.send = function (data, toolName) {
 
 Tools.drawAndSend = function (data, tool) {
   if (tool == null) tool = Tools.curTool;
-  data = { ...data, tool: tool.name, formula: tool.formula, title: tool.title }
+  data = { ...data, tool: tool.name, formula: tool.formula, title: tool.title, subtitle: tool.subtitle }
+  console.log('data', data)
   tool.draw(data, true);
   Tools.send(data, tool.name);
 };

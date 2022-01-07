@@ -122,10 +122,13 @@
 			shapeGroup.appendChild(shapeTitle);
 		}
 		if (data.formula) {
-			let shapeFormula = Tools.createSVGElement("foreignObject");
-			shapeFormula.setAttribute("class", "formula");
-			shapeFormula.id = `${data.id}Formula`;
-			shapeGroup.appendChild(shapeFormula);
+			data.formula.forEach((expression) => {
+				let shapeFormula = Tools.createSVGElement("foreignObject");
+				shapeFormula.setAttribute("class", "formula");
+				shapeFormula.id = `${data.id}Formula`;
+				shapeGroup.appendChild(shapeFormula);
+			})
+
 		}
 
 		let shape = Tools.createSVGElement("use");
@@ -154,29 +157,31 @@
 		if (shapeGroup) {
 			const shape = shapeGroup.getElementsByClassName("shape")[0];
 			const shapeTitle = shapeGroup.getElementsByClassName("title")[0];
-			const shapeFormula = shapeGroup.getElementsByClassName("formula")[0];
+			const shapeFormula = shapeGroup.getElementsByClassName("formula");
 			shape.x.baseVal.value = Math.min(data["x2"], data["x"]);
 			shape.y.baseVal.value = Math.min(data["y2"], data["y"]);
 			shape.width.baseVal.value = Math.abs(data["x2"] - data["x"]);
 			shape.height.baseVal.value = Math.abs(data["y2"] - data["y"]);
 			//adding shape title below the shape
-			if (data.title) {
+			if (data.title && shapeTitle) {
 				shapeTitle.x.baseVal.value = Math.min(data["x2"], data["x"]);
 				shapeTitle.y.baseVal.value = Math.min(data["y2"], data["y"]) + Math.abs(data["y2"] - data["y"] - 20);
 				shapeTitle.width.baseVal.value = Math.abs(data["x2"] - data["x"]);
-				shapeTitle.height.baseVal.value = shapeTitle.y.baseVal.value / 30 + 10;
-				shapeTitle.style.fontSize = `${shapeTitle.y.baseVal.value / 30 + 5}px`
+				shapeTitle.height.baseVal.value = shapeTitle.y.baseVal.value / 50 + 10;
+				shapeTitle.style.fontSize = `${shapeTitle.y.baseVal.value / 50 + 5}px`
 				shapeTitle.innerHTML = data.title;
 			}
 			//adding shape formula below the shape
 			if (katex && data.formula) {
-				shapeFormula.x.baseVal.value = Math.min(data["x2"], data["x"]);
-				shapeFormula.y.baseVal.value = Math.min(data["y2"], data["y"]) + Math.abs(data["y2"] - data["y"] + 5);
-				shapeFormula.width.baseVal.value = Math.abs(data["x2"] - data["x"]);
-				shapeFormula.height.baseVal.value = shapeTitle.y.baseVal.value / 30 + 10;
-				shapeFormula.style.fontSize = `${shapeTitle.y.baseVal.value / 30 + 5}px`
-				katex.render(data.formula, shapeFormula, {
-					throwOnError: false
+				data.formula.forEach((dataFormula, index) => {
+					shapeFormula[index].x.baseVal.value = Math.min(data["x2"], data["x"]);
+					shapeFormula[index].y.baseVal.value = Math.min(data["y2"], data["y"]) + Math.abs(data["y2"] - data["y"] + 5 + (40 * index));
+					shapeFormula[index].width.baseVal.value = Math.abs(data["x2"] - data["x"]);
+					shapeFormula[index].height.baseVal.value = shapeFormula[index].y.baseVal.value / 50 + 10;
+					shapeFormula[index].style.fontSize = `${shapeFormula[index].y.baseVal.value / 50 + 5}px`
+					katex.render(dataFormula, shapeFormula[index], {
+						throwOnError: false
+					});
 				});
 			}
 		}

@@ -388,13 +388,13 @@
             toolName: "Basic triangle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/basic-triangle.svg",
-            formula: "a+b+c = 180°"
+            formula: ["a+b+c = 180°"]
           },
           {
             toolName: "Triangle area",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/triangle-area.svg",
-            title: "A=1/2bh"
+            formula: ["A=1/2bh"]
           },
           {
             toolName: "Pythagorean triangle",
@@ -406,7 +406,7 @@
             toolName: "Sin cos tan",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/sin-cos-tan.svg",
-            title: "Sin=o/h cos=a/h tan=a/o"
+            formula: ['Sinθ=o/h','cosθ=a/h','tanθ=a/o']
           },
           {
             toolName: "Equilateral triangle",
@@ -500,28 +500,27 @@
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/quadrilateral-angles.svg",
             title: "Quadrilateral Angles",
-            formula:'a + b + c + d = 360°' 
+            formula:['a + b + c + d = 360°'] 
           },
           {
             toolName: "Quadrilateral perimeter",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/perimeter.svg",
-            title:'A=bh',
-            formula: 'Perimeter = 2b + 2h' 
+            formula: ['A=bh','Perimeter = 2b + 2h'] 
           },
           {
             toolName: "Parallelogram area",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/parallelogram-area.svg",
             title: "Parallelogram Area",
-            formula:'A = bh' 
+            formula:['A = bh']
           },
           {
             toolName: "Trapezoid area",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/trapezoid-area.svg",
             title: "Trapezoid Area",
-            formula:'A = 1/2( b1 + b2 )h'
+            formula:['A = 1/2( b1 + b2 )h']
           },
           {
             toolName: "All equal sides",
@@ -622,25 +621,25 @@
             toolName: "Sat circle area",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/area-of-circle.svg",
-            formula:'A=πr^2 C=2πr'
+            formula:['A=πr^2','C=2πr']
           },
           {
             toolName: "Sat rectangle area",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/area-of-rectangle.svg",
-            formula: 'A = lw',
+            formula: ['A = lw'],
           },
           {
             toolName: "Sat triangle area",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/area-of-triangle.svg",
-            formula: 'A = (1/2)bh',
+              formula: ['A = (1/2)bh'],
           },
           {
             toolName: "Sat pythagorean triangle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/area-right-triangle.svg",
-            formula: 'c^2= a^2 + b^2',
+            formula: ['c^2= a^2 + b^2'],
           },
           {
             toolName: "Special right triangle",
@@ -658,31 +657,31 @@
             toolName: "Cube volume",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/volume-of-cube.svg",
-            formula: 'V = lwh',
+            formula: ['V = lwh'],
           },
           {
             toolName: "Cylinder volume",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/volume-of-cylinder.svg",
-            formula: 'V = πr^2h',
+            formula: ['V = πr^2h'],
           },
           {
             toolName: "Sphere volume",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/volume-of-sphere.svg",
-            formula: 'V = (4/3)πr^3h',
+            formula: ['V = (4/3)πr^3h'],
           },
           {
             toolName: "Cone volume",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/volume-of-cone.svg",
-            formula: 'V = (1/3)πr^3h',
+            formula: ['V = (1/3)πr^3h'],
           },
           {
             toolName: "Square cone volume",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/volume-of-square-cone.svg",
-            formula: 'V = (1/3)lwh',
+            formula: ['V = (1/3)lwh'],
           },
 
 

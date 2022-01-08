@@ -674,10 +674,10 @@ input[type="range"]::-ms-fill-upper {
   .sub-tool-container .sub-tool-formula
 	{
 		text-align: center;
-		font-size: 1/21em !important;
+		font-size: 1.21em !important;
 		white-space: initial;
 		word-wrap: break-word;
-		line-height: 15px;
+		line-height: 21px;
 	}
 	.katex{
 		font: normal 1em KaTeX_Main,Times New Roman,serif;
@@ -688,20 +688,22 @@ input[type="range"]::-ms-fill-upper {
 	}
 }
 
-
-#menu .main-tools .sub-tool-container span {
-	margin: auto;
+#menu .main-tools .sub-tool-container span{
+	margin: 2px 0;
+}
+#menu .main-tools .sub-tool-container .toolSpan {
 	margin-bottom: 10px;
 }
+
 #menu .main-tools .sub-tool-container .sub-tool-name,
 #menu .main-tools .sub-tool-container .sub-tool-subtitle,
 #menu .main-tools .sub-tool-container .sub-tool-formula
 {
 	text-align: center;
-	font-size: 12px;
+	font-size: 13px;
 	white-space: initial;
 	word-wrap: break-word;
-	line-height: 15px;
+	line-height: 21px;
 }
 #menu .main-tools .sub-tools {
 	overflow-y: scroll;

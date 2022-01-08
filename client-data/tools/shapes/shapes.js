@@ -394,7 +394,7 @@
             toolName: "Triangle area",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/triangle-area.svg",
-            formula: ["A=1/2bh"]
+            formula: ["A=\\dfrac{1}{2}bh"]
           },
           {
             toolName: "Pythagorean triangle",
@@ -406,7 +406,7 @@
             toolName: "Sin cos tan",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/sin-cos-tan.svg",
-            formula: ['Sinθ=o/h','cosθ=a/h','tanθ=a/o']
+            formula: ['sinθ=\\dfrac{o}{h}','cosθ=\\dfrac{a}{h}','tanθ=\\dfrac{a}{o}']
           },
           {
             toolName: "Equilateral triangle",
@@ -520,7 +520,7 @@
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/trapezoid-area.svg",
             title: "Trapezoid Area",
-            formula:['A = 1/2( b1 + b2 )h']
+            formula:['A = \\dfrac{1}{2}( b1 + b2 )h']
           },
           {
             toolName: "All equal sides",
@@ -540,13 +540,13 @@
             toolName: "Parallel equal angles",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/parallel-equal-angles.svg",
-            title: 'All sides equal; 2 pairs of parallel lines,opposite angles equal',
+            title: 'All sides equal;<br>2 pairs of parallel lines<br>opposite angles equal',
           },
           {
             toolName: "Two parallel equals",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/two-parallel-equals.svg",
-            title: 'Opposite sides equal; 2 pairs of parallel lines',
+            title: 'Opposite sides equal;<br>2 pairs of parallel lines',
           },
           {
             toolName: "Adjacent sides equal",
@@ -633,7 +633,7 @@
             toolName: "Sat triangle area",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/area-of-triangle.svg",
-              formula: ['A = (1/2)bh'],
+              formula: ['A = (\\dfrac{1}{2})bh'],
           },
           {
             toolName: "Sat pythagorean triangle",
@@ -669,19 +669,19 @@
             toolName: "Sphere volume",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/volume-of-sphere.svg",
-            formula: ['V = (4/3)πr^3h'],
+            formula: ['V = (\\dfrac{4}{3})πr^3h'],
           },
           {
             toolName: "Cone volume",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/volume-of-cone.svg",
-            formula: ['V = (1/3)πr^3h'],
+            formula: ['V = (\\dfrac{1}{3})πr^3h'],
           },
           {
             toolName: "Square cone volume",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/sat-algebra/volume-of-square-cone.svg",
-            formula: ['V = (1/3)lwh'],
+            formula: ['V = (\\dfrac{1}{3})lwh'],
           },
 
 

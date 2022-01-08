@@ -163,6 +163,7 @@ Tools.HTML = {
             const subToolContainer = document.createElement("div");
             subToolContainer.setAttribute("class", "sub-tool-container");
             const span = document.createElement("span");
+            span.setAttribute('class','toolSpan')
             const image = document.createElement("img");
             image.className = "tool-icon tool-icon-dimension";
             image.setAttribute("src", child.icon);

@@ -454,6 +454,10 @@ path {
 	stroke-linejoin: round;
 }
 
+symbol path {
+	fill: unset
+}
+
 text {
 	font-family: "Arial", "Helvetica", sans-serif;
 	user-select: none;

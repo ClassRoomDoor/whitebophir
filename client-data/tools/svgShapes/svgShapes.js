@@ -138,15 +138,16 @@
 		shape.setAttribute("class", "shape");
 		shape.setAttribute("href", `#${data.tool.toLowerCase()}`);
 
+		shape.setAttribute("fill", data.color || "black");
 		shape.setAttribute("stroke", data.color || "black");
-		shape.setAttribute("stroke-width", data.size || 10);
+		shape.setAttribute("stroke-width", data.size /10|| 0);
 		shape.setAttribute(
 			"opacity",
 			Math.max(0.1, Math.min(1, data.opacity)) || 1
 		);
 		const shapeSymbol = document.getElementById(`${data.tool.toLowerCase()}`);
 		const viewBox = shapeSymbol.getAttribute("viewBox").split(/\s+|,/);
-		shape.setAttribute("viewBox", `${Number(viewBox[0]) - (data.size > 1 ? data.size : 0)} ${Number(viewBox[1]) - (data.size > 1 ? data.size : 0)} ${(Number(viewBox[2]) + (data.size > 1 ? data.size * 2 : 0))} ${Number(viewBox[3]) + (data.size > 1 ? data.size * 2 : 0)}`);
+		shape.setAttribute("viewBox", `${Number(viewBox[0]) - (data.size > 1 ? data.size /10 : 0)} ${Number(viewBox[1]) - (data.size > 1 ? data.size /10 : 0)} ${(Number(viewBox[2]) + (data.size > 1 ? data.size /10 * 2 : 0))} ${Number(viewBox[3]) + (data.size > 1 ? data.size /10 * 2 : 0)}`);
 		shapeGroup.appendChild(shape);
 		updateShape(shapeGroup, data);
 		Tools.drawingArea.appendChild(shapeGroup);

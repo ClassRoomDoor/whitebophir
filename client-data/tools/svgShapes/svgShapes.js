@@ -115,13 +115,13 @@
 
 	function createShape(data) {
 		let shapeGroup = Tools.createSVGElement("g");
-		if (data.title) {
+		if (data.title && data.showDescription) {
 			let shapeTitle = Tools.createSVGElement("foreignObject");
 			shapeTitle.setAttribute("class", "title");
 			shapeTitle.id = `${data.id}Title`;
 			shapeGroup.appendChild(shapeTitle);
 		}
-		if (data.formula) {
+		if (data.formula && data.showDescription) {
 			data.formula.forEach((expression) => {
 				let shapeFormula = Tools.createSVGElement("foreignObject");
 				shapeFormula.setAttribute("class", "formula");
@@ -138,15 +138,13 @@
 		shape.setAttribute("class", "shape");
 		shape.setAttribute("href", `#${data.tool.toLowerCase()}`);
 
+		shape.setAttribute("fill", data.color || "black");
 		shape.setAttribute("stroke", data.color || "black");
-		shape.setAttribute("stroke-width", data.size || 10);
+		shape.setAttribute("stroke-width", data.size / 10 || 0);
 		shape.setAttribute(
 			"opacity",
 			Math.max(0.1, Math.min(1, data.opacity)) || 1
 		);
-		const shapeSymbol = document.getElementById(`${data.tool.toLowerCase()}`);
-		const viewBox = shapeSymbol.getAttribute("viewBox").split(/\s+|,/);
-		shape.setAttribute("viewBox", `${Number(viewBox[0]) - (data.size > 1 ? data.size : 0)} ${Number(viewBox[1]) - (data.size > 1 ? data.size : 0)} ${(Number(viewBox[2]) + (data.size > 1 ? data.size * 2 : 0))} ${Number(viewBox[3]) + (data.size > 1 ? data.size * 2 : 0)}`);
 		shapeGroup.appendChild(shape);
 		updateShape(shapeGroup, data);
 		Tools.drawingArea.appendChild(shapeGroup);
@@ -155,30 +153,43 @@
 
 	function updateShape(shapeGroup, data) {
 		if (shapeGroup) {
+			const xDisposition = Math.min(data["x2"], data["x"]);
+			const yDisposition = Math.min(data["y2"], data["y"]);
+			const width = Math.abs(data["x2"] - data["x"]);
+			const height = Math.abs(data["y2"] - data["y"]);
+			const shapeSymbol = document.getElementById(`${data.tool.toLowerCase()}`);
+			const viewBox = shapeSymbol.getAttribute("viewBox").split(/\s+|,/);
+			const shapeDefaultWidth = Number(viewBox[0]) * 2 + Number(viewBox[2]);
+			const shapeDefaultHeight = Number(viewBox[1]) * 2 + Number(viewBox[3]);
+			const shapeWidth = Math.min(width / shapeDefaultWidth * shapeDefaultWidth, width);
+			const shapeHeight = Math.min(height / shapeDefaultHeight * shapeDefaultHeight, height);
+
+
 			const shape = shapeGroup.getElementsByClassName("shape")[0];
 			const shapeTitle = shapeGroup.getElementsByClassName("title")[0];
 			const shapeFormula = shapeGroup.getElementsByClassName("formula");
-			shape.x.baseVal.value = Math.min(data["x2"], data["x"]);
-			shape.y.baseVal.value = Math.min(data["y2"], data["y"]);
-			shape.width.baseVal.value = Math.abs(data["x2"] - data["x"]);
-			shape.height.baseVal.value = Math.abs(data["y2"] - data["y"]);
+			shape.x.baseVal.value = xDisposition;
+			shape.y.baseVal.value = yDisposition;
+			shape.width.baseVal.value = shapeWidth;
+			shape.height.baseVal.value = shapeHeight;
+
 			//adding shape title below the shape
 			if (data.title && shapeTitle) {
-				shapeTitle.x.baseVal.value = Math.min(data["x2"], data["x"]);
-				shapeTitle.y.baseVal.value = Math.min(data["y2"], data["y"]) + Math.abs(data["y2"] - data["y"] - 20);
-				shapeTitle.width.baseVal.value = Math.abs(data["x2"] - data["x"]);
-				shapeTitle.height.baseVal.value = shapeTitle.y.baseVal.value / 50 + 10;
-				shapeTitle.style.fontSize = `${shapeTitle.y.baseVal.value / 50 + 5}px`
+				shapeTitle.x.baseVal.value = xDisposition;
+				shapeTitle.y.baseVal.value = shapeHeight + yDisposition - 20;
+				shapeTitle.width.baseVal.value = width;
+				shapeTitle.height.baseVal.value = shapeHeight / shapeDefaultHeight * 2 * 8 + 14;
+				shapeTitle.style.fontSize = `${shapeHeight / shapeDefaultHeight * 2 + 8}px`
 				shapeTitle.innerHTML = data.title;
 			}
 			//adding shape formula below the shape
 			if (katex && data.formula) {
 				data.formula.forEach((dataFormula, index) => {
-					shapeFormula[index].x.baseVal.value = Math.min(data["x2"], data["x"]);
-					shapeFormula[index].y.baseVal.value = Math.min(data["y2"], data["y"]) + Math.abs(data["y2"] - data["y"] + 5 + (40 * index));
-					shapeFormula[index].width.baseVal.value = Math.abs(data["x2"] - data["x"]);
-					shapeFormula[index].height.baseVal.value = shapeFormula[index].y.baseVal.value / 50 + 10;
-					shapeFormula[index].style.fontSize = `${shapeFormula[index].y.baseVal.value / 50 + 5}px`
+					shapeFormula[index].x.baseVal.value = xDisposition;
+					shapeFormula[index].y.baseVal.value = shapeHeight + yDisposition + ((shapeHeight / shapeDefaultHeight * 2 * +14) * index);
+					shapeFormula[index].width.baseVal.value = width;
+					shapeFormula[index].height.baseVal.value = shapeHeight / shapeDefaultHeight * 2 * 8 + 14;
+					shapeFormula[index].style.fontSize = `${shapeHeight / shapeDefaultHeight * 2 + 8}px`
 					katex.render(dataFormula, shapeFormula[index], {
 						throwOnError: false
 					});
@@ -187,8 +198,10 @@
 		}
 	}
 
+
+
 	const shapes = [
-		'pentagon', 'nonagon', 'line', 'rhombus', 'acute', 'ellipse',
+		'circle', 'pentagon', 'nonagon', 'line', 'rhombus', 'acute', 'ellipse',
 		'right triangle', 'parallelogram', 'kite', "decagon", "scalene",
 		"square", "isosceles", "trapezoid", "crescent", "hexagon", "obtuse",
 		"star", "equilateral", "octagon", "rectangle", "heptagon", "trefoil",

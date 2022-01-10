@@ -154,6 +154,10 @@ Tools.HTML = {
 
       if (children) {
         children.forEach((child) => {
+          if (child.toggleBtn) {
+            let toggleDiv = elem.getElementsByClassName("tool-menu")[0];
+            $(toggleDiv).append(child.toggleBtn)
+          }
           if (child.category) {
             const categoryTitle = document.createElement("p");
             categoryTitle.setAttribute("class", "sub-tool-category");
@@ -163,7 +167,7 @@ Tools.HTML = {
             const subToolContainer = document.createElement("div");
             subToolContainer.setAttribute("class", "sub-tool-container");
             const span = document.createElement("span");
-            span.setAttribute('class','toolSpan')
+            span.setAttribute('class', 'toolSpan')
             const image = document.createElement("img");
             image.className = "tool-icon tool-icon-dimension";
             image.setAttribute("src", child.icon);
@@ -450,8 +454,7 @@ Tools.send = function (data, toolName) {
 
 Tools.drawAndSend = function (data, tool) {
   if (tool == null) tool = Tools.curTool;
-  data = { ...data, tool: tool.name, formula: tool.formula, title: tool.title, subtitle: tool.subtitle }
-  console.log('data', data)
+  data = { ...data, tool: tool.name, formula: tool.formula, title: tool.title, subtitle: tool.subtitle, showDescription: $("#showShapeName")[0].checked }
   tool.draw(data, true);
   Tools.send(data, tool.name);
 };
@@ -738,11 +741,11 @@ Tools.positionElement = function (elem, x, y) {
 };
 
 Tools.colorPresets = [
-  { color: "#f1be43", key: '1' },
+  { color: "#2d3234", key: '0' },
+  { color: "#f28334", key: '1' },
   { color: "#36d174", key: '2' },
   { color: "#3ebfff", key: '3' },
-  { color: "#ef5350", key: '0' },
-  { color: "#E65194" }
+  { color: "#ef5350", key: '4' },
 ];
 
 Tools.currentColor = Tools.colorPresets[0].color;

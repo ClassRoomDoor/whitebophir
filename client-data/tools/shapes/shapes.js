@@ -26,7 +26,24 @@
 
 (function () {
   function getChildren() {
+    const toggleBtn=`<div class="shape-toggle-btn">
+    <label class="switch">
+      <input type="checkbox" id="showShapeName" checked>
+          <div class="slider round">
+          <span class="on">ON</span>
+          <span class="off">OFF</span>
+          </div>
+      </label>
+      <p id="shape-text">Show shape names</p>
+  </div>`
+
+ 
+
+  // let toggleBtn=document.createElement("div")
     return [
+      {
+        toggleBtn:toggleBtn
+      },
       //shapes
       {
         category: "One dimensional shapes"

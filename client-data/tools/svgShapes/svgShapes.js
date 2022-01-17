@@ -57,6 +57,7 @@
 			'y2': y
 		});
 
+		curUpdate.tool = Tools.curTool.name;
 		curUpdate.id = curId;
 		curUpdate.x = x;
 		curUpdate.y = y;
@@ -100,8 +101,6 @@
 						"x": data['x2'],
 						"y": data['y2']
 					});
-					console.log('before switch2')
-
 				}
 				updateShape(shape, data);
 				break;

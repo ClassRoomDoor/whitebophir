@@ -20,30 +20,32 @@
         const subTools = $(this).children(".sub-tools").first().clone();
         if (subTools.children().length) {
           subTools.children().each(function (index) {
-            $(this).on("click", () => {
-              const toolName = $(this).children(":first").attr("id").split("-")[1];
-              Tools.change(toolName);
-              if (toolName === "Wolfram") {
-                const searchInput = $(subTools[index]).find("#wolfram-input");
-                searchInput.focus();
-                searchInput.unbind();
-                searchInput.keypress((e) => {
-                  const key = e.which;
-                  if (key === 13 && searchInput.val()) {
-                    Tools.list.Wolfram.search(searchInput.val());
-                  }
-                });
-                const searchButton = $(subTools[index]).find("img");
-                searchButton.unbind();
-                searchButton.on("click", () => {
-                  if (searchInput.val()) {
-                    Tools.list.Wolfram.search(searchInput.val());
-                  }
-                });
-              } else {
-                moreToolsContainer.hide();
-              }
-            });
+            if ($(this).children(":first").attr("id")?.includes("toolID")) {
+              $(this).on("click", () => {
+                const toolName = $(this).children(":first").attr("id").split("-")[1];
+                Tools.change(toolName);
+                if (toolName === "Wolfram") {
+                  const searchInput = $(subTools[index]).find("#wolfram-input");
+                  searchInput.focus();
+                  searchInput.unbind();
+                  searchInput.keypress((e) => {
+                    const key = e.which;
+                    if (key === 13 && searchInput.val()) {
+                      Tools.list.Wolfram.search(searchInput.val());
+                    }
+                  });
+                  const searchButton = $(subTools[index]).find("img");
+                  searchButton.unbind();
+                  searchButton.on("click", () => {
+                    if (searchInput.val()) {
+                      Tools.list.Wolfram.search(searchInput.val());
+                    }
+                  });
+                } else {
+                  moreToolsContainer.hide();
+                }
+              });
+            }
           });
           moreTools.append(subTools);
         } else {

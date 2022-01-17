@@ -160,56 +160,56 @@ Tools.HTML = {
           }
           if (child.category) {
             const categoryTitle = document.createElement("p");
-            categoryTitle.setAttribute("class", "sub-tool-category");
+            categoryTitle.setAttribute("class", `sub-tool-category ${child.category.toLowerCase().replaceAll(" ", "")}`);
             categoryTitle.innerHTML = child.category;
             elem.getElementsByClassName("tool-menu")[0].appendChild(categoryTitle);
-          } else {
-            const subToolContainer = document.createElement("div");
-            subToolContainer.setAttribute("class", "sub-tool-container");
-            const span = document.createElement("span");
-            span.setAttribute('class', 'toolSpan')
-            const image = document.createElement("img");
-            image.className = "tool-icon tool-icon-dimension";
-            image.setAttribute("src", child.icon);
-            const callback = function () {
-              Tools.change(child.toolName);
-            };
-            span.addEventListener("click", callback);
-            span.id = "toolID-" + child.toolName;
-            span.appendChild(image);
-            subToolContainer.appendChild(span);
-            Tools.list[child.toolName] = {
-              ...Tools.list[child.toolName],
-              title: child.title,
-              formula: child.formula,
-              subtitle: child.subtitle
-            }
-            if (child.title) {
-              const nameSpan = document.createElement("div");
-              nameSpan.innerHTML = child.title;
-              nameSpan.setAttribute("class", "sub-tool-name");
-              subToolContainer.appendChild(nameSpan);
-              elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
-            }
-            if (child.subtitle) {
-              const nameSpanSubtitle = document.createElement("div");
-              nameSpanSubtitle.innerHTML = child.subtitle;
-              nameSpanSubtitle.setAttribute("class", "sub-tool-subtitle");
-              subToolContainer.appendChild(nameSpanSubtitle);
-              elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
-            }
-            if (child.formula) {
-              child.formula.forEach((formula) => {
-                const nameSpanFormula = document.createElement("div");
-                nameSpanFormula.setAttribute("class", "sub-tool-formula");
-                subToolContainer.appendChild(nameSpanFormula);
+         
+            child.tools.forEach((shapeChild)=>{
+              const subToolContainer = document.createElement("div");
+              subToolContainer.setAttribute("class", `sub-tool-container ${child.category.toLowerCase().replaceAll(" ", "")}`);
+              const span = document.createElement("span");
+              span.setAttribute('class', 'toolSpan')
+              const image = document.createElement("img");
+              image.className = "tool-icon tool-icon-dimension";
+              image.setAttribute("src", shapeChild.icon);
+              const callback = function () {
+                Tools.change(shapeChild.toolName);
+              };
+              span.addEventListener("click", callback);
+              span.id = "toolID-" + shapeChild.toolName;
+              span.appendChild(image);
+              subToolContainer.appendChild(span);
+              Tools.list[shapeChild.toolName] = {
+                ...Tools.list[shapeChild.toolName],
+                title: shapeChild.title,
+                formula: shapeChild.formula,
+                subtitle: shapeChild.subtitle
+              }
+              if (shapeChild.title) {
+                const nameSpan = document.createElement("div");
+                nameSpan.innerHTML = shapeChild.title;
+                nameSpan.setAttribute("class", "sub-tool-name");
+                subToolContainer.appendChild(nameSpan);
                 elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
-                Tools.convertMathematicalNotation(formula, nameSpanFormula)
-
-              })
-            }
-
-
+              }
+              if (shapeChild.subtitle) {
+                const nameSpanSubtitle = document.createElement("div");
+                nameSpanSubtitle.innerHTML = shapeChild.subtitle;
+                nameSpanSubtitle.setAttribute("class", "sub-tool-subtitle");
+                subToolContainer.appendChild(nameSpanSubtitle);
+                elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+              }
+              if (shapeChild.formula) {
+                shapeChild.formula.forEach((formula) => {
+                  const nameSpanFormula = document.createElement("div");
+                  nameSpanFormula.setAttribute("class", "sub-tool-formula");
+                  subToolContainer.appendChild(nameSpanFormula);
+                  elem.getElementsByClassName("tool-menu")[0].appendChild(subToolContainer);
+                  Tools.convertMathematicalNotation(formula, nameSpanFormula)
+  
+                })
+              }
+            })
           }
         })
 
@@ -454,6 +454,7 @@ Tools.send = function (data, toolName) {
 
 Tools.drawAndSend = function (data, tool) {
   if (tool == null) tool = Tools.curTool;
+  const key = e.which;
   data = { ...data, tool: tool.name, formula: tool.formula, title: tool.title, subtitle: tool.subtitle, showDescription: $("#showShapeName")[0].checked }
   tool.draw(data, true);
   Tools.send(data, tool.name);
@@ -774,7 +775,7 @@ Tools.setColor = function (color) {
 }
 
 Tools.getColor = (function color() {
-  var color_index = (Math.random() * Tools.colorPresets.length) | 0;
+  var color_index =  0;
   var initial_color = Tools.colorPresets[color_index].color;
   Tools.setColor(initial_color);
   return function () {

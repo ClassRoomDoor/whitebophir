@@ -350,11 +350,12 @@ li#undo:hover {
 }
 #menu .tool.curTool .sub-tools {
 	width: 430px;
-	display: flex !important;
+	display: flex ;
 	flex-wrap: wrap;
 	background: #ffffff;
 	padding-left: 25px;
 	padding-right: 25px;
+	box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.15);
 }
 #menu .sub-tools span {
 	line-height: 0 !important;
@@ -365,6 +366,7 @@ li#undo:hover {
 	border-radius: 4px;
 	box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 10px 0px;
 	outline: none;
+	width: 95% !important;
 }
 
 #menu .tool-menu input {
@@ -550,7 +552,7 @@ li#toolID-Download:focus img {
 }
 .search-icon {
 	position: relative;
-	top: 6px;
+	top: 12px;
 	left: -30px;
 }
 #settings-size {
@@ -682,6 +684,7 @@ input[type="range"]::-ms-fill-upper {
 		white-space: initial;
 		word-wrap: break-word;
 		line-height: 21px;
+		margin-bottom: 10px;
 	}
 	.katex{
 		font: normal 1em KaTeX_Main,Times New Roman,serif;
@@ -689,6 +692,9 @@ input[type="range"]::-ms-fill-upper {
 	.sub-tool-container .tool-icon-dimension{
 		height: 75px;
 		width: 75px;
+	}
+	#menu .tool-menu input {
+    	width: 95%;
 	}
 }
 
@@ -729,11 +735,24 @@ input[type="range"]::-ms-fill-upper {
 	position: relative;
     top: 15px;
 }
+#menu span.tool-menu.sub-tools.input-tool {
+	overflow: hidden;
+    height: 6vh !important;
+}
+#menu span.tool-menu.sub-tools.zoom-tool{
+	height: 52vh;
+	overflow: hidden;
+}
 @media  (min-width:768px) {
 	#menu .main-tools .sub-tool-container .tool-icon-dimension {
 		width: 120px ;
 		height: 120px ;
 	}
+	#menu .tool-menu #wolfram-input{
+		position: relative;
+		top: 5px;
+	}
+
 }
 /* Toggle btn */
 .shape-toggle-btn{
@@ -859,5 +878,22 @@ input[type="range"]::-ms-fill-upper {
 	.search-shape-container #searchInput{
 		height: 32px;
 		border: 1px solid ;
+	}
+
+}
+#toolID-Wolfram{
+	width: 100%;
+}
+@media (max-width:528px) {
+	#more-tools span#toolID-Wolfram{
+		display: flex;
+		width: 100%;
+		position: relative;
+	}
+	#more-tools span#toolID-Wolfram .search-icon{
+		position: absolute;
+		right: 10px;
+		left: unset;
+		top: 5px;
 	}
 }

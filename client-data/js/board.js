@@ -151,6 +151,10 @@ Tools.HTML = {
         toolMenu.appendChild(element);
         toolMenu.classList.add("input-tool");
       }
+      if(toolName=="Zoom"){
+        const toolMenu = elem.getElementsByClassName("tool-menu")[0];
+        toolMenu.classList.add("zoom-tool");
+      }
 
       if (children) {
         children.forEach((child) => {

@@ -95,6 +95,7 @@
     input.id = "wolfram-input";
     input.setAttribute("type", "text");
     input.setAttribute("placeholder", "Type here to search");
+    input.setAttribute("autocomplete","off")
     input.addEventListener("keyup", (event) => {
       if (event.keyCode === 13) {
         // Cancel the default action, if needed

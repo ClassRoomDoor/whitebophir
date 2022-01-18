@@ -117,15 +117,18 @@
 		if (data.title && data.showDescription) {
 			let shapeTitle = Tools.createSVGElement("foreignObject");
 			shapeTitle.setAttribute("class", "title");
+			shapeTitle.style.textAlign="center";
 			shapeTitle.id = `${data.id}Title`;
 			shapeGroup.appendChild(shapeTitle);
 		}
 		if (data.formula && data.showDescription) {
 			data.formula.forEach((expression) => {
 				let shapeFormula = Tools.createSVGElement("foreignObject");
+				shapeFormula.style.textAlign="center";
 				shapeFormula.setAttribute("class", "formula");
 				shapeFormula.id = `${data.id}Formula`;
 				shapeGroup.appendChild(shapeFormula);
+				
 			})
 
 		}

@@ -24,7 +24,7 @@
  * @licend
  */
 
-(function () {
+ (function () {
   function getChildren() {
     const searchCategory =
       `<div class="search-shape-container">
@@ -354,25 +354,29 @@
             toolName: "Circumference",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/circles/circumference.svg",
-            title: "Circumference"
+            title: "Circumference",
+            formula:['C=2πr or πd']
           },
           {
             toolName: "Circle area",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/circles/circle-area.svg",
-            title: "Area of a circle"
+            title: "Area of a circle",
+            formula:['A=πr']
           },
           {
             toolName: "Arc length",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/circles/arc-length.svg",
-            title: "Arc length"
+            title: "Arc Length",
+            formula:['S=π','S=2r(π/360°)']
           },
           {
             toolName: "Circle sector",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/circles/sector.svg",
-            title: "Area of a sector"
+            title: "Area of a Sector",
+            formula:['Asector=\\dfrac{1}{2}r^2','Asector=r^2(π/360°)']
           },
         ]
       },
@@ -385,19 +389,19 @@
             toolName: "Acute angle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/basic_angles/acute-angle.svg",
-            title: "Acute angle < 90^"
+            title: "Acute Angle < 90°"
           },
           {
             toolName: "Right angle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/basic_angles/right-angle.svg",
-            title: "Right angle = 90°"
+            title: "Right Angle = 90°"
           },
           {
             toolName: "Obtuse angle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/basic_angles/obtuse-angle.svg",
-            title: "Obtuse angle > 90° and < 180°"
+            title: "Obtuse Angle > 90° and < 180°"
           },
           {
             toolName: "Straight angle",
@@ -409,7 +413,7 @@
             toolName: "Reflex angle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/basic_angles/reflex-angle.svg",
-            title: "Reflex angle > 180°"
+            title: "Reflex Angle > 180°"
           },
         ]
       },
@@ -434,7 +438,8 @@
             toolName: "Pythagorean triangle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/pythagorean-triangle.svg",
-            title: "Pythagorean triangle"
+            title: "Pythagorean T.",
+            formula: ["a^2+b^2=c^2"]
           },
           {
             toolName: "Sin cos tan",
@@ -446,37 +451,37 @@
             toolName: "Equilateral triangle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/equilateral-triangle.svg",
-            title: "Equilateral Triangle "
+            title: "Equilateral Triangle <br>All sides equal;<br>interior angles 60°"
           },
           {
             toolName: "Isosceles triangle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/isosceles-triangle.svg",
-            title: "Isosceles Triangle"
+            title: "Isosceles Triangle<br>2 sides equal;<br>2 congruent angles"
           },
           {
             toolName: "Scalene triangle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/scalene-triangle.svg",
-            title: "Scalene Triangle"
+            title: "Scalene Triangle<br>No sides or angles<br>are equal"
           },
           {
             toolName: "Triangle right",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/right-triangle.svg",
-            title: "Right Triangle"
+            title: "Right Triangle<br>1 right angle"
           },
           {
             toolName: "Acute triangle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/acute-triangle.svg",
-            title: "Acute Triangle"
+            title: "Acute Triangle<br>All angles acute"
           },
           {
             toolName: "Obtuse triangle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles/obtuse-triangle.svg",
-            title: "Obtuse Triangle"
+            title: "Obtuse Triangle<br>1 obtuse angle"
           },
         ]
       },
@@ -489,19 +494,19 @@
             toolName: "Right one angle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles-angles/right.svg",
-            title: "Right One angle"
+            title: "Right<br>One angle is = 90°"
           },
           {
             toolName: "Acute each angle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles-angles/acute.svg",
-            title: "Acute Each angle"
+            title: "Acute<br>Each angle is < 90°"
           },
           {
             toolName: "Obtuse one angle",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles-angles/obtuse.svg",
-            title: "Obtuse One angle"
+            title: "Obtuse<br>One angle is 90°"
           },
         ]
       },
@@ -602,13 +607,13 @@
             toolName: "One parallel pair",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/one-parallel-pair.svg",
-            title: '1 pair of parallel sides',
+            title: '1 pair of<br>parallel sides',
           },
           {
             toolName: "No parallel sides",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/no-parallel-pair.svg",
-            title: 'No pair of parallel sides'
+            title: 'No pair of<br>parallel sides'
           },
         ]
       },
@@ -649,14 +654,14 @@
             toolName: "Polygon octa",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/regular-polygons/regular-octagon.svg",
-            title: 'regular Octagon',
+            title: 'Regular Octagon',
             subtitle: '5 sides,135° angles'
           },
           {
             toolName: "Polygon deca",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/regular-polygons/regular-decagon.svg",
-            title: 'regular decagon',
+            title: 'Regular Decagon',
             subtitle: '10 sides,144° angles'
           },
         ]

@@ -185,7 +185,7 @@
 				shapeTitle.innerHTML = data.title;
 			}
 			//adding shape formula below the shape
-			if (katex && data.formula) {
+			if (katex && data.formula && shapeFormula) {
 				data.formula.forEach((dataFormula, index) => {
 					shapeFormula[index].x.baseVal.value = xDisposition;
 					shapeFormula[index].y.baseVal.value = shapeHeight + yDisposition + ((shapeHeight / shapeDefaultHeight * 2 * +14) * index);

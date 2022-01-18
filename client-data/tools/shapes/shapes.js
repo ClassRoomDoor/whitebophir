@@ -804,5 +804,5 @@
     icon: "tools/shapes/icon.svg",
     stylesheet: "tools/rect/rect.css",
   };
-  Tools.add(groupTool); a
+  Tools.add(groupTool); 
 })(); //End of code isolation

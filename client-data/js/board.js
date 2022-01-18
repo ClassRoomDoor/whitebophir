@@ -458,8 +458,7 @@ Tools.send = function (data, toolName) {
 
 Tools.drawAndSend = function (data, tool) {
   if (tool == null) tool = Tools.curTool;
-  const key = e.which;
-  data = { ...data, tool: tool.name, formula: tool.formula, title: tool.title, subtitle: tool.subtitle, showDescription: $("#showShapeName")[0].checked }
+  data = { ...data, tool: tool.name, formula: tool.formula, title: tool.title, subtitle: tool.subtitle, showDescription: $("#showShapeName")[0]?.checked }
   tool.draw(data, true);
   Tools.send(data, tool.name);
 };
@@ -495,7 +494,7 @@ function messageForTool(message) {
 }
 
 Tools.convertMathematicalNotation = function convertMathematicalNotation(text, targetElem) {
-  if (katex) {
+  if (typeof katex !== 'undefined') {
     katex.render(text, targetElem, {
       throwOnError: false
     });

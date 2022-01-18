@@ -28,13 +28,13 @@
   function getChildren() {
     const searchCategory =
       `<div class="search-shape-container">
-      <input type="text" id="searchInput" onkeyup="(${search})()" autocomplete="off"  placeholder="Search category,title or names">
+      <input type="text" id="searchInput" class="shapesSearchInput" autocomplete="off"  placeholder="Search category,title or names">
       <img class="searchIcon" src='../../SvgIcons/search.svg'>
     </div> `
     const toggleBtn = `<div class="shape-toggle-btn">
     <label class="toggle-shape-title">
-      <input type="checkbox" id="showShapeName" checked>
-          <div class="slider-shape round">
+      <input type="checkbox" id="showShapeName" class="showShapeDetails" checked=${Tools.showShapeDetails}>
+          <div class="slider-shape round" >
           <span class="on">ON</span>
           <span class="off">OFF</span>
           </div>
@@ -745,8 +745,18 @@
       Tools.change("Line");
     }
   }
+
+  $(document.body).on('click', '.showShapeDetails', function () {
+    $('.showShapeDetails').not(this).prop('checked', this.checked);
+  });
+
+  $(document.body).on('keyup', '.shapesSearchInput', function () {
+    $('.shapesSearchInput').not(this).val(this.value);
+    search();
+  });
+
   function search() {
-    const searchString = $('#searchInput')[0].value.toLowerCase();
+    const searchString = $('.shapesSearchInput')[0].value.toLowerCase();
     $('.sub-tool-category').each((index1, elem) => {
       const className = $(elem).attr('class').replace('sub-tool-category', '').trim();
       if (!className) {

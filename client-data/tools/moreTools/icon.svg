@@ -3,7 +3,7 @@
         <g>
             <path d="M0 0H23.998V23.998H0z"/>
             <path d="M0 0H23.998V23.998H0z"/>
-            <g fill="#F9A722" transform="translate(10 3)">
+            <g fill="#f28334" transform="translate(10 3)">
                 <circle cx="2" cy="2.091" r="2"/>
                 <circle cx="2" cy="9.091" r="2"/>
                 <circle cx="2" cy="16.091" r="2"/>

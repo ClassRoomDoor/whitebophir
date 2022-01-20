@@ -164,13 +164,14 @@ Tools.HTML = {
           }
           if (child.category) {
             const categoryTitle = document.createElement("p");
-            categoryTitle.setAttribute("class", `sub-tool-category ${child.category.toLowerCase().replaceAll(" ", "")}`);
+            child.category === 'Screen Tools'? categoryTitle.setAttribute("class", `screen-tool-category ${child.category.toLowerCase().replaceAll(" ", "")}`) : categoryTitle.setAttribute("class", `sub-tool-category ${child.category.toLowerCase().replaceAll(" ", "")}`);
+            
             categoryTitle.innerHTML = child.category;
             elem.getElementsByClassName("tool-menu")[0].appendChild(categoryTitle);
          
             child.tools.forEach((shapeChild)=>{
               const subToolContainer = document.createElement("div");
-              subToolContainer.setAttribute("class", `sub-tool-container ${child.category.toLowerCase().replaceAll(" ", "")}`);
+              child.category === 'Screen Tools'? subToolContainer.setAttribute("class", `screen-tool-container ${child.category.toLowerCase().replaceAll(" ", "")}`) : subToolContainer.setAttribute("class", `sub-tool-container ${child.category.toLowerCase().replaceAll(" ", "")}`);
               const span = document.createElement("span");
               span.setAttribute('class', 'toolSpan')
               const image = document.createElement("img");
@@ -853,6 +854,11 @@ Tools.svg.height.baseVal.value = document.body.clientHeight;
 */
 
 (function () {
+  jQuery(document).ready(function(){
+    jQuery('#canvas').on('click',function(){
+      jQuery('#more-tools-container').hide()
+    })
+  })
   var pos = { top: 0, scroll: 0 };
   var menu = document.getElementById("menu");
   function menu_mousedown(evt) {

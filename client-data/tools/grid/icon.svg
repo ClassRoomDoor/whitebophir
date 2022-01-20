@@ -2,7 +2,7 @@
     <title>4831D823-3BEC-4D1F-8712-3A1AFDC7AF9D</title>
     <defs>
         <filter id="filter-1">
-            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.976471 0 0 0 0 0.454902 0 0 0 0 0 0 0 0 1.000000 0"/>
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.976471 0 0 0 0 0.254902 0 0 0 0.12 0 0 0 0 1.000000 0"/>
         </filter>
     </defs>
     <g id="Iconography" stroke="none" stroke-width="5" fill="none" fill-rule="evenodd">

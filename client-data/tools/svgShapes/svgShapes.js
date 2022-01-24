@@ -163,8 +163,10 @@
 			const viewBox = shapeSymbol.getAttribute("viewBox").split(/\s+|,/);
 			const shapeDefaultWidth = Number(viewBox[0]) * 2 + Number(viewBox[2]);
 			const shapeDefaultHeight = Number(viewBox[1]) * 2 + Number(viewBox[3]);
-			const shapeWidth = Math.min(width / shapeDefaultWidth * shapeDefaultWidth, width);
-			const shapeHeight = Math.min(height / shapeDefaultHeight * shapeDefaultHeight, height);
+			const maxDimension = Math.max(width, height);
+			const widthHeightRatio = shapeDefaultWidth / shapeDefaultHeight;
+			const shapeWidth = Math.min(maxDimension * shapeDefaultWidth / shapeDefaultHeight, maxDimension);
+			const shapeHeight = Math.min(maxDimension * shapeDefaultHeight / shapeDefaultWidth, maxDimension);
 
 
 			const shape = shapeGroup.getElementsByClassName("shape")[0];
@@ -178,20 +180,20 @@
 			//adding shape title below the shape
 			if (data.title && shapeTitle) {
 				shapeTitle.x.baseVal.value = xDisposition;
-				shapeTitle.y.baseVal.value = shapeHeight + yDisposition - 20;
-				shapeTitle.width.baseVal.value = width;
-				shapeTitle.height.baseVal.value = shapeHeight / shapeDefaultHeight * 2 * 8 + 14;
-				shapeTitle.style.fontSize = `${shapeHeight / shapeDefaultHeight * 2 + 8}px`
+				shapeTitle.y.baseVal.value = maxDimension + yDisposition - 20;
+				shapeTitle.width.baseVal.value = shapeWidth;
+				shapeTitle.height.baseVal.value = maxDimension / shapeDefaultHeight * 2 * 8 + 14;
+				shapeTitle.style.fontSize = `${maxDimension / shapeDefaultHeight * 2 + 8}px`
 				shapeTitle.innerHTML = data.title;
 			}
 			//adding shape formula below the shape
 			if (katex && data.formula && shapeFormula) {
 				data.formula.forEach((dataFormula, index) => {
 					shapeFormula[index].x.baseVal.value = xDisposition;
-					shapeFormula[index].y.baseVal.value = shapeHeight + yDisposition + ((shapeHeight / shapeDefaultHeight * 2 * +14) * index);
-					shapeFormula[index].width.baseVal.value = width;
-					shapeFormula[index].height.baseVal.value = shapeHeight / shapeDefaultHeight * 2 * 8 + 14;
-					shapeFormula[index].style.fontSize = `${shapeHeight / shapeDefaultHeight * 2 + 8}px`
+					shapeFormula[index].y.baseVal.value = maxDimension + yDisposition + ((maxDimension / shapeDefaultHeight * 2 * +14) * index);
+					shapeFormula[index].width.baseVal.value = shapeWidth;
+					shapeFormula[index].height.baseVal.value = maxDimension / shapeDefaultHeight * 2 * 8 + 14;
+					shapeFormula[index].style.fontSize = `${maxDimension / shapeDefaultHeight * 2 + 8}px`
 					katex.render(dataFormula, shapeFormula[index], {
 						throwOnError: false
 					});

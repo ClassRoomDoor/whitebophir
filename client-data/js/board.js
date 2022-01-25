@@ -155,6 +155,10 @@ Tools.HTML = {
         const toolMenu = elem.getElementsByClassName("tool-menu")[0];
         toolMenu.classList.add("zoom-tool");
       }
+      if(toolName=="Shapes"){
+        const toolMenu = elem.getElementsByClassName("tool-menu")[0];
+        toolMenu.classList.add("shape-tool");
+      }
 
       if (children) {
         children.forEach((child) => {
@@ -854,11 +858,12 @@ Tools.svg.height.baseVal.value = document.body.clientHeight;
 */
 
 (function () {
-  jQuery(document).ready(function(){
-    jQuery('#canvas').on('click',function(){
-      jQuery('#more-tools-container').hide()
-    })
-  })
+  // jQuery(document).ready(function(){
+  //   jQuery('#canvas').on('click',function(){
+  //     // jQuery('#more-tools-container').hide()
+  //     alert('haris bhai champion')
+  //   })
+  // })
   var pos = { top: 0, scroll: 0 };
   var menu = document.getElementById("menu");
   function menu_mousedown(evt) {

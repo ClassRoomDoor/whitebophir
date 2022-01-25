@@ -35,12 +35,17 @@
     <label class="toggle-shape-title">
       <input type="checkbox" id="showShapeName" class="showShapeDetails" checked=${Tools.showShapeDetails}>
           <div class="slider-shape round" >
-          <span class="on">ON</span>
-          <span class="off">OFF</span>
+          <span class="on">On</span>
+          <span class="off">Off</span>
           </div>
       </label>
       <p id="shape-text">Show shape names</p>
-  </div>`
+  </div>
+  <div class="no-shape-found">
+    <h4>No Result Found</h4>
+  </div>
+
+  `
 
 
     // let toggleBtn=document.createElement("div")
@@ -50,7 +55,7 @@
       },
       //shapes
       {
-        category: "One dimensional shapes",
+        category: "One Dimensional Shapes",
         tools: [
           {
             toolName: "Line",
@@ -488,7 +493,7 @@
 
       // Triangles based on angles
       {
-        category: "Triangles based on angles",
+        category: "Triangles Based on Angles",
         tools: [
           {
             toolName: "Right one angle",
@@ -513,28 +518,25 @@
 
       // Triangles based on sides
       {
-        category: "Triangles based on sides",
+        category: "Triangles Based on Sides",
         tools: [
           {
             toolName: "Triangle equilateral sides",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles-sides/equilateral.svg",
-            title: "Equilateral",
-            subtitle: 'Length of all sides are equal'
+            title: "Equilateral<br>Length of all sides are equal",
           },
           {
             toolName: "Triangle isosceles sides",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles-sides/isosceles.svg",
-            title: "Isosceles",
-            subtitle: 'Length of two sides are equal'
+            title: "Isosceles<br>Length of two sides are equal",
           },
           {
             toolName: "Triangle scalene sides",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/triangles-sides/scalene.svg",
-            title: "Scalene",
-            subtitle: 'Length of all sides are different'
+            title: "Scalene<br>Length of all sides are different",
           },
         ]
       },
@@ -574,15 +576,13 @@
             toolName: "All equal sides",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/all-equals.svg",
-            title: 'All sides equal;',
-            subtitle: 'All angles 90°'
+            title: 'All sides equal;<br>All angles 90°'
           },
           {
             toolName: "Opposite sides equal",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/opposite-equals.svg",
-            title: 'Opposite sides equal;',
-            subtitle: 'All angles 90°'
+            title: 'Opposite sides equal;<br>All angles 90°',
           },
           {
             toolName: "Parallel equal angles",
@@ -600,8 +600,7 @@
             toolName: "Adjacent sides equal",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/quadrilateral/adjacent-equals.svg",
-            title: 'Adjacent sides equal;',
-            subtitle: '2 congruent angles'
+            title: 'Adjacent sides equal;<br>2 congruent angles',
           },
           {
             toolName: "One parallel pair",
@@ -620,49 +619,43 @@
 
       // regular polygon
       {
-        category: "Regular Polygon",
+        category: "Regular Polygons",
         tools: [
           {
             toolName: "Polygon tri",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/regular-polygons/regular-triangle.svg",
-            title: 'Equilateral Triangle',
-            subtitle: '3 sides,60° angles'
+            title: 'Equilateral Triangle<br>3 sides,60° angles'
           },
           {
             toolName: "Polygon sqr",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/regular-polygons/regular-square.svg",
-            title: 'Square',
-            subtitle: '4 sides,90° angles'
+            title: 'Square<br>4 sides,90° angles'
           },
           {
             toolName: "Polygon penta",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/regular-polygons/regular-pentagon.svg",
-            title: 'Equilateral Pentagon',
-            subtitle: '5 sides,108° angles'
+            title: 'Equilateral Pentagon<br>5 sides,108° angles'
           },
           {
             toolName: "Polygon hexa",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/regular-polygons/regular-hexagon.svg",
-            title: 'Regular Hexagon',
-            subtitle: '6 sides,120° angles'
+            title: 'Regular Hexagon<br>6 sides,120° angles'
           },
           {
             toolName: "Polygon octa",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/regular-polygons/regular-octagon.svg",
-            title: 'Regular Octagon',
-            subtitle: '5 sides,135° angles'
+            title: 'Regular Octagon<br>5 sides,135° angles'
           },
           {
             toolName: "Polygon deca",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/regular-polygons/regular-decagon.svg",
-            title: 'Regular Decagon',
-            subtitle: '10 sides,144° angles'
+            title: 'Regular Decagon<br>10 sides,144° angles'
           },
         ]
       },
@@ -762,15 +755,21 @@
 
   function search() {
     const searchString = $('.shapesSearchInput')[0].value.toLowerCase();
+    let noResult = true;
+    $('.shape-toggle-btn').show();
+    $('.no-shape-found').hide()
     $('.sub-tool-category').each((index1, elem) => {
+     
       const className = $(elem).attr('class').replace('sub-tool-category', '').trim();
       if (!className) {
         return;
       }
+      let hasChild = false;
       if ($(elem).text().toLowerCase().includes(searchString.toLowerCase())) {
         $(`.${className}`).show();
+        noResult = false;
       } else {
-        let hasChild = false;
+        
         $(`.${className}`).each((index2, tool) => {
           if (!$(tool).hasClass('sub-tool-container')) {
             return;
@@ -779,8 +778,10 @@
           if (toolName.toLowerCase().includes(searchString.toLowerCase())) {
             hasChild = true;
             $(tool).show();
-          } else {
-            $(tool).hide();
+            noResult = false;
+          } 
+          else {
+            $(tool).hide();         
           }
 
         })
@@ -789,7 +790,7 @@
         }
       }
     })
-
+    noResult && $('.shape-toggle-btn').hide() && $('.no-shape-found').show();
   }
 
   var groupTool = {

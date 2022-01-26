@@ -122,7 +122,7 @@ svg {
 }
 
 #autoNavMore {
-	overflow: visible !important;
+	overflow: auto !important;
 }
 #autoNavMoreList {
 	position: absolute;
@@ -136,10 +136,12 @@ svg {
 	width: 95%;
 	max-height: 75%;
 	background-color: #fff;
-	overflow-y: scroll;
+	overflow-y: auto;
 	border-radius: 10px;
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 	display: none;
+	-webkit-overflow-scrolling: touch;
+	z-index: 99999;
 }
 #more-tools-colors .colorPresets {
 	display: flex;
@@ -147,7 +149,7 @@ svg {
 	background-color: #f6f6f6;
 }
 #more-tools {
-	padding: 15px;
+	padding:60px 15px 35px;
 }
 #more-tools p {
 	color: #f28334;
@@ -167,8 +169,11 @@ svg {
 		margin: 0px;
 	}
 	#more-tools .input-tool input {
-		height: 32px;
-		width: 1000%;
+		height: 40px;
+		width: 100%;
+		border: 0px solid;
+		box-shadow: 1px 0px 8px 7px rgb(0 0 0 / 5%);
+		background-color: #fff;
 	}
 	#menu .main-tools {
 		justify-content: flex-end;
@@ -309,7 +314,7 @@ li#undo:hover {
 }
 
 #menu .tool.curTool {
-	box-shadow: 0 0 5px #0074d9;
+	box-shadow: 0 0 3px 2px #f28334;
 	background: linear-gradient(#96e1ff, #36a2ff);
 	overflow: unset;
 }
@@ -349,12 +354,11 @@ li#undo:hover {
 	position: absolute;
 }
 #menu .tool.curTool .sub-tools {
-	width: 430px;
+	width: 352px;
 	display: flex ;
 	flex-wrap: wrap;
 	background: #ffffff;
-	padding-left: 25px;
-	padding-right: 25px;
+
 	box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.15);
 }
 #menu .sub-tools span {
@@ -363,15 +367,18 @@ li#undo:hover {
 
 #menu .tool-menu #wolfram-input {
 	border: 1px solid rgb(238, 238, 238);
-	border-radius: 4px;
+	border-radius: 10px;
 	box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 10px 0px;
 	outline: none;
 	width: 95% !important;
 }
 
 #menu .tool-menu input {
-	padding: 10px;
-	width: 300px;
+	
+    box-shadow: 1px 0px 8px 7px rgb(0 0 0 / 5%);
+    background-color: #fff;
+    border: 2px solid rgb(0 0 0 / 15%);
+	border-radius: 5px;
 }
 
 #menu .tool-name.slider {
@@ -539,21 +546,22 @@ circle.opcursor {
 	display: block !important;
 }
 li.curTool .tool-icon {
-	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%);
+	filter: invert(0%) sepia(70%) saturate(14%) hue-rotate(180deg) brightness(130%) contrast(133%);
 }
 li.curTool .tool-menu .tool-icon.tool-icon-dimension {
 	filter: invert(23%) sepia(52%) saturate(30%) hue-rotate(180deg) brightness(75%) contrast(118%);
 }
 li#toolID-Grid:focus img {
-	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%);
+	filter: invert(0%) sepia(70%) saturate(14%) hue-rotate(180deg) brightness(130%) contrast(133%);
 }
 li#toolID-Download:focus img {
-	filter: invert(0%) sepia(70%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(115%);
+	filter: invert(0%) sepia(70%) saturate(14%) hue-rotate(180deg) brightness(130%) contrast(133%);
 }
 .search-icon {
 	position: relative;
-	top: 12px;
+	top: 8px;
 	left: -30px;
+	height: 14px;
 }
 #settings-size {
 	position: fixed;
@@ -641,12 +649,12 @@ input[type="range"]::-ms-fill-lower {
 input[type="range"]::-ms-fill-upper {
 	background-color: #cccccc;
 }
-.sub-tool-container {
+.sub-tool-container,.screen-tool-container {
 	display: flex;
 	flex-direction: column;
 	width: 33.3%;
 	margin: auto 0;
-	margin-top: 15px;
+	margin-top: 5px;
 }
 @media (max-width: 768px) {
 	#menu .tools-list {
@@ -664,11 +672,12 @@ input[type="range"]::-ms-fill-upper {
 	#menu .tool-menu input {
 		width: 230px;
 	}
-	#menu .main-tools .sub-tool-container .tool-icon-dimension {
+	#menu .main-tools .sub-tool-container .tool-icon-dimension,
+	#menu .main-tools .screen-tool-container .tool-icon-dimension {
 		width: 75px ;
 		height: 75px ;
 	}
-	.sub-tool-container{
+	.sub-tool-container,.screen-tool-container{
 		display: inline-flex;
 		pointer-events: auto;
 		cursor: pointer;
@@ -677,7 +686,10 @@ input[type="range"]::-ms-fill-upper {
 	}
 	.sub-tool-container .sub-tool-name,
  .sub-tool-container .sub-tool-subtitle,
-  .sub-tool-container .sub-tool-formula
+  .sub-tool-container .sub-tool-formula,
+  .screen-tool-container .sub-tool-name,
+ .screen-tool-container .sub-tool-subtitle,
+  .screen-tool-container .sub-tool-formula
 	{
 		text-align: center;
 		font-size: 12px !important;
@@ -689,25 +701,36 @@ input[type="range"]::-ms-fill-upper {
 	.katex{
 		font: normal 1em KaTeX_Main,Times New Roman,serif;
 	}
-	.sub-tool-container .tool-icon-dimension{
+	.sub-tool-container .tool-icon-dimension,
+	.screen-tool-container .tool-icon-dimension{
 		height: 75px;
 		width: 75px;
 	}
 	#menu .tool-menu input {
     	width: 95%;
 	}
+	#more-tools-colors{
+		position: fixed;
+    width: 90%;
+    z-index: 999999999;
+	}
 }
 
-#menu .main-tools .sub-tool-container span{
+#menu .main-tools .sub-tool-container span,
+#menu .main-tools .screen-tool-container span{
 	margin: 2px 0;
 }
-#menu .main-tools .sub-tool-container .toolSpan {
+#menu .main-tools .sub-tool-container .toolSpan,
+#menu .main-tools .screen-tool-container .toolSpan {
 	margin-bottom: 10px;
 }
 
 #menu .main-tools .sub-tool-container .sub-tool-name,
 #menu .main-tools .sub-tool-container .sub-tool-subtitle,
-#menu .main-tools .sub-tool-container .sub-tool-formula
+#menu .main-tools .sub-tool-container .sub-tool-formula,
+#menu .main-tools .screen-tool-container .sub-tool-name,
+#menu .main-tools .screen-tool-container .sub-tool-subtitle,
+#menu .main-tools .screen-tool-container .sub-tool-formula
 {
 	text-align: center;
 	font-size: 13px;
@@ -715,17 +738,21 @@ input[type="range"]::-ms-fill-upper {
 	word-wrap: break-word;
 	line-height: 21px;
 }
-#menu .main-tools .sub-tools {
-	overflow-y: scroll;
-	height: 80vh;
+#menu .main-tools .sub-tools.shape-tool {
+	overflow-y: auto;
+	height: initial;
+	max-height: 65vh;
+	padding: 31px 21px 20px 23px;
 }
 #menu .main-tools .sub-tools:empty {
 	height: 0;
 }
-#menu .tool-menu .sub-tool-category {
+#menu .tool-menu .sub-tool-category,
+#menu .tool-menu .screen-tool-category {
 	width: 100%;
 }
-#menu .main-tools .sub-tools .sub-tool-category {
+#menu .main-tools .sub-tools .sub-tool-category,
+#menu .main-tools .sub-tools .screen-tool-category  {
 	font-size: 16px;
 	font-weight: 500;
 	font-family: Montserrat;
@@ -733,42 +760,49 @@ input[type="range"]::-ms-fill-upper {
 	font-weight: 700;
 	margin: 0;
 	position: relative;
-    top: 15px;
 }
 #menu span.tool-menu.sub-tools.input-tool {
 	overflow: hidden;
-    height: 6vh !important;
+    height: 60px !important;
 }
 #menu span.tool-menu.sub-tools.zoom-tool{
 	height: 52vh;
-	overflow: hidden;
+	overflow-y: auto;
+	padding: 10px
 }
 @media  (min-width:768px) {
-	#menu .main-tools .sub-tool-container .tool-icon-dimension {
-		width: 120px ;
-		height: 120px ;
+	#menu .main-tools .sub-tool-container .tool-icon-dimension,
+	#menu .main-tools .screen-tool-container .tool-icon-dimension  {
+		width: 97px ;
+		height: 96px ;
 	}
 	#menu .tool-menu #wolfram-input{
 		position: relative;
 		top: 5px;
+		margin: 0 5px;
+		padding-left: 5px;
+		height: 46px;
 	}
+	
 
 }
 /* Toggle btn */
 .shape-toggle-btn{
 	display: flex;
 	align-items: center;
+	width: 100%;
 }
 #shape-text{
+	margin: 0;
 	margin-left: 5px;
-	font-size: 14px;
+	font-size: 12px;
 	color: #686c80;
 }
 .toggle-shape-title {
 	position: relative;
 	display: inline-block;
-	width: 80px;
-	height: 34px;
+	width: 50px;
+	height: 20px;
   }
 
 .toggle-shape-title #showShapeName {
@@ -798,10 +832,10 @@ input[type="range"]::-ms-fill-upper {
 .slider-shape:before {
 	position: absolute;
 	content: "";
-	height: 26px;
-	width: 26px;
+	height: 15px;
+	width: 15px;
 	left: 4px;
-	bottom: 4px;
+	bottom: 2.5px;
 	background-color: white;
 	-webkit-transition: .4s;
 	transition: .4s;
@@ -816,9 +850,9 @@ input[type="range"]::-ms-fill-upper {
 }
 
 #showShapeName:checked + .slider-shape:before {
-	-webkit-transform: translateX(46px);
-	-ms-transform: translateX(646x);
-	transform: translateX(46px);
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26x);
+	transform: translateX(26px);
 }
 
 .on{
@@ -828,14 +862,14 @@ input[type="range"]::-ms-fill-upper {
 	left: 38%;
 }
 .off{
-	left: 70%;
+	left: 68%;
 }
 .on, .off {
 	color: white;
 	position: absolute;
 	transform: translate(-50%,-50%);
 	top: 50%;
-	font-size: 14px;
+	font-size: 12px;
 	font-family: Verdana, sans-serif;
 }
 
@@ -854,31 +888,38 @@ input[type="range"]::-ms-fill-upper {
 	width: 95%;
 	position: relative;
 	margin: 10px 0;
+	z-index: 99999 ;
 }
 .search-shape-container #searchInput{
 	width: 100% !important;
+	border: 1px solid rgb(238, 238, 238);
+	padding: 0 10px;
+    height: 46px;
 }
 .search-shape-container .searchIcon{
 	position: absolute;
-	height: 20px;
-    top: 10px;
+	height: 10px;
+    top: 21px;
     right: 0;
 	right: -12px;
     background: white;
-    padding-right: 10px;
 }
-@media (max-width:430px) {
+@media (max-width:434px) {
 	.search-shape-container .searchIcon{
-		top: 0;
-		height: 30px;
+		top: 10px;
+		height: 10px;
     width: 24px;
     right: -8px;
 	background: none;
+	filter: unset !important;
 	}
 	.search-shape-container #searchInput{
-		height: 32px;
-		border: 1px solid ;
+		height: 40px;
+		border: 0px solid;
+		box-shadow: 1px 0px 8px 7px rgb(0 0 0 / 5%);
+		background-color: #fff;
 	}
+	
 
 }
 #toolID-Wolfram{
@@ -894,6 +935,27 @@ input[type="range"]::-ms-fill-upper {
 		position: absolute;
 		right: 10px;
 		left: unset;
-		top: 5px;
+		top: 13px;
+			filter: unset !important;
+			height: 10px;
+		
 	}
+	.no-shape-found{
+		text-align:center;
+		padding: 10px 0;
+	}
+}
+.no-shape-found{
+	display: none;
+	width: 100%;
+	text-align: center;
+}
+.search-results-panel ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+.search-results-panel ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px hsl(0deg 0% 100% / 50%);
 }

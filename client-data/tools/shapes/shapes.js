@@ -307,7 +307,7 @@
             title: "Octagonal Pyramid"
           },
           {
-            toolName: "Oblique Square Pyramid",
+            toolName: "Oblique square pyramid",
             path: "tools/svgShapes/svgShapes.js",
             icon: "tools/svgShapes/3d_shapes/oblique_square_pyramid.svg",
             title: "Oblique Square Pyramid"

@@ -6,6 +6,14 @@ svg {
 	font-family: Liberation sans, sans-serif;
 }
 
+#board #drawingArea .formula {
+	overflow: visible;
+}
+
+#board #drawingArea .title {
+	overflow: visible;
+}
+
 #board #message {
 	width: fit-content;
 	margin-top: 100px;

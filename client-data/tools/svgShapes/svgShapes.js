@@ -114,25 +114,6 @@
 
 	function createShape(data) {
 		let shapeGroup = Tools.createSVGElement("g");
-		if (data.title && data.showDescription) {
-			let shapeTitle = Tools.createSVGElement("foreignObject");
-			shapeTitle.setAttribute("class", "title");
-			shapeTitle.style.textAlign = "center";
-			shapeTitle.id = `${data.id}Title`;
-			shapeGroup.appendChild(shapeTitle);
-		}
-		if (data.formula && data.showDescription) {
-			data.formula.forEach((expression) => {
-				let shapeFormula = Tools.createSVGElement("foreignObject");
-				shapeFormula.style.textAlign = "center";
-				shapeFormula.setAttribute("class", "formula");
-				shapeFormula.id = `${data.id}Formula`;
-				shapeGroup.appendChild(shapeFormula);
-
-			})
-
-		}
-
 		let shape = Tools.createSVGElement("use");
 		shape.id = `${data.id}Shape`;
 		shapeGroup.id = data.id;
@@ -148,6 +129,24 @@
 			Math.max(0.1, Math.min(1, data.opacity)) || 1
 		);
 		shapeGroup.appendChild(shape);
+		if (data.title && data.showDescription) {
+			data.title.split('<br>').forEach((title, index) => {
+				let shapeTitle = Tools.createSVGElement("foreignObject");
+				shapeTitle.setAttribute("class", "title");
+				shapeTitle.style.textAlign = "center";
+				shapeTitle.id = `${data.id}Title`;
+				shapeGroup.appendChild(shapeTitle);
+			})
+		}
+		if (data.formula && data.showDescription) {
+			data.formula.forEach((expression) => {
+				let shapeFormula = Tools.createSVGElement("foreignObject");
+				shapeFormula.style.textAlign = "center";
+				shapeFormula.setAttribute("class", "formula");
+				shapeFormula.id = `${data.id}Formula`;
+				shapeGroup.appendChild(shapeFormula);
+			})
+		}
 		updateShape(shapeGroup, data);
 		Tools.drawingArea.appendChild(shapeGroup);
 		return shapeGroup;
@@ -161,16 +160,17 @@
 			const height = Math.abs(data["y2"] - data["y"]);
 			const shapeSymbol = document.getElementById(`${data.tool.toLowerCase()}`);
 			const viewBox = shapeSymbol.getAttribute("viewBox").split(/\s+|,/);
-			const shapeDefaultWidth = Number(viewBox[0]) * 2 + Number(viewBox[2]);
-			const shapeDefaultHeight = Number(viewBox[1]) * 2 + Number(viewBox[3]);
+			const shapeDefaultWidth = Number(viewBox[0]) * 2 + Number(viewBox[2]) - 20;
+			const shapeDefaultHeight = Number(viewBox[1]) * 2 + Number(viewBox[3]) - 20;
 			const maxDimension = Math.max(width, height);
-			const widthHeightRatio = shapeDefaultWidth / shapeDefaultHeight;
-			const shapeWidth = Math.min(maxDimension * shapeDefaultWidth / shapeDefaultHeight, maxDimension);
-			const shapeHeight = Math.min(maxDimension * shapeDefaultHeight / shapeDefaultWidth, maxDimension);
+			const isHeightMax = height > width;
+			const multiplier = isHeightMax ? maxDimension / shapeDefaultHeight : maxDimension / shapeDefaultWidth;
+			const shapeWidth = Math.abs(shapeDefaultWidth * multiplier);
+			const shapeHeight = Math.abs(shapeDefaultHeight * multiplier);
 
 
 			const shape = shapeGroup.getElementsByClassName("shape")[0];
-			const shapeTitle = shapeGroup.getElementsByClassName("title")[0];
+			const shapeTitle = shapeGroup.getElementsByClassName("title");
 			const shapeFormula = shapeGroup.getElementsByClassName("formula");
 			shape.x.baseVal.value = xDisposition;
 			shape.y.baseVal.value = yDisposition;
@@ -179,21 +179,24 @@
 
 			//adding shape title below the shape
 			if (data.title && shapeTitle) {
-				shapeTitle.x.baseVal.value = xDisposition;
-				shapeTitle.y.baseVal.value = maxDimension + yDisposition - 20;
-				shapeTitle.width.baseVal.value = shapeWidth;
-				shapeTitle.height.baseVal.value = maxDimension / shapeDefaultHeight * 2 * 8 + 14;
-				shapeTitle.style.fontSize = `${maxDimension / shapeDefaultHeight * 2 + 8}px`
-				shapeTitle.innerHTML = data.title;
+				data.title.split('<br>').forEach((title, index) => {
+					shapeTitle[index].setAttribute("x", xDisposition);
+					shapeTitle[index].setAttribute("y", shapeHeight + yDisposition - (20 * multiplier / 4.2) + ((shapeHeight * 0.1 + 16) * index));
+					shapeTitle[index].width.baseVal.value = shapeWidth;
+					shapeTitle[index].height.baseVal.value = 10 + multiplier * 2;
+					shapeTitle[index].setAttribute("font-size", `${multiplier * 1.2 + 12}px`);
+					shapeTitle[index].innerHTML = title;
+				})
+
 			}
 			//adding shape formula below the shape
 			if (katex && data.formula && shapeFormula) {
 				data.formula.forEach((dataFormula, index) => {
-					shapeFormula[index].x.baseVal.value = xDisposition;
-					shapeFormula[index].y.baseVal.value = maxDimension + yDisposition + ((maxDimension / shapeDefaultHeight * 2 * +14) * index);
+					shapeFormula[index].setAttribute("x", xDisposition);
+					shapeFormula[index].setAttribute("y", shapeHeight + yDisposition + ((shapeHeight * 0.1 + 26) * index));
 					shapeFormula[index].width.baseVal.value = shapeWidth;
-					shapeFormula[index].height.baseVal.value = maxDimension / shapeDefaultHeight * 2 * 8 + 14;
-					shapeFormula[index].style.fontSize = `${maxDimension / shapeDefaultHeight * 2 + 8}px`
+					shapeFormula[index].height.baseVal.value = 15 + multiplier * 5;
+					shapeFormula[index].setAttribute("font-size", `${multiplier * 1.2 + 12}px`);
 					katex.render(dataFormula, shapeFormula[index], {
 						throwOnError: false
 					});

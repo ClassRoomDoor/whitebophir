@@ -178,25 +178,25 @@
 			shape.height.baseVal.value = shapeHeight;
 
 			//adding shape title below the shape
-			if (data.title && shapeTitle) {
+			if (data.title && shapeTitle && data.showDescription) {
 				data.title.split('<br>').forEach((title, index) => {
-					shapeTitle[index].setAttribute("x", xDisposition);
+					shapeTitle[index].setAttribute("x", xDisposition + shapeWidth / 5.5);
 					shapeTitle[index].setAttribute("y", shapeHeight + yDisposition - (20 * multiplier / 4.2) + ((shapeHeight * 0.1 + 16) * index));
-					shapeTitle[index].width.baseVal.value = shapeWidth;
+					shapeTitle[index].width.baseVal.value = shapeWidth / 1.5;
 					shapeTitle[index].height.baseVal.value = 10 + multiplier * 2;
-					shapeTitle[index].setAttribute("font-size", `${multiplier * 1.2 + 12}px`);
+					shapeTitle[index].setAttribute("font-size", `${multiplier * 1.4 + 5}px`);
 					shapeTitle[index].innerHTML = title;
 				})
 
 			}
 			//adding shape formula below the shape
-			if (katex && data.formula && shapeFormula) {
+			if (katex && data.formula && shapeFormula && data.showDescription) {
 				data.formula.forEach((dataFormula, index) => {
-					shapeFormula[index].setAttribute("x", xDisposition);
-					shapeFormula[index].setAttribute("y", shapeHeight + yDisposition + ((shapeHeight * 0.1 + 26) * index));
-					shapeFormula[index].width.baseVal.value = shapeWidth;
+					shapeFormula[index].setAttribute("x", xDisposition + shapeWidth / 5.5);
+					shapeFormula[index].setAttribute("y", shapeHeight + yDisposition + ((shapeHeight * 0.1 + 20) * index));
+					shapeFormula[index].width.baseVal.value = shapeWidth / 1.5;
 					shapeFormula[index].height.baseVal.value = 15 + multiplier * 5;
-					shapeFormula[index].setAttribute("font-size", `${multiplier * 1.2 + 12}px`);
+					shapeFormula[index].setAttribute("font-size", `${multiplier * 1.4 + 5}px`);
 					katex.render(dataFormula, shapeFormula[index], {
 						throwOnError: false
 					});

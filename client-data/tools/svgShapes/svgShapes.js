@@ -38,6 +38,8 @@
 		},
 		lastTime = performance.now(); //The time at which the last point was drawn
 
+	const SHAPE_MIN_SIZE = 50;
+	const TITLE_MIN_SIZE = 150;
 	function start(x, y, evt) {
 
 		//Prevent the press from being interpreted by the browser
@@ -156,8 +158,8 @@
 		if (shapeGroup) {
 			const xDisposition = Math.min(data["x2"], data["x"]);
 			const yDisposition = Math.min(data["y2"], data["y"]);
-			const width = Math.abs(data["x2"] - data["x"]);
-			const height = Math.abs(data["y2"] - data["y"]);
+			const width = Math.abs(data["x2"] - data["x"]) + SHAPE_MIN_SIZE;
+			const height = Math.abs(data["y2"] - data["y"]) + SHAPE_MIN_SIZE;
 			const shapeSymbol = document.getElementById(`${data.tool.toLowerCase()}`);
 			const viewBox = shapeSymbol.getAttribute("viewBox").split(/\s+|,/);
 			const shapeDefaultWidth = Number(viewBox[0]) * 2 + Number(viewBox[2]) - 20;
@@ -180,10 +182,10 @@
 			//adding shape title below the shape
 			if (data.title && shapeTitle && data.showDescription) {
 				data.title.split('<br>').forEach((title, index) => {
-					shapeTitle[index].setAttribute("x", xDisposition + shapeWidth / 5.5);
+					shapeTitle[index].setAttribute("x", (xDisposition + shapeWidth / 5.5) - TITLE_MIN_SIZE / 2);
 					shapeTitle[index].setAttribute("y", shapeHeight + yDisposition - (20 * multiplier / 4.2) + ((shapeHeight * 0.1 + 16) * index));
-					shapeTitle[index].width.baseVal.value = shapeWidth / 1.5;
-					shapeTitle[index].height.baseVal.value = 10 + multiplier * 2;
+					shapeTitle[index].width.baseVal.value = (shapeWidth / 1.5) + TITLE_MIN_SIZE;
+					shapeTitle[index].height.baseVal.value = 10 + multiplier * 2 + TITLE_MIN_SIZE;
 					shapeTitle[index].setAttribute("font-size", `${multiplier * 1.4 + 8}px`);
 					shapeTitle[index].innerHTML = title;
 				})
